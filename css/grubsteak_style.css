@@ -1,0 +1,17 @@
+#nav_bar {
+    /* background-color: #42a1f4; */
+    height: 4vw;
+   /* text-align: center; */
+    position: -webkit-sticky;
+    width: 100%;
+    /* z-index: 100; */
+}
+
+.grubsteak_home_button {
+  float: left;
+}
+
+
+.home_button {
+  float: right;
+}

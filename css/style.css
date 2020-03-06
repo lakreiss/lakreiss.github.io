@@ -1,0 +1,160 @@
+body {
+  /* background-color: powderblue; */
+  background-image: url('../img/sunset.jpeg');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  /* color: red; */
+}
+
+a:link {
+  background-color: #f44336;
+  color: white;
+  padding: 15px 25px;
+  width: 60px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  target: "_blank"; /*not working right*/
+}
+
+a:active {
+  background-color: yellow;
+}
+
+.nav_links {
+  margin: 0;
+}
+
+.nav_links li {
+    display: inline-block;
+    margin-top: 4px;
+}
+
+img {
+  width: 10%;
+  height: 10%;
+}
+
+#nav_bar {
+    /* background-color: #42a1f4; */
+    height: 4vw;
+   /* text-align: center; */
+    position: -webkit-sticky;
+    width: 100%;
+    /* z-index: 100; */
+}
+
+.clearfix::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+.my_face {
+  float: right;
+}
+
+/* .home_button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+  width: 20vw;
+  position: relative;
+  display: inline-block;
+} */
+
+.fa.social {
+  background-color: #4CAF50;
+  padding: 16px;
+  width: 16px;
+  text-align: center;
+  text-decoration: none;
+  border-radius: 50%;
+  color: white;
+}
+
+.fa:hover {
+  opacity: 0.7;
+}
+
+.icons {
+  float: right;
+}
+
+
+iframe .quadris_video{
+  height: 500px;
+}
+
+section div {
+  float: left;
+  width: 50%; /* three boxes (use 25% for four, and 50% for two, etc) */
+  padding: 50px; /* if you want space between the images */
+  box-sizing: border-box;
+}
+
+section {
+    display: inline-block;
+}
+
+section:after {
+  /* content: "";
+  display: table; */
+  clear: both;
+}
+
+
+/* Dropdown Button */
+.dropbtn {
+  background-color: #4CAF50;
+  color: white;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+  width: 20vw;
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  text-align: center;
+  /* box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); */
+  z-index: 1;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+  color: black;
+  padding: 16px;
+
+  text-decoration: none;
+  display: block;
+  width: 17.5vw;
+
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {
+  background-color: pink;
+  /* opacity: 0.5;
+  color: black; */
+}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+/* Change the background color of the dropdown button when the dropdown content is shown */
+.dropdown:hover .dropbtn {background-color: #3e8e41;}
