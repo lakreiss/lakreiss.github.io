@@ -7,21 +7,6 @@ body {
   /* color: red; */
 }
 
-a:link {
-  background-color: #f44336;
-  color: white;
-  padding: 15px 25px;
-  width: 60px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  target: "_blank"; /*not working right*/
-}
-
-a:active {
-  background-color: yellow;
-}
-
 .nav_links {
   margin: 0;
 }
@@ -36,13 +21,12 @@ img {
   height: 10%;
 }
 
-#nav_bar {
-    /* background-color: #42a1f4; */
-    height: 4vw;
-   /* text-align: center; */
-    position: -webkit-sticky;
-    width: 100%;
-    /* z-index: 100; */
+footer {
+  position: absolute;
+  text-align: center;
+  bottom: 0;
+  width: 90%;
+  z-index: 0;
 }
 
 .clearfix::after {
@@ -67,7 +51,8 @@ img {
 } */
 
 .fa.social {
-  background-color: #4CAF50;
+  /* background-color: #4CAF50; */
+  background-color: Transparent;
   padding: 16px;
   width: 16px;
   text-align: center;
@@ -80,9 +65,9 @@ img {
   opacity: 0.7;
 }
 
-.icons {
+/* .icons {
   float: right;
-}
+} */
 
 
 iframe .quadris_video{
@@ -106,60 +91,9 @@ section:after {
   clear: both;
 }
 
-
-/* Dropdown Button */
-.dropbtn {
-  background-color: #4CAF50;
-  color: white;
-  padding: 16px;
-  font-size: 16px;
-  border: none;
-  width: 20vw;
-}
-
-/* The container <div> - needed to position the dropdown content */
-.dropdown {
-  position: relative;
-  display: inline-block;
-}
-
-/* Dropdown Content (Hidden by Default) */
-.dropdown-content {
-  display: none;
-  position: absolute;
-  background-color: #f1f1f1;
-  text-align: center;
-  /* box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); */
-  z-index: 1;
-}
-
-/* Links inside the dropdown */
-.dropdown-content a {
-  color: black;
-  padding: 16px;
-  text-decoration: none;
-  display: block;
-  width: 17.5vw;
-}
-
-/* Change color of dropdown links on hover */
-.dropdown-content a:hover {
-  background-color: pink;
-  /* opacity: 0.5;
-  color: black; */
-}
-
-/* Show the dropdown menu on hover */
-.dropdown:hover .dropdown-content {
-  display: block;
-}
-
-/* Change the background color of the dropdown button when the dropdown content is shown */
-.dropdown:hover .dropbtn {background-color: #3e8e41;}
-
 /* If the screen size is 600px wide or less, hide the element */
-@media only screen and (max-width: 600px) {
+/* @media only screen and (max-width: 600px) {
   .icons {
     display: none;
   }
-}
+} */
