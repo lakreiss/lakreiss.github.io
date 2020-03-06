@@ -137,11 +137,9 @@ section:after {
 .dropdown-content a {
   color: black;
   padding: 16px;
-
   text-decoration: none;
   display: block;
   width: 17.5vw;
-
 }
 
 /* Change color of dropdown links on hover */
@@ -158,3 +156,10 @@ section:after {
 
 /* Change the background color of the dropdown button when the dropdown content is shown */
 .dropdown:hover .dropbtn {background-color: #3e8e41;}
+
+/* If the screen size is 600px wide or less, hide the element */
+@media only screen and (max-width: 600px) {
+  .icons {
+    display: none;
+  }
+}
