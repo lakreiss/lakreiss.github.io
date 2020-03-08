@@ -906,3 +906,10 @@ body {
     font-size: 1.2rem;
   }
 }
+
+.sub-menu {
+  left: 13%;
+  right: auto;
+  text-align: center;
+  transform: translate(-13%, 0);
+}
