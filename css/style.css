@@ -74,6 +74,17 @@ iframe .quadris_video{
   height: 500px;
 }
 
+.quadris_text {
+  float: right;
+  padding: 50px;
+}
+
+.free_rice_text {
+  float: right;
+  width: 40vw;
+  padding: 50px;
+}
+
 section div {
   float: left;
   width: 50%; /* three boxes (use 25% for four, and 50% for two, etc) */
