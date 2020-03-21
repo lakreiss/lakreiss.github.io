@@ -37,6 +37,23 @@ footer {
 
 .my_face {
   float: right;
+  border-radius: 0.5rem;
+}
+
+.title_text {
+  height: 30%;
+  width: 97%;
+  background-color: rgba(255,255,255,0.5);
+  border-radius: 0.5rem;
+  padding: 1em;
+}
+
+.title_text_with_face_image {
+  width: 75%;
+  height: 30%;
+  background-color: rgba(255,255,255,0.5);
+  border-radius: 0.5rem;
+  padding: 1em;
 }
 
 /* .home_button {
@@ -69,37 +86,47 @@ footer {
   float: right;
 } */
 
+.quadris {
+  /* display: inline-block; */
+}
 
-iframe .quadris_video{
-  height: 500px;
+.quadris_video {
+  /* margin-top: -3em; */
+
 }
 
 .quadris_text {
+  /* margin-top: -30.9em; */
   float: right;
-  padding: 50px;
+  width: 68.5%;
+  background-color: rgba(255,255,255,0.5);
+  border-radius: 0.5rem;
+  padding: 1em;
 }
 
 .free_rice_text {
   float: right;
-  width: 40vw;
-  padding: 50px;
+  width: 46%;
+  background-color: rgba(255,255,255,0.5);
+  border-radius: 0.5rem;
+  padding: 1em;
+}
+
+.grubsteak_text {
+  float: right;
+  width: 97.5%;
+  background-color: rgba(255,255,255,0.5);
+  border-radius: 0.5rem;
+  padding: 1em;
 }
 
 section div {
   float: left;
-  width: 50%; /* three boxes (use 25% for four, and 50% for two, etc) */
-  padding: 50px; /* if you want space between the images */
   box-sizing: border-box;
 }
 
 section {
     display: inline-block;
-}
-
-section:after {
-  /* content: "";
-  display: table; */
-  clear: both;
 }
 
 /* If the screen size is 600px wide or less, hide the element */
