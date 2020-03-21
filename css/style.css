@@ -56,6 +56,14 @@ footer {
   padding: 1em;
 }
 
+.assassin_text {
+  width: 97%;
+  height: 30%;
+  background-color: rgba(255,255,255,0.5);
+  border-radius: 0.5rem;
+  padding: 1em;
+}
+
 /* .home_button {
   background-color: #4CAF50;
   color: white;
@@ -115,6 +123,14 @@ footer {
 .grubsteak_text {
   float: right;
   width: 97.5%;
+  background-color: rgba(255,255,255,0.5);
+  border-radius: 0.5rem;
+  padding: 1em;
+}
+
+.iReverse_text {
+  float: right;
+  width: 53.5%;
   background-color: rgba(255,255,255,0.5);
   border-radius: 0.5rem;
   padding: 1em;

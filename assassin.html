@@ -1,0 +1,101 @@
+<!doctype html>
+<!-- This is a comment -->
+<html class="no-js" lang="en-US">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/vincent_durand.css">
+    <link rel="icon stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  </head>
+
+  <body>
+    <nav class="menu">
+      <ol>
+        <li class="menu-item"><a href="/index.html">Home</a></li>
+        <li class="menu-item">
+          <a href="#0">Coding</a>
+          <ol class="sub-menu">
+            <li class="menu-item"><a href="/quadris.html">Quadris</a></li>
+            <li class="menu-item"><a href="/free_rice.html">Free Rice</a></li>
+            <li class="menu-item"><a href="/iReverse.html">iReverse</a></li>
+            <li class="menu-item"><a href="/grubsteak_home_page.html">Grubsteak</a></li>
+          </ol>
+        </li>
+        <li class="menu-item">
+          <a href="#0">Projects</a>
+          <ol class="sub-menu">
+            <li class="menu-item"><a href="/assassin.html" target="_blank">Assassin</a></li>
+            <li class="menu-item"><a href="https://binarymarbles.weebly.com" target="_blank">Binary Marbles</a></li>
+            <li class="menu-item"><a href="https://edrl.berkeley.edu/projects/debugging-failure/" target="_blank">Debugging Failure</a></li>
+            <li class="menu-item"><a href="https://the-chili-pot.weebly.com" target="_blank">The Chili Pot</a></li>
+          </ol>
+        </li>
+        <li class="menu-item">
+          <a href="#0">Look, I'm on the Internet!</a>
+          <ol class="sub-menu">
+            <li class="menu-item"><a href="https://edrl.berkeley.edu/people/liam-kreiss/" target="_blank">Berkeley Research</a></li>
+            <li class="menu-item"><a href="https://ultiworld.com/2019/06/05/best-worst-jerseys-2019-college-national-championships/usau_college_nats_dqt_20190525_081624-zf-2413-34991-1-003/" target="_blank">Ultimate Frisbee</a></li>
+            <li class="menu-item"><a href="https://www.instagram.com/p/B965GvEn-RP/?igshid=120htfiffh8yk" target="_blank">Celebration</a></li>
+            <li class="menu-item"><a href="https://www.maxpreps.com/athlete/liam-kreiss/6Ua5cfTyEeKZ5AAmVebBJg/baseball/stats.htm" target="_blank">High School Baseball</a></li>
+          </ol>
+        </li>
+        <li class="menu-item"><a href="/about.html">About</a></li>
+      </ol>
+    </nav>
+
+    <div class="clearfix">
+      <div class="assassin_text">
+        <h1 style="color:black">Assassin</h1>
+        <p>I noticed that there are no good websites that create <i>Assassin</i> games, so I made one! Hope you enjoy.</p>
+        <p>Here is an interesting article
+
+        <p>Enter comma separated names to generate an assassin cycle.</p>
+
+        <!-- TODO: NEED TO FIGURE OUT HOW TO DO THIS WITHOUT PHP POST REQUEST. JAVASCRIPT? -->
+        <form action="temp_game.php" method="post">
+          <p id="failed_game_creation"></p>
+
+          <script>
+            if (window.location.href.indexOf("#failed_game_creation_empty_text") >= 0) {
+              document.getElementById("failed_game_creation").innerHTML = "You didn't enter any names, please try again";
+            } else if (window.location.href.indexOf("#failed_game_creation_duplicate_names") >= 0) {
+              document.getElementById("failed_game_creation").innerHTML = "You entered a name twice, please try again";
+            } else if (window.location.href.indexOf("#failed_game_creation_illegal_target_number") >= 0) {
+              document.getElementById("failed_game_creation").innerHTML = "You entered an illegal number of targets for the amount of people you included, please try again";
+            } else if (window.location.href.indexOf("#failed_game_creation_insufficient_number_of_players") >= 0) {
+              document.getElementById("failed_game_creation").innerHTML = "You entered an insufficient number of players, please try again";
+            }
+          </script>
+
+          <!-- TODO: keep player text info in the text area if there's an error thrown -->
+
+          <textarea name="players" rows="10" cols="30" placeholder="Enter names here"></textarea>
+          <p>How many targets should each person have? 1 is standard.</p>
+          <input type="radio" id="one_target" name="num_targets" value="1" checked="checked">
+          <label for="one_target">1</label>
+          <input type="radio" id="two_targets" name="num_targets" value="2">
+          <label for="two_targets">2</label>
+          <input type="radio" id="three_targets" name="num_targets" value="3">
+          <label for="three_targets">3</label>
+          <input type="radio" id="four_targets" name="num_targets" value="4">
+          <label for="four_targets">4</label>
+          <br>
+          <input type="submit" name="enter"></input>
+        </form>
+
+
+
+
+      </div>
+    </div>
+
+    <footer id="my_footer">
+      <div class="icons">
+        <a title="Email Me" href="mailto:liam.kreiss@gmail.com" class="fa social fa-envelope" target="_blank"></a>
+        <a title="Books I've Read" href="https://www.goodreads.com/user/show/82975472-liam-kreiss" class="fa social fa-book" target="_blank"></a>
+        <a title="My LinkedIn" href="https://www.linkedin.com/in/lakreiss/" class="fa social fa-linkedin" target="_blank"></a>
+        <a title="My Github" href="https://github.com/lakreiss" class="fa social fa-github" target="_blank"></a>
+      </div>
+    </footer>
+  </body>
+</html>
