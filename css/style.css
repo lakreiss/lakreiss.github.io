@@ -1,3 +1,7 @@
+* {
+  box-sizing: border-box;
+}
+
 body {
   /* background-color: powderblue; */
   background-image: url('../img/sunset.jpeg');
@@ -42,22 +46,14 @@ footer {
 
 .title_text {
   height: 30%;
-  width: 97%;
+  width: 100%;
   background-color: rgba(255,255,255,0.5);
   border-radius: 0.5rem;
   padding: 1em;
 }
 
 .title_text_with_face_image {
-  width: 75%;
-  height: 30%;
-  background-color: rgba(255,255,255,0.5);
-  border-radius: 0.5rem;
-  padding: 1em;
-}
-
-.assassin_text {
-  width: 97%;
+  width: 78%;
   height: 30%;
   background-color: rgba(255,255,255,0.5);
   border-radius: 0.5rem;
@@ -122,7 +118,7 @@ footer {
 
 .grubsteak_text {
   float: right;
-  width: 97.5%;
+  width: 100%;
   background-color: rgba(255,255,255,0.5);
   border-radius: 0.5rem;
   padding: 1em;
@@ -136,13 +132,68 @@ footer {
   padding: 1em;
 }
 
+.letter_game_intro {
+  max-width: 35%;
+  min-width: 35%;
+  background-color: rgba(255,255,255,0.5);
+  border-radius: 0.5rem;
+  padding: 1em;
+}
+
+.letter_board {
+  background-color: rgba(255,255,255,0.5);
+  border-radius: 0.5rem;
+  margin-left: 1rem;
+  padding: 1em;
+  max-width: 63%;
+  min-width: 63%;
+
+  height: 400px;
+}
+
+.letter_game_dice {
+  margin-top: 1rem;
+  float: left;
+  max-width: 35%;
+  min-width: 35%;
+  background-color: rgba(255,255,255,0.5);
+  border-radius: 0.5rem;
+  padding: 1em;
+}
+
+.dice {
+  margin: 1rem;
+  padding: 1rem;
+  max-width: 15%;
+  min-width: 15%;
+  background-color: #ec8e80;
+  border-radius: 0.5rem;
+}
+
+.roll_button {
+  margin: 0 auto;
+  text-align:center;
+  display: block;
+  width: 10vw;
+  height: 2vw;
+  /* position: absolute; */
+}
+
+.assassin_text {
+  width: 97%;
+  height: 30%;
+  background-color: rgba(255,255,255,0.5);
+  border-radius: 0.5rem;
+  padding: 1em;
+}
+
 section div {
   float: left;
   box-sizing: border-box;
 }
 
 section {
-    display: inline-block;
+  display: inline-block;
 }
 
 /* If the screen size is 600px wide or less, hide the element */
