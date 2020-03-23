@@ -1,5 +1,6 @@
 <!doctype html>
 <!-- This is a comment -->
+<!-- MUCH OF THE CODE FROM THIS GAME WAS INSPIRED BY http://www.lutanho.net/play/hex.html -->
 <html class="no-js" lang="en-US">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <head>
@@ -68,7 +69,7 @@
               <script language="JavaScript">
                 for (var index=0; index < num_dice; index++) {
                   var dice_id = "dice" + index;
-                  document.write("<div class=\"dice unused_dice\" id=\""+dice_id+"\" onclick=\"clicked(\'"+dice_id+"\')\" used=\"false\">" + blank_dice + "</div>");
+                  document.write("<div class=\"dice unused_dice\" id=\""+dice_id+"\" onclick=\"clicked(\'"+dice_id+"\')\" draggable=\"true\" ondragstart=\"drag(event)\" ondrop=\"drop(event)\" ondragover=\"allowDrop(event)\">" + blank_dice + "</div>");
                 }
               </script>
             </div>
@@ -84,7 +85,7 @@
                   for (var j=0; j < board_width; j++)
                   {
                     var tile_name = get_tile_name(i, j);
-                    document.write("<img src=\"img/letter_pieces/blank.jpg\" id=\""+tile_name+"\"onMouseDown=\"clicked(\'"+tile_name+"\')\" data-dice_id=\'none\' title='"+tile_name+"' alt='"+tile_name+"'>");
+                    document.write("<img src=\"img/letter_pieces/blank.jpg\" id=\""+tile_name+"\"onclick=\"clicked(\'"+tile_name+"\')\" data-dice_id=\'none\' draggable=\"true\" ondragstart=\"drag(event)\" ondrop=\"drop(event)\" ondragover=\"allowDrop(event)\" title='"+tile_name+"' alt='"+tile_name+"'>");
                   }
                   document.writeln("</nobr><br>");
                 }

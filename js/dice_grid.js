@@ -50,6 +50,29 @@ function set_dice_to_used(dice_id) {
   document.getElementById(dice_id).className = "dice used_dice";
 }
 
+//CODE FOR DRAGGING: TAKEN FROM https://www.w3schools.com/html/tryit.asp?filename=tryhtml5_draganddrop
+
+function allowDrop(ev) {
+  ev.preventDefault();
+}
+
+function drag(ev) {
+  // ev.preventDefault();
+  clicked(ev.target.id);
+  // ev.dataTransfer.setData("text", ev.target.id);
+}
+
+function drop(ev) {
+  ev.preventDefault();
+  clicked(ev.target.id);
+  //
+  // ev.preventDefault();
+  // var data = ev.dataTransfer.getData("text");
+  // ev.target.appendChild(document.getElementById(data));
+}
+
+//END CODE FOR DRAGGING
+
 function clicked(click_id) {
   var cur_element = document.getElementById(click_id);
   if (selected_id == "none") {
