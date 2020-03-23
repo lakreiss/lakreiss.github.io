@@ -102,7 +102,7 @@ function clicked(click_id) {
         selected_tile.src = blank_tile_path;
         selected_tile.dataset.dice_id = "none";
         cur_element.className = "dice";
-
+        clear_selections();
       } else if (cur_element.className == "used_dice") {
         //do nothing
       } else if (cur_element.className == "dice") {
