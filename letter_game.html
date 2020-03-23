@@ -6,7 +6,7 @@
       <link rel="stylesheet" href="css/style.css">
       <link rel="stylesheet" href="css/vincent_durand.css">
       <link rel="stylesheet" href="css/letters.css">
-      <script type="text/javascript" src="jquery-3.3.1.js"></script>
+      <!-- <script type="text/javascript" src="jquery-3.3.1.js"></script> -->
       <script src="js/dice_grid.js"></script>
       <link rel="icon stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     </head>
@@ -61,7 +61,7 @@
               <script language="JavaScript">
                 for (var index=0; index < num_dice; index++) {
                   var dice_id = "dice" + index;
-                  document.write("<div class=\"dice\" id=\""+dice_id+"\" onclick=\"clicked(\'"+dice_id+"\')\" used=\"false\">d"+index+"</div>");
+                  document.write("<div class=\"dice\" id=\""+dice_id+"\" onclick=\"clicked(\'"+dice_id+"\')\" used=\"false\">" + blank_dice + "</div>");
                 }
               </script>
             </div>
@@ -77,7 +77,7 @@
                   for (var j=0; j < board_width; j++)
                   {
                     var tile_name = get_tile_name(i, j);
-                    document.write("<img src=\"img/letter_pieces/blank.jpg\" id=\""+tile_name+"\"onMouseDown=\"clicked(\'"+tile_name+"\',"+i+","+j+")\" title='"+tile_name+"' alt='"+tile_name+"'>");
+                    document.write("<img src=\"img/letter_pieces/blank.jpg\" id=\""+tile_name+"\"onMouseDown=\"clicked(\'"+tile_name+"\')\" data-dice_id=\'none\' title='"+tile_name+"' alt='"+tile_name+"'>");
                   }
                   document.writeln("</nobr><br>");
                 }

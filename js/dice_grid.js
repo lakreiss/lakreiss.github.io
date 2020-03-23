@@ -1,40 +1,119 @@
 var num_dice=16, board_height=12, board_width=18;
 
 var tile_path_start="img/letter_pieces/";
-// var selected_tile="a_tile";
-var selected_tile="blank";
-var selected_id="blank";
-
 var tile_path_end=".jpg";
 
+var blank_dice = "__";
+
+// var selected_tile="a_tile";
+
+var selected_id="none";
+var selected_tile_path="none";
+var blank_tile_path = tile_path_start + "blank" + tile_path_end;
+
 function get_tile_name(i, j) {
-  return String.fromCharCode(65+j)+eval(i+1);
+  return "tile" + String.fromCharCode(65+j)+eval(i+1);
 }
 
-// cur_element.style.backgroundColor = "#6794B3"; //COLOR FOR USED DICE
+function get_tile_path(dice_string) {
+  return tile_path_start + dice_string.toLowerCase() + "_tile" + tile_path_end;
+}
 
+//cur_element must be a dice
 function highlight_dice(cur_element) {
   cur_element.className = "highlighted_dice";
+  selected_id = cur_element.id;
+  selected_tile_path = get_tile_path(cur_element.innerHTML);
 }
 
-function clicked(tile_id) {
-  var cur_element = document.getElementById(tile_id);
-  if (tile_id.includes("dice")) { //dice was clicked, don't use src
-    // alert("clicked: " + tile_id);
-    // if (selected_id.includes("dice")) {
-    //   if (cur_element.used = "false") {
-    //     highlight_dice(cur_element);
-    //   }
-    // }
-    if (cur_element.used = "false") {
-      highlight_dice(cur_element);
-    }
+//cur_element must be a tile
+function highlight_tile(cur_element) {
+  cur_element.style.opacity = "0.7";
+  selected_id = cur_element.id;
+  selected_tile_path = cur_element.src;
+}
 
+function set_dice_to_unused(dice_id) {
+  document.getElementById(dice_id).className = "dice";
+}
+
+function set_dice_to_used(dice_id) {
+  document.getElementById(dice_id).className = "used_dice";
+}
+
+function clicked(click_id) {
+  var cur_element = document.getElementById(click_id);
+  if (selected_id == "none") {
+    if (click_id.includes("dice")) {
+      // alert("clicked dice")
+      if (cur_element.className != "used_dice") {
+        if (cur_element.innerHTML != blank_dice) {
+          highlight_dice(cur_element);
+        }
+      }
+    } else if (click_id.includes("tile")){
+      if (!cur_element.src.includes("blank")) {
+        highlight_tile(cur_element);
+      }
+    } else {
+      alert("error, invalid element click id 1");
+    }
+  } else if (selected_id.includes("dice")) {
+    if (click_id.includes("dice")) {
+      // alert("clicked dice")
+      if (cur_element.className == "used_dice") {
+        //do nothing
+      } else if (cur_element.className == "highlighted_dice") {
+        //do nothing
+      } else if (cur_element.className == "dice") {
+        set_dice_to_unused(selected_id);
+        highlight_dice(cur_element);
+      } else {
+        alert("invalid dice class name");
+      }
+    } else if (click_id.includes("tile")) {
+      if (cur_element.dataset.dice_id != "none") {
+        set_dice_to_unused(cur_element.dataset.dice_id);
+      }
+      cur_element.src = selected_tile_path;
+      cur_element.dataset.dice_id = selected_id;
+      set_dice_to_used(selected_id);
+
+      selected_id = "none";
+      selected_tile_path="none";
+    } else {
+      alert("error, invalid element click id 2");
+    }
+  } else if (selected_id.includes("tile")) {
+    var selected_tile = document.getElementById(selected_id);
+    //TODO: change this
+    if (click_id.includes("dice")) {
+      if (selected_tile.dataset.dice_id == click_id) {
+        selected_tile.src = blank_tile_path;
+        selected_tile.dataset.dice_id = "none";
+        cur_element.className = "dice";
+
+      } else if (cur_element.className == "used_dice") {
+        //do nothing
+      } else if (cur_element.className == "dice") {
+        highlight_dice(cur_element);
+      } else {
+        alert("invalid dice class name");
+      }
+    } else if (click_id.includes("tile")) {
+      temp_src = selected_tile.src;
+      temp_dice_id = selected_tile.dataset.dice_id;
+
+      selected_tile.src = cur_element.src;
+      selected_tile.dataset.dice_id = cur_element.dataset.dice_id;
+
+      cur_element.src = temp_src;
+      cur_element.dataset.dice_id = temp_dice_id;
+    } else {
+      alert("error, invalid element click id 2");
+    }
   } else {
-    var new_tile_path = tile_path_start + selected_tile + tile_path_end;
-    // alert("tile id: " + tile_id + "new tile: " + document.getElementById(tile_id));
-    // alert("new tile: " + new_tile_path);
-    cur_element.src = new_tile_path;
+    alert("error, invalid element selected id");
   }
 }
 
