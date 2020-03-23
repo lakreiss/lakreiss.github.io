@@ -1,7 +1,7 @@
 var num_dice=16, board_height=12, board_width=18;
 
 var tile_path_start="img/letter_pieces/";
-var tile_path_end=".jpg";
+var tile_path_end=".png";
 
 var blank_dice = "__";
 
@@ -134,7 +134,7 @@ function clicked(click_id) {
         alert("invalid dice class name");
       }
     } else if (click_id.includes("tile")) {
-      temp_src = selected_tile.src;
+      temp_src = selected_tile_path;
       temp_dice_id = selected_tile.dataset.dice_id;
 
       selected_tile.src = cur_element.src;
