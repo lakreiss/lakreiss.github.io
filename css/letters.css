@@ -29,11 +29,12 @@
   min-width: 15%;
   background-color: #ec8e80;
   border-radius: 0.5rem;
+  cursor:pointer;
 }
 
 .dice_button {
   margin: 0 auto;
-  margin-left: 1.75vw; 
+  margin-left: 1.75vw;
   text-align:center;
   display: inline-block;
   width: 10vw;
@@ -50,4 +51,5 @@ img {
   margin: .1rem;
   margin-bottom: -.2rem;
   padding: 0;
+  cursor:pointer;
 }

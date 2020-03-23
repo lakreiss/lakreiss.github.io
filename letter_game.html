@@ -60,7 +60,8 @@
               <button class="dice_button" onclick="reset_board()">Reset Board</button>
               <script language="JavaScript">
                 for (var index=0; index < num_letters; index++) {
-                  document.write("<div class=\"dice\" id=\"dice"+index+"\">d"+index+"</div>");
+                  var dice_id = "dice" + index;
+                  document.write("<div class=\"dice\" id=\""+dice_id+"\" onclick=\"clicked(\'"+dice_id+"\')\" used=\"false\">d"+index+"</div>");
                 }
               </script>
             </div>
@@ -71,15 +72,12 @@
           <div class="col-7">
             <div class="letter_board">
               <script language="JavaScript">
-                k=0;
-                for (i=0; i < board_height; i++)
+                for (var i=0; i < board_height; i++)
                 { document.write("<nobr>");
-                  for (j=0; j < board_width; j++)
+                  for (var j=0; j < board_width; j++)
                   {
-                    var tile_name = String.fromCharCode(65+j)+eval(i+1);
+                    var tile_name = get_tile_name(i, j);
                     document.write("<img src=\"img/letter_pieces/blank.jpg\" id=\""+tile_name+"\"onMouseDown=\"clicked(\'"+tile_name+"\',"+i+","+j+")\" title='"+tile_name+"' alt='"+tile_name+"'>");
-                    // document.write("<img src=\"img/letter_pieces/blank.jpg\" onMouseDown=\"clicked("+i+","+j+")\" title='"+tile_name+"' alt='"+tile_name+"'>");
-                    ImgNum[i][j]=k++;
                   }
                   document.writeln("</nobr><br>");
                 }
