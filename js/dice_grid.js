@@ -172,11 +172,27 @@ var all_letter_dice = [
 ];
 
 function roll_dice() {
+  animate_dice();
   for (var i=0; i < all_letter_dice.length; i++) {
     var index = Math.floor(Math.random() * 6);
     document.getElementById("dice"+i).innerHTML = all_letter_dice[i][index];
   }
   reset_board();
+}
+
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+async function animate_dice() {
+  var num_dice_bounces = 10;
+  for (var j=0; j < num_dice_bounces; j++) {
+    for (var i=0; i < all_letter_dice.length; i++) {
+      var index = Math.floor(Math.random() * 6);
+      document.getElementById("dice"+i).innerHTML = all_letter_dice[i][index];
+    }
+    await sleep(50);
+  }
 }
 
 function reset_board() {
