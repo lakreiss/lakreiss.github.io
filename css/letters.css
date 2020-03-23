@@ -11,7 +11,7 @@
   border-radius: 0.5rem;
   margin-left: 1rem;
   padding: 1em;
-  height: 520px;
+  height: 504px;
   /* width: 112%; */
 }
 
@@ -72,4 +72,12 @@ img {
   margin-bottom: -.2rem;
   padding: 0;
   cursor:pointer;
+}
+
+.align_left {
+  float: left;
+}
+
+.align_right {
+  float: right;
 }

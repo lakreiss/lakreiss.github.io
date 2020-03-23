@@ -241,9 +241,16 @@ function download_dice() {
   }
 }
 
-function display_info() {
+function display_instructions() {
   var how_to_play = "Roll the letter dice, then connect the letters to form words. If you want a challenge, only make words with four or more letters.";
   var how_to_upload = "To upload your own set of dice, include \"#xxxxxxxxxxxxxxxx\" at the end of the url, where you substitute the xs for the letters you want. \"Q\" will automatically be converted to \"Qu\". Make sure you include 16 letters; the website will not accept the entry otherwise.";
   var how_to_download = "Downloading saves the dice roll in your url so that you can share your roll with other people; simply download, send them the url, have them upload, and ta-da: you can both solve the same letters.";
-  alert("How to play: " + how_to_play + "\n\nHow to upload: " + how_to_upload + "\n\nWhat is downloading? " + how_to_download);
+  alert("How to play:\n" + how_to_play + "\n\nHow to upload:\n" + how_to_upload + "\n\nWhat is downloading?\n" + how_to_download);
+}
+
+function display_faqs() {
+  var move_tiles = "Either click the tile you want to move, and then click the destination, or drag a letter to where you want it to go.";
+  var scrabble_tiles = "The board uses scrabble tiles because they look nice. The numbers don't mean anything; there are no points in this game. If you really want them to have meaning, you can sum up the points of your letters, and think of the total as the roll's 'difficulty.'";
+  var found_bug = "If you find a bug, or something that you think could be improved, please email me with a detailed explanation of your findings or thoughts. If you can take a picture or video of the problem and include it, that'd be great. The more specific you can be, the better. Thank you! My email is available from the email icon below.";
+  alert("How do I move tiles?\n" + move_tiles + "\n\nWhy are there scrabble tiles on the board?\n" + scrabble_tiles + "\n\nWhat do I do if I found a bug, or want something changed?\n" + found_bug);
 }
