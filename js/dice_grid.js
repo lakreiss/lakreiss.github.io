@@ -1,4 +1,4 @@
-var num_dice=16, board_height=12, board_width=16;
+var num_dice=16, board_height=12, board_width=18;
 
 var tile_path_start="img/letter_pieces/";
 var tile_path_end=".jpg";
