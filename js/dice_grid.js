@@ -21,7 +21,7 @@ function get_tile_path(dice_string) {
 
 //cur_element must be a dice
 function highlight_dice(cur_element) {
-  cur_element.className = "highlighted_dice";
+  cur_element.className = "dice highlighted_dice";
   selected_id = cur_element.id;
   selected_tile_path = get_tile_path(cur_element.innerHTML);
 }
@@ -43,11 +43,11 @@ function clear_selections() {
 }
 
 function set_dice_to_unused(dice_id) {
-  document.getElementById(dice_id).className = "dice";
+  document.getElementById(dice_id).className = "dice unused_dice";
 }
 
 function set_dice_to_used(dice_id) {
-  document.getElementById(dice_id).className = "used_dice";
+  document.getElementById(dice_id).className = "dice used_dice";
 }
 
 function clicked(click_id) {
@@ -55,7 +55,7 @@ function clicked(click_id) {
   if (selected_id == "none") {
     if (click_id.includes("dice")) {
       // alert("clicked dice")
-      if (cur_element.className != "used_dice") {
+      if (cur_element.className != "dice used_dice") {
         if (cur_element.innerHTML != blank_dice) {
           highlight_dice(cur_element);
         }
@@ -70,11 +70,11 @@ function clicked(click_id) {
   } else if (selected_id.includes("dice")) {
     if (click_id.includes("dice")) {
       // alert("clicked dice")
-      if (cur_element.className == "used_dice") {
+      if (cur_element.className == "dice used_dice") {
         //do nothing
-      } else if (cur_element.className == "highlighted_dice") {
+      } else if (cur_element.className == "dice highlighted_dice") {
         //do nothing
-      } else if (cur_element.className == "dice") {
+      } else if (cur_element.className == "dice unused_dice") {
         set_dice_to_unused(selected_id);
         highlight_dice(cur_element);
       } else {
@@ -101,11 +101,11 @@ function clicked(click_id) {
       if (selected_tile.dataset.dice_id == click_id) {
         selected_tile.src = blank_tile_path;
         selected_tile.dataset.dice_id = "none";
-        cur_element.className = "dice";
+        cur_element.className = "dice unused_dice";
         clear_selections();
-      } else if (cur_element.className == "used_dice") {
+      } else if (cur_element.className == "dice used_dice") {
         //do nothing
-      } else if (cur_element.className == "dice") {
+      } else if (cur_element.className == "dice unused_dice") {
         highlight_dice(cur_element);
       } else {
         alert("invalid dice class name");
@@ -164,7 +164,7 @@ function reset_board() {
 function reset_dice_class() {
   for (var i=0; i < num_dice; i++) {
     var cur_id = "dice" + i;
-    document.getElementById(cur_id).className = "dice";
+    document.getElementById(cur_id).className = "dice unused_dice";
   }
 }
 
