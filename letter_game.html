@@ -59,7 +59,7 @@
               <button class="dice_button" onclick="roll_dice()">Roll Dice</button>
               <button class="dice_button" onclick="reset_board()">Reset Board</button>
               <script language="JavaScript">
-                for (var index=0; index < num_letters; index++) {
+                for (var index=0; index < num_dice; index++) {
                   var dice_id = "dice" + index;
                   document.write("<div class=\"dice\" id=\""+dice_id+"\" onclick=\"clicked(\'"+dice_id+"\')\" used=\"false\">d"+index+"</div>");
                 }

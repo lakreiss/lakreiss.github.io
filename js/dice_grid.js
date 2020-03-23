@@ -1,23 +1,40 @@
-var num_letters=16, board_height=12, board_width=18;
+var num_dice=16, board_height=12, board_width=18;
 
 var tile_path_start="img/letter_pieces/";
-var selected_tile="a_tile";
+// var selected_tile="a_tile";
+var selected_tile="blank";
+var selected_id="blank";
+
 var tile_path_end=".jpg";
 
 function get_tile_name(i, j) {
   return String.fromCharCode(65+j)+eval(i+1);
 }
 
+// cur_element.style.backgroundColor = "#6794B3"; //COLOR FOR USED DICE
+
+function highlight_dice(cur_element) {
+  cur_element.className = "highlighted_dice";
+}
+
 function clicked(tile_id) {
+  var cur_element = document.getElementById(tile_id);
   if (tile_id.includes("dice")) { //dice was clicked, don't use src
-    alert("clicked: " + tile_id);
+    // alert("clicked: " + tile_id);
+    // if (selected_id.includes("dice")) {
+    //   if (cur_element.used = "false") {
+    //     highlight_dice(cur_element);
+    //   }
+    // }
+    if (cur_element.used = "false") {
+      highlight_dice(cur_element);
+    }
 
   } else {
     var new_tile_path = tile_path_start + selected_tile + tile_path_end;
     // alert("tile id: " + tile_id + "new tile: " + document.getElementById(tile_id));
     // alert("new tile: " + new_tile_path);
-    document.getElementById(tile_id).src = new_tile_path;
-
+    cur_element.src = new_tile_path;
   }
 }
 
@@ -45,12 +62,19 @@ function roll_dice() {
     var index = Math.floor(Math.random() * 6);
     document.getElementById("dice"+i).innerHTML = all_letter_dice[i][index];
   }
-  clear_board();
+  reset_board();
 }
 
 function reset_board() {
-  //change
+  reset_dice_class();
   clear_board();
+}
+
+function reset_dice_class() {
+  for (var i=0; i < num_dice; i++) {
+    var cur_id = "dice" + i;
+    document.getElementById(cur_id).className = "dice";
+  }
 }
 
 function clear_board() {

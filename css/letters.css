@@ -32,6 +32,19 @@
   cursor:pointer;
 }
 
+.highlighted_dice {
+  margin: 1rem;
+  padding: 1rem;
+  margin-bottom: 0.5rem;
+  max-width: 15%;
+  min-width: 15%;
+  border-radius: 0.5rem;
+  cursor:pointer;
+
+  background-color: #ed6ea0;
+  /* outline: 1px solid black; */
+}
+
 .dice_button {
   margin: 0 auto;
   margin-left: 1.75vw;
