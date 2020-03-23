@@ -51,13 +51,14 @@
           <div class="col-4">
             <div class="letter_game_intro">
               <h1>Welcome to the letter game!</h1>
-              <p>Roll the letter dice, then connect the letters to form words</p>
-              <!-- <p>Make sure you use all the letters, and try to build words with four or more letters.</p> -->
+              <p>Instructions: <span class="fa fa-info-circle" onclick="display_info()"></span></p>
             </div>
 
             <div class="letter_game_dice">
               <button class="dice_button" onclick="roll_dice()">Roll Dice</button>
               <button class="dice_button" onclick="reset_board()">Reset Board</button>
+              <button class="dice_button" onclick="upload_dice()">Upload</button>
+              <button class="dice_button" onclick="download_dice()">Download</button>
               <script language="JavaScript">
                 for (var index=0; index < num_dice; index++) {
                   var dice_id = "dice" + index;
@@ -69,7 +70,7 @@
 
 
 
-          <div class="col-7">
+          <div class="col-8">
             <div class="letter_board">
               <script language="JavaScript">
                 for (var i=0; i < board_height; i++)

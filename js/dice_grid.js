@@ -1,4 +1,4 @@
-var num_dice=16, board_height=12, board_width=18;
+var num_dice=16, board_height=12, board_width=16;
 
 var tile_path_start="img/letter_pieces/";
 var tile_path_end=".jpg";
@@ -174,4 +174,53 @@ function clear_board() {
       document.getElementById(get_tile_name(i, j)).src = tile_path_start + "blank" + tile_path_end;
     }
   }
+}
+
+function upload_dice() {
+  var letters = window.location.href.split("#")[1].toLowerCase();
+  if (letters.length == 16) {
+    for (var i = 0; i < letters.length; i++) {
+      var cur_letter = letters[i];
+      var regexp = /^[a-z]/;
+      if (regexp.test(cur_letter)) {
+        var cur_id = "dice" + i;
+        if (cur_letter == "q") {
+          document.getElementById(cur_id).innerHTML = "Qu";
+        } else {
+          document.getElementById(cur_id).innerHTML = cur_letter.toUpperCase();
+        }
+        reset_board();
+      } else {
+        alert("Make sure you only use valid letters in the url.");
+      }
+    }
+  } else {
+    alert("Make sure you include a hashtag (#) followed by 16 letters at the end of the url.");
+  }
+}
+
+function download_dice() {
+  var url_start = window.location.href.split("#")[0];
+
+  if (url_start != "http://localhost:8000/letter_game.html" && url_start != "https://lakreiss.github.io/letter_game.html") {
+    alert("Are you trying to hack in to my website! Please don\'t!");
+  } else {
+    var letters_to_add = "#";
+    for (var i = 0; i < num_dice; i++) {
+      var cur_id = "dice" + i;
+      if (document.getElementById(cur_id).innerHTML == "Qu") {
+        letters_to_add += "q"
+      } else {
+        letters_to_add += document.getElementById(cur_id).innerHTML.toLowerCase();
+      }
+    }
+    window.location = url_start + letters_to_add;
+  }
+}
+
+function display_info() {
+  var how_to_play = "Roll the letter dice, then connect the letters to form words. If you want a challenge, only make words with four or more letters.";
+  var how_to_upload = "To upload your own set of dice, include \"#xxxxxxxxxxxxxxxx\" at the end of the url, where you substitute the xs for the letters you want. \"Q\" will automatically be converted to \"Qu\". Make sure you include 16 letters; the website will not accept the entry otherwise.";
+  var how_to_download = "Downloading saves the dice roll in your url so that you can share your roll with other people; simply download, send them the url, have them upload, and ta-da: you can both solve the same letters.";
+  alert("How to play: " + how_to_play + "\n\nHow to upload: " + how_to_upload + "\n\nWhat is downloading? " + how_to_download);
 }
