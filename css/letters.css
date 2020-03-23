@@ -1,0 +1,53 @@
+.letter_game_intro {
+  background-color: rgba(255,255,255,0.5);
+  border-radius: 0.5rem;
+  padding: 1em;
+}
+
+.letter_board {
+  background-color: rgba(255,255,255,0.5);
+  border-radius: 0.5rem;
+  margin-left: 1rem;
+  padding: 1em;
+  height: 520px;
+  width: 112%;
+}
+
+.letter_game_dice {
+  margin-top: 1rem;
+  float: left;
+  background-color: rgba(255,255,255,0.5);
+  border-radius: 0.5rem;
+  padding: 1em;
+}
+
+.dice {
+  margin: 1rem;
+  padding: 1rem;
+  margin-bottom: 0.5rem;
+  max-width: 15%;
+  min-width: 15%;
+  background-color: #ec8e80;
+  border-radius: 0.5rem;
+}
+
+.dice_button {
+  margin: 0 auto;
+  margin-left: 1.75vw; 
+  text-align:center;
+  display: inline-block;
+  width: 10vw;
+  height: 2vw;
+  /* position: absolute; */
+}
+
+img {
+  min-width: 5%;
+  max-width: 5%;
+  min-height: 7.5%;
+  max-height: 7.5%;
+  border: 0;
+  margin: .1rem;
+  margin-bottom: -.2rem;
+  padding: 0;
+}

@@ -5,6 +5,9 @@
     <head>
       <link rel="stylesheet" href="css/style.css">
       <link rel="stylesheet" href="css/vincent_durand.css">
+      <link rel="stylesheet" href="css/letters.css">
+      <script type="text/javascript" src="jquery-3.3.1.js"></script>
+      <script src="js/dice_grid.js"></script>
       <link rel="icon stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     </head>
 
@@ -44,35 +47,45 @@
       </nav>
 
       <section class="letter_game">
-        <div class="letter_game_intro">
-          <h1>Welcome to the letter game!</h1>
-          <p>Roll the letter dice, then connect the letters to form words</p>
-          <!-- <p>Make sure you use all the letters, and try to build words with four or more letters.</p> -->
-        </div>
+        <div class="row">
+          <div class="col-4">
+            <div class="letter_game_intro">
+              <h1>Welcome to the letter game!</h1>
+              <p>Roll the letter dice, then connect the letters to form words</p>
+              <!-- <p>Make sure you use all the letters, and try to build words with four or more letters.</p> -->
+            </div>
 
-        <div class="letter_board">
-          
+            <div class="letter_game_dice">
+              <button class="dice_button" onclick="roll_dice()">Roll Dice</button>
+              <button class="dice_button" onclick="reset_board()">Reset Board</button>
+              <script language="JavaScript">
+                for (var index=0; index < num_letters; index++) {
+                  document.write("<div class=\"dice\" id=\"dice"+index+"\">d"+index+"</div>");
+                }
+              </script>
+            </div>
+          </div>
 
-        </div>
 
-        <div class="letter_game_dice">
-          <button class="roll_button" onclick="myFunction()">Roll Dice</button>
-          <div class="dice" id="d1">d1</div>
-          <div class="dice" id="d2">d2</div>
-          <div class="dice" id="d3">d3</div>
-          <div class="dice" id="d4">d4</div>
-          <div class="dice" id="d5">d5</div>
-          <div class="dice" id="d6">d6</div>
-          <div class="dice" id="d7">d7</div>
-          <div class="dice" id="d8">d8</div>
-          <div class="dice" id="d9">d9</div>
-          <div class="dice" id="d10">da</div>
-          <div class="dice" id="d11">db</div>
-          <div class="dice" id="d12">dc</div>
-          <div class="dice" id="d13">dd</div>
-          <div class="dice" id="d14">de</div>
-          <div class="dice" id="d15">df</div>
-          <div class="dice" id="d16">dg</div>
+
+          <div class="col-7">
+            <div class="letter_board">
+              <script language="JavaScript">
+                k=0;
+                for (i=0; i < board_height; i++)
+                { document.write("<nobr>");
+                  for (j=0; j < board_width; j++)
+                  {
+                    var tile_name = String.fromCharCode(65+j)+eval(i+1);
+                    document.write("<img src=\"img/letter_pieces/blank.jpg\" id=\""+tile_name+"\"onMouseDown=\"clicked(\'"+tile_name+"\',"+i+","+j+")\" title='"+tile_name+"' alt='"+tile_name+"'>");
+                    // document.write("<img src=\"img/letter_pieces/blank.jpg\" onMouseDown=\"clicked("+i+","+j+")\" title='"+tile_name+"' alt='"+tile_name+"'>");
+                    ImgNum[i][j]=k++;
+                  }
+                  document.writeln("</nobr><br>");
+                }
+              </script>
+            </div>
+          </div>
         </div>
 
       </section>
