@@ -55,6 +55,10 @@
   display: inline-block;
   width: 5vw;
   height: 3vw;
+  border-radius: 0.5rem;
+  background-color: white;
+  border: solid 1px black;
+
   /* position: absolute; */
 }
 
