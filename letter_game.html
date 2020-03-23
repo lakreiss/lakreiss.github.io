@@ -12,6 +12,12 @@
     </head>
 
     <body>
+      <script language="JavaScript">
+        var is_mobile = !!navigator.userAgent.match(/iphone|android|blackberry/ig) || false;
+        if (is_mobile) {
+          alert("Sorry, this website doesn't work well on mobile. I suggest trying it on a laptop or desktop!")
+        }
+      </script>
       <nav class="menu">
         <ol>
           <li class="menu-item"><a href="/index.html">Home</a></li>
