@@ -33,6 +33,15 @@ function highlight_tile(cur_element) {
   selected_tile_path = cur_element.src;
 }
 
+function unhighlight_tile(cur_tile) {
+  cur_tile.style.opacity = "1";
+}
+
+function clear_selections() {
+  selected_id = "none";
+  selected_tile_path = "none";
+}
+
 function set_dice_to_unused(dice_id) {
   document.getElementById(dice_id).className = "dice";
 }
@@ -79,13 +88,14 @@ function clicked(click_id) {
       cur_element.dataset.dice_id = selected_id;
       set_dice_to_used(selected_id);
 
-      selected_id = "none";
-      selected_tile_path="none";
+      clear_selections();
     } else {
       alert("error, invalid element click id 2");
     }
   } else if (selected_id.includes("tile")) {
+
     var selected_tile = document.getElementById(selected_id);
+    unhighlight_tile(selected_tile);
     //TODO: change this
     if (click_id.includes("dice")) {
       if (selected_tile.dataset.dice_id == click_id) {
@@ -109,6 +119,8 @@ function clicked(click_id) {
 
       cur_element.src = temp_src;
       cur_element.dataset.dice_id = temp_dice_id;
+
+      clear_selections();
     } else {
       alert("error, invalid element click id 2");
     }
