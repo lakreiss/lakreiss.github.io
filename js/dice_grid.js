@@ -33,6 +33,41 @@ var blank_tile_path = tile_path_start + "blank" + tile_path_end;
 
 window.addEventListener('keydown', function(e) { key_press(e); });
 
+
+//assumes already uppercase
+function isVowel(x) {
+  x = x.toUpperCase();
+  var result;
+  result = x == "A" || x == "E" || x == "I" || x == "O" || x == "U";
+  return result;
+}
+
+function vowel_sort(a, b) {
+  a = a.toUpperCase();
+  b = b.toUpperCase();
+  if (isVowel(a)) {
+    if (isVowel(b)) {
+      if (a < b) {
+        return -1;
+      } else {
+        return 1;
+      }
+    } else {
+      return -1;
+    }
+  } else {
+    if (isVowel(b)) {
+      return 1;
+    } else {
+      if (a < b) {
+        return -1;
+      } else {
+        return 1;
+      }
+    }
+  }
+}
+
 function key_press(e) {
   // alert(e.keyCode);
   switch(e.keyCode) {
@@ -52,6 +87,9 @@ function key_press(e) {
       transpose();
       break;
     case 74: //j key
+      auto_populate_sorted_letters(vowel_sort);
+      break;
+    case 75: //k key
       auto_populate_sorted_letters();
       break;
     case 32: //space bar key
@@ -418,7 +456,7 @@ function check_for_empty_outside_square() {
   return true;
 }
 
-function auto_populate_sorted_letters() {
+function auto_populate_sorted_letters(sort_function="") {
   var dice_mapping = {};
   var found_blank = false;
 
@@ -441,7 +479,11 @@ function auto_populate_sorted_letters() {
   if (!found_blank) {
     reset_board();
     var all_letters = Object.keys(dice_mapping);
-    all_letters.sort();
+    if (sort_function == "") {
+      all_letters.sort();
+    } else {
+      all_letters.sort(sort_function);
+    }
 
     var ordered_dice_ids = [];
     for (var i = 0; i < all_letters.length; i++) {
@@ -450,12 +492,15 @@ function auto_populate_sorted_letters() {
       }
     }
     // alert(ordered_dice_ids);
-    click_ordered_dice(all_letters.length, ordered_dice_ids);
+    click_ordered_dice(all_letters.length, ordered_dice_ids, sort_function);
   }
 }
 
-function click_ordered_dice(num_unique_letters, ordered_dice_ids) {
+function click_ordered_dice(num_unique_letters, ordered_dice_ids, sort_function) {
   var col = ((board_width - num_unique_letters) / 2) - 1; //minus 1 because i add 1 in the if statement below
+  if (sort_function == vowel_sort) {
+    col = ((board_width - (num_unique_letters+1)) / 2) - 1; //to account for the blank between vowels and consonants
+  }
   var row = 0;
   var last_letter = "";
   // reset_board();
@@ -464,6 +509,11 @@ function click_ordered_dice(num_unique_letters, ordered_dice_ids) {
     var cur_dice = document.getElementById(cur_id);
     if (last_letter != cur_dice.innerHTML) {
       row = 0;
+      if (sort_function == vowel_sort) { //for vowel sort, add a space between vowels and consonants
+        if (isVowel(last_letter) && !isVowel(cur_dice.innerHTML)) {
+          col += 1;
+        }
+      }
       col += 1;
       last_letter = cur_dice.innerHTML;
     }
@@ -495,7 +545,10 @@ function display_advanced() {
     t = "\n\nThe 'T' button transposes the board.";
   }
 
-  alert("You can use keyboard inputs to control the game, too!" + arrow_keys + t);
+  var j = "\n\nThe 'J' button sorts the dice on the board by vowels and consonants, with an empty column separating them.";
+  var k = "\n\nThe 'K' button sorts the dice on the board alphabetically.";
+
+  alert("You can use keyboard inputs to control the game, too!" + arrow_keys + t + j + k);
 
 }
 
