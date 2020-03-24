@@ -524,7 +524,44 @@ function click_ordered_dice(num_unique_letters, ordered_dice_ids, sort_function)
 }
 
 function get_words_to_check() {
-  return ["hello", "goodbye", "happ312y"];
+  var words_to_check = [];
+
+  //first look horizontally
+  for (var row = 0; row < board_height; row++) {
+    var cur_word = "";
+    for (var col = 0; col < board_width; col++) {
+      var cur_tile_id = get_tile_name(row, col);
+      var cur_tile = document.getElementById(cur_tile_id);
+      if (cur_tile.dataset.dice_id != "none") {
+        cur_word += document.getElementById(cur_tile.dataset.dice_id).innerHTML.toLowerCase();
+      } else {
+        if (cur_word.length > 1) {
+          words_to_check.push(cur_word);
+        }
+        cur_word = "";
+      }
+    }
+  }
+
+  //then look vertically
+  for (var col = 0; col < board_width; col++) {
+    var cur_word = "";
+    for (var row = 0; row < board_height; row++) {
+      var cur_tile_id = get_tile_name(row, col);
+      var cur_tile = document.getElementById(cur_tile_id);
+      if (cur_tile.dataset.dice_id != "none") {
+        cur_word += document.getElementById(cur_tile.dataset.dice_id).innerHTML.toLowerCase();
+      } else {
+        if (cur_word.length > 1) {
+          words_to_check.push(cur_word);
+        }
+        cur_word = "";
+      }
+    }
+  }
+
+  // alert(words_to_check);
+  return words_to_check;
 }
 
 function check_solution() {
@@ -554,7 +591,7 @@ function next_word() {
 }
 
 function failed_check(illegal_word, similar_words) {
-  alert("Sorry, it looks like your word: " + illegal_word + " is not a valid word. Here are some similar words that might help you:\n" + similar_words);
+  alert("Sorry, it looks like your word '" + illegal_word + "' is not a valid word. Here are some similar words that might help you:\n" + similar_words);
   return;
 }
 
@@ -567,7 +604,7 @@ function is_in_dictionary(word) {
   var theUrl = url_start + word + url_end;
 
   function is_valid(text) {
-    if (text[1] != "{") {
+    if (text[1] != "{") { //real entries have the meta bracket, suggestion entries do not
       // alert(text);
       return failed_check(word, text);
     } else {
@@ -594,48 +631,7 @@ function is_in_dictionary(word) {
   });
 
   return;
-
-  // fetch(theUrl)
-  // .then((response) => {
-  //   if (!response.ok) {
-  //     throw new Error('Network response was not ok');
-  //   }
-  // }).then(function(response) {
-  //   return response.text().then(function(text) {
-  //     alert(text);
-  //   });
-  // })
-  // .catch((error) => {
-  //   console.error('There has been a problem with your fetch operation:', error);
-  // });
-
-
-  //
-  // fetch(theUrl)
-  // .then((response) => {
-  //   if (!response.ok) {
-  //     throw new Error('Network response was not ok');
-  //   }
-  //   return alert(response.text());
-  // })
-  // .catch((error) => {
-  //   console.error('There has been a problem with your fetch operation:', error);
-  // });
-
-  // return httpGetAsync(theUrl, is_valid);
 }
-
-//TAKEN FROM https://stackoverflow.com/questions/247483/http-get-request-in-javascript
-// function httpGetAsync(theUrl, callback)
-// {
-//     var xmlHttp = new XMLHttpRequest();
-//     xmlHttp.onreadystatechange = function() {
-//         if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
-//             callback(xmlHttp.responseText);
-//     }
-//     xmlHttp.open("GET", theUrl, true); // true for asynchronous
-//     xmlHttp.send(null);
-// }
 
 function display_instructions() {
   var how_to_play = "Roll the letter dice, then connect the letters to form words. If you want a challenge, only make words with four or more letters.";
@@ -647,8 +643,9 @@ function display_instructions() {
 
 function display_advanced() {
   var arrow_keys = "\n\nUse the arrow keys to move your letter board around. This can be helpful if your solution branches off in one direction.";
-  var t;
+  var space = "\n\nThe space bar checks your words against Merriam-Webster's dictionary. This includes abbreviations, some proper nouns, and words that are shorter than four letters, and ignores single tiles, so passing this check doesn't necessarily mean you've completed the puzzle, it just means that all your words are real words. \nIf you have a word attempt that isn't quite right, this feature will suggest similar words (which may or may not be possible to build with the given tiles).";
 
+  var t;
   if (board_width > board_height) {
     var num_cols = board_width - board_height;
     t = "\n\nThe 'T' button transposes the board, although it only works if the " + num_cols + " right-most columns are empty.";
@@ -662,7 +659,7 @@ function display_advanced() {
   var j = "\n\nThe 'J' button sorts the dice on the board by vowels and consonants, with an empty column separating them.";
   var k = "\n\nThe 'K' button sorts the dice on the board alphabetically.";
 
-  alert("You can use keyboard inputs to control the game, too!" + arrow_keys + t + j + k);
+  alert("You can use keyboard inputs to control the game, too!" + arrow_keys + space + j + k + t);
 
 }
 
