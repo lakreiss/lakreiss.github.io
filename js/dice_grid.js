@@ -94,7 +94,7 @@ function key_press(e) {
       break;
     case 32: //space bar key
       // alert("space");
-      // check_solution();
+      check_solution();
       break;
     default:
       // do nothing
@@ -522,6 +522,120 @@ function click_ordered_dice(num_unique_letters, ordered_dice_ids, sort_function)
     row += 1;
   }
 }
+
+function get_words_to_check() {
+  return ["hello", "goodbye", "happ312y"];
+}
+
+function check_solution() {
+  var words_to_check = get_words_to_check();
+  if (words_to_check.length > 0) {
+    init_iterator(words_to_check);
+    is_in_dictionary(next_word());
+  } else {
+    //do nothing
+  }
+  return;
+}
+
+var words_to_check_global;
+
+function init_iterator(words_to_check) {
+  words_to_check_global = words_to_check;
+}
+
+function next_word() {
+  if (words_to_check_global.length == 0) {
+    alert("Congratulations, it looks like all your words are valid!");
+    return;
+  } else {
+    return words_to_check_global.pop();
+  }
+}
+
+function failed_check(illegal_word, similar_words) {
+  alert("Sorry, it looks like your word: " + illegal_word + " is not a valid word. Here are some similar words that might help you:\n" + similar_words);
+  return;
+}
+
+// function alert_with_message
+
+function is_in_dictionary(word) {
+  var url_start = "https://dictionaryapi.com/api/v3/references/collegiate/json/";
+  var url_end = "?key=462d1fec-822d-41e6-afa6-986f2581cb46";
+
+  var theUrl = url_start + word + url_end;
+
+  function is_valid(text) {
+    if (text[1] != "{") {
+      // alert(text);
+      return failed_check(word, text);
+    } else {
+      var next_word_to_test = next_word();
+      if (next_word_to_test) {
+        return is_in_dictionary(next_word_to_test);
+      } else {
+        return;
+      }
+    }
+  }
+
+  fetch(theUrl)
+  .then(function(response) {
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    return response.text().then(function(text) {
+      is_valid(text);
+    });
+  })
+  .catch((error) => {
+    console.error('There has been a problem with your fetch operation:', error);
+  });
+
+  return;
+
+  // fetch(theUrl)
+  // .then((response) => {
+  //   if (!response.ok) {
+  //     throw new Error('Network response was not ok');
+  //   }
+  // }).then(function(response) {
+  //   return response.text().then(function(text) {
+  //     alert(text);
+  //   });
+  // })
+  // .catch((error) => {
+  //   console.error('There has been a problem with your fetch operation:', error);
+  // });
+
+
+  //
+  // fetch(theUrl)
+  // .then((response) => {
+  //   if (!response.ok) {
+  //     throw new Error('Network response was not ok');
+  //   }
+  //   return alert(response.text());
+  // })
+  // .catch((error) => {
+  //   console.error('There has been a problem with your fetch operation:', error);
+  // });
+
+  // return httpGetAsync(theUrl, is_valid);
+}
+
+//TAKEN FROM https://stackoverflow.com/questions/247483/http-get-request-in-javascript
+// function httpGetAsync(theUrl, callback)
+// {
+//     var xmlHttp = new XMLHttpRequest();
+//     xmlHttp.onreadystatechange = function() {
+//         if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+//             callback(xmlHttp.responseText);
+//     }
+//     xmlHttp.open("GET", theUrl, true); // true for asynchronous
+//     xmlHttp.send(null);
+// }
 
 function display_instructions() {
   var how_to_play = "Roll the letter dice, then connect the letters to form words. If you want a challenge, only make words with four or more letters.";
