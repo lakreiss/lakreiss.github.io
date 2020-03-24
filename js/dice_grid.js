@@ -1,4 +1,24 @@
-var num_dice=16, board_height=12, board_width=18;
+var all_letter_dice = [
+  ["U", "S", "A", "D", "N", "R"],
+  ["D", "L", "P", "T", "N", "B"],
+  ["A", "C", "S", "D", "R", "E"],
+  ["I", "W", "V", "Y", "J", "T"],
+  ["U", "E", "O", "E", "A", "I"],
+  ["C", "G", "R", "M", "N", "R"],
+  ["E", "K", "I", "Qu", "X", "Z"],
+  ["A", "L", "H", "S", "I", "W"],
+  ["A", "P", "B", "F", "O", "E"],
+  ["M", "C", "P", "N", "L", "D"],
+  ["I", "C", "P", "G", "N", "T"],
+  ["M", "T", "Y", "H", "O", "H"],
+  ["S", "L", "U", "G", "E", "R"],
+  ["T", "R", "E", "L", "T", "A"],
+  ["E", "A", "O", "E", "U", "I"],
+  ["W", "O", "T", "U", "O", "F"]
+];
+
+var num_dice=all_letter_dice.length, board_height=12, board_width=18;
+var auto_populate_start_col = 1;
 
 var tile_path_start="img/letter_pieces/";
 var tile_path_end=".png";
@@ -30,6 +50,9 @@ function key_press(e) {
       break;
     case 84: //t key
       transpose();
+      break;
+    case 74: //j key
+      auto_populate_sorted_letters();
       break;
     case 32: //space bar key
       // alert("space");
@@ -137,12 +160,13 @@ function clicked(click_id) {
       }
     } else if (click_id.includes("tile")) {
       if (cur_element.dataset.dice_id != "none") {
+        alert("cur element: " + click_id + " dice id: " + cur_element.dataset.dice_id);
         set_dice_to_unused(cur_element.dataset.dice_id);
       }
       cur_element.src = selected_tile_path;
       cur_element.dataset.dice_id = selected_id;
-      set_dice_to_used(selected_id);
 
+      set_dice_to_used(selected_id);
       clear_selections();
     } else {
       alert("error, invalid element click id 2");
@@ -190,28 +214,9 @@ function swap_tiles(tile_1_id, tile_2_id) {
   tile_2.dataset.dice_id = temp_dice_id;
 }
 
-var all_letter_dice = [
-  ["U", "S", "A", "D", "N", "R"],
-  ["D", "L", "P", "T", "N", "B"],
-  ["A", "C", "S", "D", "R", "E"],
-  ["I", "W", "V", "Y", "J", "T"],
-  ["U", "E", "O", "E", "A", "I"],
-  ["C", "G", "R", "M", "N", "R"],
-  ["E", "K", "I", "Qu", "X", "Z"],
-  ["A", "L", "H", "S", "I", "W"],
-  ["A", "P", "B", "F", "O", "E"],
-  ["M", "C", "P", "N", "L", "D"],
-  ["I", "C", "P", "G", "N", "T"],
-  ["M", "T", "Y", "H", "O", "H"],
-  ["S", "L", "U", "G", "E", "R"],
-  ["T", "R", "E", "L", "T", "A"],
-  ["E", "A", "O", "E", "U", "I"],
-  ["W", "O", "T", "U", "O", "F"]
-];
-
 function roll_dice() {
   animate_dice();
-  for (var i=0; i < all_letter_dice.length; i++) {
+  for (var i=0; i < num_dice; i++) {
     var index = Math.floor(Math.random() * 6);
     document.getElementById("dice"+i).innerHTML = all_letter_dice[i][index];
   }
@@ -225,7 +230,7 @@ function sleep(ms) {
 async function animate_dice() {
   var num_dice_bounces = 10;
   for (var j=0; j < num_dice_bounces; j++) {
-    for (var i=0; i < all_letter_dice.length; i++) {
+    for (var i=0; i < num_dice; i++) {
       var index = Math.floor(Math.random() * 6);
       document.getElementById("dice"+i).innerHTML = all_letter_dice[i][index];
     }
@@ -249,6 +254,7 @@ function clear_board() {
   for (var i=0; i<board_height; i++) {
     for (var j=0; j<board_width; j++) {
       document.getElementById(get_tile_name(i, j)).src = tile_path_start + "blank" + tile_path_end;
+      document.getElementById(get_tile_name(i, j)).dataset.dice_id = "none";
     }
   }
 }
@@ -410,6 +416,61 @@ function check_for_empty_outside_square() {
     }
   }
   return true;
+}
+
+function auto_populate_sorted_letters() {
+  var dice_mapping = {};
+  var found_blank = false;
+
+  for (var i=0; i < num_dice; i++) {
+    var cur_id = "dice" + i;
+    var cur_letter = document.getElementById(cur_id).innerHTML;
+    if (cur_letter != blank_dice) {
+      if (dice_mapping[cur_letter]) {
+        // alert("hello " + dice_mapping[cur_letter]);
+        dice_mapping[cur_letter].push(cur_id);
+      } else {
+        // alert("cur id " + cur_id + " cur_letter " + cur_letter + " mapping " + dice_mapping[cur_letter]);
+        dice_mapping[cur_letter] = [cur_id];
+      }
+    } else {
+      found_blank = true;
+    }
+  }
+
+  if (!found_blank) {
+    reset_board();
+    var all_letters = Object.keys(dice_mapping);
+    all_letters.sort();
+
+    var ordered_dice_ids = [];
+    for (var i = 0; i < all_letters.length; i++) {
+      while (dice_mapping[all_letters[i]].length > 0) {
+        ordered_dice_ids.push(dice_mapping[all_letters[i]].pop());
+      }
+    }
+    // alert(ordered_dice_ids);
+    click_ordered_dice(all_letters.length, ordered_dice_ids);
+  }
+}
+
+function click_ordered_dice(num_unique_letters, ordered_dice_ids) {
+  var col = ((board_width - num_unique_letters) / 2) - 1; //minus 1 because i add 1 in the if statement below
+  var row = 0;
+  var last_letter = "";
+  // reset_board();
+  for (var i = 0; i < ordered_dice_ids.length; i++) {
+    var cur_id = ordered_dice_ids[i];
+    var cur_dice = document.getElementById(cur_id);
+    if (last_letter != cur_dice.innerHTML) {
+      row = 0;
+      col += 1;
+      last_letter = cur_dice.innerHTML;
+    }
+    clicked(cur_id);
+    clicked(get_tile_name(row, col));
+    row += 1;
+  }
 }
 
 function display_instructions() {
