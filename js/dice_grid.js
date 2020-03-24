@@ -415,7 +415,7 @@ function check_for_empty_outside_square() {
 function display_instructions() {
   var how_to_play = "Roll the letter dice, then connect the letters to form words. If you want a challenge, only make words with four or more letters.";
   var arrow_keys = "\n\nUse the arrow keys to shift your board so that you can add letters once you've run into an edge.";
-  var how_to_upload = "To upload your own set of dice, include \"#xxxxxxxxxxxxxxxx\" at the end of the url, where you substitute the xs for the letters you want. \"Q\" will automatically be converted to \"Qu\". Make sure you include 16 letters; the website will not accept the entry otherwise.";
+  var how_to_upload = "To upload your own set of dice, include \"#xxxxxxxxxxxxxxxx\" at the end of the url, where you substitute the xs for the letters you want. \"Q\" will automatically be converted to \"Qu\". Then click \"enter\" after highlighting the url to ensure the new url is loaded. Make sure you include exactly 16 letters; the website will not accept the entry otherwise.";
   var how_to_download = "Downloading saves the dice roll in your url so that you can share your roll with other people; simply download, send them the url, have them upload, and ta-da: you can both solve the same letters.";
   alert("How to play:\n" + how_to_play + arrow_keys + "\n\nHow to upload:\n" + how_to_upload + "\n\nWhat is downloading?\n" + how_to_download);
 }
