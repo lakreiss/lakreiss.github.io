@@ -11,8 +11,43 @@ var selected_id="none";
 var selected_tile_path="none";
 var blank_tile_path = tile_path_start + "blank" + tile_path_end;
 
+window.addEventListener('keydown', function(e) { key_press(e); });
+
+function key_press(e) {
+  // alert(e.keyCode);
+  switch(e.keyCode) {
+    case 37: //left key
+      move_tiles("left");
+      break;
+    case 38: //up key
+      move_tiles("up");
+      break;
+    case 39: //right key
+      move_tiles("right");
+      break;
+    case 40: //down key
+      move_tiles("down");
+      break;
+    case 32: //space bar key
+      // alert("space");
+      // check_solution();
+      break;
+    default:
+      // do nothing
+  }
+}
+
 function get_tile_name(i, j) {
   return "tile" + String.fromCharCode(65+j)+eval(i+1);
+}
+
+function get_tile_coords(name) {
+  if (name.substring(0, 4) != "tile") {
+    alert("illegal tile name");
+  } else {
+    // alert("tile coords for " + name + " are (" + eval(name.charCodeAt(4) - 65) +", " + parseInt(name.substring(5)) - 1 + ")");
+    return [eval(parseInt(name.substring(5)) - 1), name.charCodeAt(4) - 65];
+  }
 }
 
 function get_tile_path(dice_string) {
@@ -134,14 +169,15 @@ function clicked(click_id) {
         alert("invalid dice class name");
       }
     } else if (click_id.includes("tile")) {
-      temp_src = selected_tile_path;
-      temp_dice_id = selected_tile.dataset.dice_id;
-
-      selected_tile.src = cur_element.src;
-      selected_tile.dataset.dice_id = cur_element.dataset.dice_id;
-
-      cur_element.src = temp_src;
-      cur_element.dataset.dice_id = temp_dice_id;
+      swap_tiles(selected_id, click_id);
+      // var temp_src = selected_tile_path;
+      // var temp_dice_id = selected_tile.dataset.dice_id;
+      //
+      // selected_tile.src = cur_element.src;
+      // selected_tile.dataset.dice_id = cur_element.dataset.dice_id;
+      //
+      // cur_element.src = temp_src;
+      // cur_element.dataset.dice_id = temp_dice_id;
 
       clear_selections();
     } else {
@@ -150,6 +186,20 @@ function clicked(click_id) {
   } else {
     alert("error, invalid element selected id");
   }
+}
+
+function swap_tiles(tile_1_id, tile_2_id) {
+  var tile_1 = document.getElementById(tile_1_id);
+  var tile_2 = document.getElementById(tile_2_id);
+
+  var temp_src = tile_1.src;
+  var temp_dice_id = tile_1.dataset.dice_id;
+
+  tile_1.src = tile_2.src;
+  tile_1.dataset.dice_id = tile_2.dataset.dice_id;
+
+  tile_2.src = temp_src;
+  tile_2.dataset.dice_id = temp_dice_id;
 }
 
 var all_letter_dice = [
@@ -257,11 +307,213 @@ function download_dice() {
   }
 }
 
+function move_tiles(direction) {
+
+  if (direction == "down") {
+    if (check_empty_row(board_height - 1)) {
+      move_tiles_down();
+    } else {
+      //do nothing
+    }
+  } else if (direction == "left") {
+    if (check_empty_column(0)) {
+      move_tiles_left();
+    } else {
+      //do nothing
+    }
+  } else if (direction == "up") {
+    if (check_empty_row(0)) {
+      move_tiles_up();
+    } else {
+      //do nothing
+    }
+  } else if (direction == "right") {
+    if (check_empty_column(board_width - 1)) {
+      move_tiles_right();
+      // alert(left_rotation_mapping);
+    } else {
+      //do nothing
+    }
+  }
+}
+
+function check_empty_row(row_index) {
+  for (var col_index = 0; col_index < board_width; col_index++) {
+    var cur_id = get_tile_name(row_index, col_index);
+    if (!document.getElementById(cur_id).src.includes("blank")) {
+      return false;
+    }
+  }
+  return true;
+}
+
+function check_empty_column(col_index) {
+  for (var row_index = 0; row_index < board_height; row_index++) {
+    var cur_id = get_tile_name(row_index, col_index);
+    if (!document.getElementById(cur_id).src.includes("blank")) {
+      return false;
+    }
+  }
+  return true;
+}
+
+function move_tiles_down() {
+  for (var row = board_height - 2; row >= 0 ; row--) {
+    for (var col = 0; col < board_width; col++) {
+      var top_id = get_tile_name(row, col);
+      var bottom_id = get_tile_name(row + 1, col);
+      swap_tiles(top_id, bottom_id);
+    }
+  }
+}
+
+function move_tiles_up() {
+  for (var row = 1; row < board_height; row++) {
+    for (var col = board_width - 1; col >= 0; col--) {
+      var top_id = get_tile_name(row, col);
+      var bottom_id = get_tile_name(row - 1, col);
+      swap_tiles(top_id, bottom_id);
+    }
+  }
+}
+
+function move_tiles_left() {
+  for (var col = 1; col < board_width; col++) {
+    for (var row = 0; row < board_height; row++) {
+      var top_id = get_tile_name(row, col);
+      var bottom_id = get_tile_name(row, col - 1);
+      swap_tiles(top_id, bottom_id);
+    }
+  }
+}
+
+function move_tiles_right() {
+  for (var col = board_width - 2; col >= 0; col--) {
+    for (var row = board_height - 1; row >= 0; row--) {
+      var top_id = get_tile_name(row, col);
+      var bottom_id = get_tile_name(row, col + 1);
+      swap_tiles(top_id, bottom_id);
+    }
+  }
+}
+
+
+//I TRIED TO DO SOMETHING COOL WITH ROTATIONS, BUT IT DIDN'T WORK. MAYBE I'LL COME BACK TO IT EVENTUALLY, BUT I'LL JUST DO IT THE BORING WAY FOR NOW
+// function move_tiles(direction) {
+//   //first, assume direction is down
+//
+//   var rows = board_height, cols = board_width;
+//   var delta_i = -1, delta_j = 1;
+//   var starting_i = rows - 2, starting_j = 0;
+//
+//   var rotated_values = [starting_i, starting_j, delta_i, delta_j, rows, cols];
+//
+//   if (direction == "down") {
+//     //do nothing
+//   } else if (direction == "left") {
+//     rotated_values = rotate_all_values(rotated_values, 1);
+//   } else if (direction == "up") {
+//     rotated_values = rotate_all_values(rotated_values, 2);
+//   } else if (direction == "right") {
+//     rotated_values = rotate_all_values(rotated_values, 3);
+//   }
+//
+//   starting_i = rotated_values[0];
+//   starting_j = rotated_values[1];
+//   delta_i = rotated_values[2];
+//   delta_j = rotated_values[3];
+//   rows = rotated_values[4];
+//   cols = rotated_values[5];
+//
+//   if (check_bottom_is_empty(starting_i, starting_j, delta_i, delta_j, rows, cols)) {
+//     move_tiles_down(starting_i, starting_j, delta_i, delta_j, rows, cols)
+//     alert("tried to move letters " + direction);
+//     // alert(left_rotation_mapping);
+//   } else {
+//     alert("bottom_has_letters");
+//   }
+// }
+//
+// function rotate_all_values(all_values, num_rotations) {
+//   if (num_rotations == 0) {
+//     return all_values;
+//   }  else {
+//     var new_values = [];
+//
+//     var starting_i = all_values[0];
+//     var starting_j = all_values[1];
+//     var delta_i = all_values[2];
+//     var delta_j = all_values[3];
+//     var rows = all_values[4];
+//     var cols = all_values[5];
+//
+//     //get the new starting position
+//     console.log("cur starting pos: " + starting_i + ", " + starting_j);
+//     var new_starting_coords = get_tile_coords(left_rotation_mapping[get_tile_name(starting_i, starting_j)]);
+//
+//     console.log("new starting pos: " + new_starting_coords[0] + ", " + new_starting_coords[1]);
+//     new_values[0] = new_starting_coords[0];
+//     new_values[1] = new_starting_coords[1];
+//
+//     //get the new deltas and row/col sizes
+//     var new_deltas_sizes = rotate_left(delta_i, delta_j, rows, cols);
+//
+//     // alert("old deltas: " + delta_i + ", " + delta_j + " new deltas: " + new_deltas_sizes[0] + ", " + new_deltas_sizes[1]);
+//     // alert("old rows cols: " + rows + ", " + cols + " new rows cols: " + new_deltas_sizes[2] + ", " + new_deltas_sizes[3]);
+//     new_values[2] = new_deltas_sizes[0];
+//     new_values[3] = new_deltas_sizes[1];
+//     new_values[4] = new_deltas_sizes[2];
+//     new_values[5] = new_deltas_sizes[3];
+//
+//     return rotate_all_values(new_values, num_rotations - 1);
+//   }
+// }
+//
+// function move_tiles_down(starting_i, starting_j, delta_i, delta_j, rows, cols) { //moves them down relative to the rotations, so it might not actually move down
+//   for (var row = starting_i; row >= 0 && row < rows; row += delta_i) {
+//     for (var col = starting_j; col >= 0 && col < cols; col += delta_j) {
+//       var top_id = get_tile_name(row, col);
+//       var bottom_id = get_tile_name(row - delta_i, col);
+//       swap_tiles(top_id, bottom_id);
+//     }
+//   }
+// }
+//
+// function check_bottom_is_empty(starting_i, starting_j, delta_i, delta_j, rows, cols) {
+//   var row_index = starting_i - delta_i;
+//   for (var col_index = starting_j; col_index >= 0 && col_index < cols; col_index += delta_j) {
+//     var cur_id = get_tile_name(row_index, col_index);
+//     console.log(cur_id);
+//     if (!document.getElementById(cur_id).src.includes("blank")) {
+//       return false;
+//     }
+//   }
+//   return true;
+// }
+//
+// var left_rotation_mapping = {};
+// left_rotation_mapping[get_tile_name(0, 1)] = get_tile_name(1, board_width-1);
+// left_rotation_mapping[get_tile_name(1, board_width-1)] = get_tile_name(board_height, board_width-2);
+// left_rotation_mapping[get_tile_name(board_height-1, board_width-2)] = get_tile_name(board_height-2, 0);
+// left_rotation_mapping[get_tile_name(board_height-2, 0)] = get_tile_name(0, 1);
+//
+// function rotate_left(x, y, rows, cols) {
+//   return [y, -x, cols, rows];
+// }
+
 function display_instructions() {
   var how_to_play = "Roll the letter dice, then connect the letters to form words. If you want a challenge, only make words with four or more letters.";
+  var arrow_keys = "\n\nUse the arrow keys to shift your board so that you can add letters once you've run into an edge.";
   var how_to_upload = "To upload your own set of dice, include \"#xxxxxxxxxxxxxxxx\" at the end of the url, where you substitute the xs for the letters you want. \"Q\" will automatically be converted to \"Qu\". Make sure you include 16 letters; the website will not accept the entry otherwise.";
   var how_to_download = "Downloading saves the dice roll in your url so that you can share your roll with other people; simply download, send them the url, have them upload, and ta-da: you can both solve the same letters.";
-  alert("How to play:\n" + how_to_play + "\n\nHow to upload:\n" + how_to_upload + "\n\nWhat is downloading?\n" + how_to_download);
+  alert("How to play:\n" + how_to_play + arrow_keys + "\n\nHow to upload:\n" + how_to_upload + "\n\nWhat is downloading?\n" + how_to_download);
+}
+
+function display_advanced() {
+  var arrow_keys = "Use the arrow keys to move your letter board around. This can be helpful if your solution branches off in one direction.";
+  // var space_bar = "";
+  alert("You can use keyboard inputs to control the game, too!\n\n" + arrow_keys);
+
 }
 
 function display_faqs() {

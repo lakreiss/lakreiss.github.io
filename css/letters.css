@@ -74,10 +74,14 @@ img {
   cursor:pointer;
 }
 
-.align_left {
+
+/*DECIDED TO USE &nbsp INSTEAD OF ALIGNING, MIGHT CHANGE LATER*/
+/* .align_left {
   float: left;
 }
-
 .align_right {
   float: right;
 }
+.align_center {
+  float: none;
+} */
