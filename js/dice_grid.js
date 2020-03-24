@@ -28,6 +28,9 @@ function key_press(e) {
     case 40: //down key
       move_tiles("down");
       break;
+    case 84: //t key
+      transpose();
+      break;
     case 32: //space bar key
       // alert("space");
       // check_solution();
@@ -92,18 +95,12 @@ function allowDrop(ev) {
 }
 
 function drag(ev) {
-  // ev.preventDefault();
   clicked(ev.target.id);
-  // ev.dataTransfer.setData("text", ev.target.id);
 }
 
 function drop(ev) {
   ev.preventDefault();
   clicked(ev.target.id);
-  //
-  // ev.preventDefault();
-  // var data = ev.dataTransfer.getData("text");
-  // ev.target.appendChild(document.getElementById(data));
 }
 
 //END CODE FOR DRAGGING
@@ -154,7 +151,7 @@ function clicked(click_id) {
 
     var selected_tile = document.getElementById(selected_id);
     unhighlight_tile(selected_tile);
-    //TODO: change this
+
     if (click_id.includes("dice")) {
       if (selected_tile.dataset.dice_id == click_id) {
         selected_tile.src = blank_tile_path;
@@ -170,15 +167,6 @@ function clicked(click_id) {
       }
     } else if (click_id.includes("tile")) {
       swap_tiles(selected_id, click_id);
-      // var temp_src = selected_tile_path;
-      // var temp_dice_id = selected_tile.dataset.dice_id;
-      //
-      // selected_tile.src = cur_element.src;
-      // selected_tile.dataset.dice_id = cur_element.dataset.dice_id;
-      //
-      // cur_element.src = temp_src;
-      // cur_element.dataset.dice_id = temp_dice_id;
-
       clear_selections();
     } else {
       alert("error, invalid element click id 2");
@@ -308,31 +296,21 @@ function download_dice() {
 }
 
 function move_tiles(direction) {
-
   if (direction == "down") {
     if (check_empty_row(board_height - 1)) {
       move_tiles_down();
-    } else {
-      //do nothing
     }
   } else if (direction == "left") {
     if (check_empty_column(0)) {
       move_tiles_left();
-    } else {
-      //do nothing
     }
   } else if (direction == "up") {
     if (check_empty_row(0)) {
       move_tiles_up();
-    } else {
-      //do nothing
     }
   } else if (direction == "right") {
     if (check_empty_column(board_width - 1)) {
       move_tiles_right();
-      // alert(left_rotation_mapping);
-    } else {
-      //do nothing
     }
   }
 }
@@ -397,109 +375,42 @@ function move_tiles_right() {
   }
 }
 
+function transpose() {
+  if (check_for_empty_outside_square()) {
+    //do transpose
+    transpose_square();
+  } else {
+    alert("You can only transpose the board if the area outside the upper-left square is empty.");
+  }
+}
 
-//I TRIED TO DO SOMETHING COOL WITH ROTATIONS, BUT IT DIDN'T WORK. MAYBE I'LL COME BACK TO IT EVENTUALLY, BUT I'LL JUST DO IT THE BORING WAY FOR NOW
-// function move_tiles(direction) {
-//   //first, assume direction is down
-//
-//   var rows = board_height, cols = board_width;
-//   var delta_i = -1, delta_j = 1;
-//   var starting_i = rows - 2, starting_j = 0;
-//
-//   var rotated_values = [starting_i, starting_j, delta_i, delta_j, rows, cols];
-//
-//   if (direction == "down") {
-//     //do nothing
-//   } else if (direction == "left") {
-//     rotated_values = rotate_all_values(rotated_values, 1);
-//   } else if (direction == "up") {
-//     rotated_values = rotate_all_values(rotated_values, 2);
-//   } else if (direction == "right") {
-//     rotated_values = rotate_all_values(rotated_values, 3);
-//   }
-//
-//   starting_i = rotated_values[0];
-//   starting_j = rotated_values[1];
-//   delta_i = rotated_values[2];
-//   delta_j = rotated_values[3];
-//   rows = rotated_values[4];
-//   cols = rotated_values[5];
-//
-//   if (check_bottom_is_empty(starting_i, starting_j, delta_i, delta_j, rows, cols)) {
-//     move_tiles_down(starting_i, starting_j, delta_i, delta_j, rows, cols)
-//     alert("tried to move letters " + direction);
-//     // alert(left_rotation_mapping);
-//   } else {
-//     alert("bottom_has_letters");
-//   }
-// }
-//
-// function rotate_all_values(all_values, num_rotations) {
-//   if (num_rotations == 0) {
-//     return all_values;
-//   }  else {
-//     var new_values = [];
-//
-//     var starting_i = all_values[0];
-//     var starting_j = all_values[1];
-//     var delta_i = all_values[2];
-//     var delta_j = all_values[3];
-//     var rows = all_values[4];
-//     var cols = all_values[5];
-//
-//     //get the new starting position
-//     console.log("cur starting pos: " + starting_i + ", " + starting_j);
-//     var new_starting_coords = get_tile_coords(left_rotation_mapping[get_tile_name(starting_i, starting_j)]);
-//
-//     console.log("new starting pos: " + new_starting_coords[0] + ", " + new_starting_coords[1]);
-//     new_values[0] = new_starting_coords[0];
-//     new_values[1] = new_starting_coords[1];
-//
-//     //get the new deltas and row/col sizes
-//     var new_deltas_sizes = rotate_left(delta_i, delta_j, rows, cols);
-//
-//     // alert("old deltas: " + delta_i + ", " + delta_j + " new deltas: " + new_deltas_sizes[0] + ", " + new_deltas_sizes[1]);
-//     // alert("old rows cols: " + rows + ", " + cols + " new rows cols: " + new_deltas_sizes[2] + ", " + new_deltas_sizes[3]);
-//     new_values[2] = new_deltas_sizes[0];
-//     new_values[3] = new_deltas_sizes[1];
-//     new_values[4] = new_deltas_sizes[2];
-//     new_values[5] = new_deltas_sizes[3];
-//
-//     return rotate_all_values(new_values, num_rotations - 1);
-//   }
-// }
-//
-// function move_tiles_down(starting_i, starting_j, delta_i, delta_j, rows, cols) { //moves them down relative to the rotations, so it might not actually move down
-//   for (var row = starting_i; row >= 0 && row < rows; row += delta_i) {
-//     for (var col = starting_j; col >= 0 && col < cols; col += delta_j) {
-//       var top_id = get_tile_name(row, col);
-//       var bottom_id = get_tile_name(row - delta_i, col);
-//       swap_tiles(top_id, bottom_id);
-//     }
-//   }
-// }
-//
-// function check_bottom_is_empty(starting_i, starting_j, delta_i, delta_j, rows, cols) {
-//   var row_index = starting_i - delta_i;
-//   for (var col_index = starting_j; col_index >= 0 && col_index < cols; col_index += delta_j) {
-//     var cur_id = get_tile_name(row_index, col_index);
-//     console.log(cur_id);
-//     if (!document.getElementById(cur_id).src.includes("blank")) {
-//       return false;
-//     }
-//   }
-//   return true;
-// }
-//
-// var left_rotation_mapping = {};
-// left_rotation_mapping[get_tile_name(0, 1)] = get_tile_name(1, board_width-1);
-// left_rotation_mapping[get_tile_name(1, board_width-1)] = get_tile_name(board_height, board_width-2);
-// left_rotation_mapping[get_tile_name(board_height-1, board_width-2)] = get_tile_name(board_height-2, 0);
-// left_rotation_mapping[get_tile_name(board_height-2, 0)] = get_tile_name(0, 1);
-//
-// function rotate_left(x, y, rows, cols) {
-//   return [y, -x, cols, rows];
-// }
+function transpose_square() {
+  var square_size = Math.min(board_width, board_height);
+  for (var i = 0; i < square_size; i++) {
+    for (var j = i + 1; j < square_size; j++) {
+      var top_id = get_tile_name(i, j);
+      var bottom_id = get_tile_name(j, i);
+      swap_tiles(top_id, bottom_id);
+    }
+  }
+}
+
+function check_for_empty_outside_square() {
+  if (board_width > board_height) {
+    for (var i = board_height; i < board_width; i++) {
+      if (!check_empty_column(i)) {
+        return false;
+      }
+    }
+  } else if (board_height > board_width) {
+    for (var i = board_width; i < board_height; i++) {
+      if (!check_empty_row(i)) {
+        return false;
+      }
+    }
+  }
+  return true;
+}
 
 function display_instructions() {
   var how_to_play = "Roll the letter dice, then connect the letters to form words. If you want a challenge, only make words with four or more letters.";
@@ -510,9 +421,20 @@ function display_instructions() {
 }
 
 function display_advanced() {
-  var arrow_keys = "Use the arrow keys to move your letter board around. This can be helpful if your solution branches off in one direction.";
-  // var space_bar = "";
-  alert("You can use keyboard inputs to control the game, too!\n\n" + arrow_keys);
+  var arrow_keys = "\n\nUse the arrow keys to move your letter board around. This can be helpful if your solution branches off in one direction.";
+  var t;
+
+  if (board_width > board_height) {
+    var num_cols = board_width - board_height;
+    t = "\n\nThe 'T' button transposes the board, although it only works if the " + num_cols + " right-most columns are empty.";
+  } else if (board_height > board_width) {
+    var num_rows = board_height - board_width;
+    t = "\n\nThe 'T' button transposes the board, although it only works if the " + num_rows + " bottom-most rows are empty.";
+  } else {
+    t = "\n\nThe 'T' button transposes the board.";
+  }
+
+  alert("You can use keyboard inputs to control the game, too!" + arrow_keys + t);
 
 }
 
