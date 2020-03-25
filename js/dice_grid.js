@@ -198,7 +198,7 @@ function clicked(click_id) {
       }
     } else if (click_id.includes("tile")) {
       if (cur_element.dataset.dice_id != "none") {
-        alert("cur element: " + click_id + " dice id: " + cur_element.dataset.dice_id);
+        // alert("cur element: " + click_id + " dice id: " + cur_element.dataset.dice_id);
         set_dice_to_unused(cur_element.dataset.dice_id);
       }
       cur_element.src = selected_tile_path;

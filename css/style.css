@@ -165,6 +165,13 @@ footer {
   padding: 1em;
 }
 
+code {
+  background-color: rgba(105,105,105,0.5);
+  width: 100%;
+  padding: 0.5em;
+  border-radius: 0.2rem;
+}
+
 section div {
   float: left;
   box-sizing: border-box;
