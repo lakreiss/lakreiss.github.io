@@ -5,6 +5,15 @@ function get_tile_name(i, j) {
   return "tile" + String.fromCharCode(65+j)+eval(i+1);
 }
 
+function get_tile_coords(name) {
+  if (name.substring(0, 4) != "tile") {
+    alert("illegal tile name");
+  } else {
+    // alert("tile coords for " + name + " are (" + eval(name.charCodeAt(4) - 65) +", " + parseInt(name.substring(5)) - 1 + ")");
+    return [eval(parseInt(name.substring(5)) - 1), name.charCodeAt(4) - 65];
+  }
+}
+
 function set_bingo_tiles() {
   var iter = new Bingo_Tile_Iterator(all_answers);
   var next_answer, answer_words;
@@ -52,5 +61,74 @@ function clicked(click_id) {
   } else {
     cur_element.className += " clicked_tile";
     cur_element.dataset.is_clicked = "true";
+    check_for_bingo(click_id);
+  }
+}
+
+function check_for_bingo(click_id) {
+  var coords = get_tile_coords(click_id);
+  var row = coords[0], col = coords[1];
+
+  var found_not_clicked_tile = false;
+  //check row
+  for (var i = 0; i < board_width; i++) {
+    if (!found_not_clicked_tile) {
+      if (document.getElementById(get_tile_name(row, i)).dataset.is_clicked == "false") {
+        found_not_clicked_tile = true;
+      }
+    }
+  }
+
+  if (!found_not_clicked_tile) {
+    alert("Congratulations, you just completed a BINGO!");
+  } else {
+    found_not_clicked_tile = false;
+    //check row
+    for (var i = 0; i < board_height; i++) {
+      if (!found_not_clicked_tile) {
+        if (document.getElementById(get_tile_name(i, col)).dataset.is_clicked == "false") {
+          found_not_clicked_tile = true;
+        }
+      }
+    }
+
+    if (!found_not_clicked_tile) {
+      alert("Congratulations, you just completed a BINGO!");
+    } else {
+      //check to see if we should check the diagonals
+
+      //first, the top left -> bottom right diagonal
+      if (row == col) {
+        found_not_clicked_tile = false;
+
+        for (var i = 0; i < board_width; i++) {
+          if (!found_not_clicked_tile) {
+            if (document.getElementById(get_tile_name(i, i)).dataset.is_clicked == "false") {
+              found_not_clicked_tile = true;
+            }
+          }
+        }
+
+        if (!found_not_clicked_tile) {
+          alert("Congratulations, you just completed a BINGO!");
+          return;
+        }
+      }
+
+      if (row == board_width - 1 - col) {
+        found_not_clicked_tile = false;
+        for (var i = 0; i < board_width; i++) {
+          if (!found_not_clicked_tile) {
+            if (document.getElementById(get_tile_name(i, board_width - 1 - i)).dataset.is_clicked == "false") {
+              found_not_clicked_tile = true;
+            }
+          }
+        }
+
+        if (!found_not_clicked_tile) {
+          alert("Congratulations, you just completed a BINGO!");
+        }
+      }
+    }
   }
 }
