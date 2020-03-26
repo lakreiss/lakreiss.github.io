@@ -23,6 +23,7 @@
   margin-top: 1rem;
   padding: 1em;
   height: 5vw;
+  width: 56.3vw;
   /* width: 112%; */
 }
 
@@ -78,7 +79,7 @@
   margin-left: 1vw;
   text-align:center;
   display: inline-block;
-  width: 7vw;
+  min-width: 7vw;
   height: 2vw;
   border-radius: 0.5rem;
   background-color: white;
@@ -99,18 +100,33 @@ img {
   cursor:pointer;
 }
 
-#dialog {
-  background-color: rgba(255,255,255,1);
-  border-radius: 0.5rem;
+#opener {
+  float: right;
 }
 
 .example_solution {
-  min-width: 50%;
-  max-width: 50%;
-  min-height: 85%;
-  max-height: 85%;
+  min-width: 0%;
+  max-width: 100%;
+  min-height: 0%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
 }
 
+.pop_up {
+  box-sizing: border-box;
+}
+
+.pop_up_text {
+  vertical-align: top;
+  width: 49%;
+  display: inline-block;
+}
+
+.pop_up_image {
+  width: 49%;
+  display: inline-block;
+}
 
 /*DECIDED TO USE &nbsp INSTEAD OF ALIGNING, MIGHT CHANGE LATER*/
 /* .align_left {

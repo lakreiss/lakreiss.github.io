@@ -652,14 +652,15 @@ function is_in_dictionary(word) {
 $( function() {
   $( "#dialog" ).dialog({
     autoOpen: false,
+    width: 400,
     show: {
-      effect: "blind",
-      duration: 1000
-    },
-    hide: {
-      effect: "explode",
-      duration: 1000
-    }
+        effect: "blind",
+        duration: 1000
+      },
+      hide: {
+        effect: "explode",
+        duration: 1000
+      }
   });
 
   $( "#opener" ).on( "click", function() {
