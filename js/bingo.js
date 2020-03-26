@@ -1,5 +1,5 @@
 var board_height=5, board_width=5, blank_tile="__";
-var all_answers = ["Harness Peer Pressure", "Social Motivation", "Social Ability", "Willingly Change", "Personal Motivation", "Sense of Values", "Personal Ability", "Structural Motivation", "Structural Ability", "Opinion Leaders", "Foster Teamwork", "Strategies", "Modest rewards", "Control Emotions", "ID Vital Behaviors", "200% Accountability", "Open Communication", "Confront Problems", "Responsibility for others", "Speak up",  "Praise vs. Punishment", "Teach and Question", "Go to Gemba", "Make Undesirable Desirable", "Surpass Your Limits", "Reward Behaviors not Outcomes", "Change the Environment", "Intrinsic Satisfaction / Motivation", "Develop Mini-Goals", "Deliberate Practice", "Public Discourse", "Power of Propinquity"]
+var all_default_answers = ["Harness Peer Pressure", "Social Motivation", "Social Ability", "Willingly Change", "Personal Motivation", "Sense of Values", "Personal Ability", "Structural Motivation", "Structural Ability", "Opinion Leaders", "Foster Teamwork", "Strategies", "Modest rewards", "Control Emotions", "ID Vital Behaviors", "200% Accountability", "Open Communication", "Confront Problems", "Responsibility for others", "Speak up",  "Praise vs. Punishment", "Teach and Question", "Go to Gemba", "Make Undesirable Desirable", "Surpass Your Limits", "Reward Behaviors not Outcomes", "Change the Environment", "Intrinsic Satisfaction / Motivation", "Develop Mini-Goals", "Deliberate Practice", "Public Discourse", "Power of Propinquity"]
 
 function get_tile_name(i, j) {
   return "tile" + String.fromCharCode(65+j)+eval(i+1);
@@ -14,8 +14,58 @@ function get_tile_coords(name) {
   }
 }
 
+function check_is_valid_text(input) {
+  var regex = new RegExp(/^[0-9a-z/,'"-%. ]+$/i, ); //takes letters and numbers, as well as a slash, comma, or space
+  return regex.test(input);
+}
+
+function url_has_bingo_entries() {
+  return window.location.href.includes("#");
+}
+
+function set_header(header) {
+  document.getElementById("header").innerHTML = header;
+}
+
+function get_bingo_entries() {
+  // alert("tried to set entries");
+  var url_split = window.location.href.split("#");
+  if (url_split.length != 3) {
+    alert("Error: invalid url. Default answers will be used instead.");
+    return all_default_answers;
+
+  } else {
+    var header = url_split[1];
+    if (!check_is_valid_text(header)) {
+      alert("Error: invalid header. Default answers will be used instead.");
+      return all_default_answers;
+    } else {
+      set_header(header);
+
+      var all_answers = url_split[2].split("&");
+      if (all_answers.length < board_width * board_height) {
+        alert("Error: there are not enough answers to fill the board. Default answers will be used instead.");
+        return all_default_answers;
+      } else {
+        for (var i = 0; i < all_answers.length; i++) {
+          var cur_word = all_answers[i];
+          if (!check_is_valid_text(cur_word)) {
+            alert(cur_word + " is invalid. Default answers will be used instead");
+          }
+        }
+        return all_answers;
+      }
+    }
+  }
+}
+
 function set_bingo_tiles() {
-  var iter = new Bingo_Tile_Iterator(all_answers);
+  var iter;
+  if (url_has_bingo_entries()) {
+    iter = new Bingo_Tile_Iterator(get_bingo_entries());
+  } else {
+    iter = new Bingo_Tile_Iterator(all_default_answers);
+  }
   var next_answer, answer_words;
   for (var i=0; i < board_height; i++) {
     for (var j=0; j < board_width; j++) {
