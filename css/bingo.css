@@ -56,10 +56,10 @@ body {
 /* If the screen size is 600px wide or less, hide the element */
 @media only screen and (max-width: 600px) {
   .bingo_tile {
-    font-size: 0.3em;
+    font-size: 2vw;
   }
 
   .small_font {
-    font-size: 0.3em;
+    font-size: 2vw;
   }
 }
