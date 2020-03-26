@@ -99,6 +99,18 @@ img {
   cursor:pointer;
 }
 
+#dialog {
+  background-color: rgba(255,255,255,1);
+  border-radius: 0.5rem;
+}
+
+.example_solution {
+  min-width: 50%;
+  max-width: 50%;
+  min-height: 85%;
+  max-height: 85%;
+}
+
 
 /*DECIDED TO USE &nbsp INSTEAD OF ALIGNING, MIGHT CHANGE LATER*/
 /* .align_left {

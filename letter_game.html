@@ -8,6 +8,15 @@
       <link rel="stylesheet" href="css/vincent_durand.css">
       <link rel="stylesheet" href="css/letters.css">
       <!-- <script type="text/javascript" src="jquery-3.3.1.js"></script> -->
+
+      <!-- <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+      <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script> -->
+
+      <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="/resources/demos/style.css">
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
       <script src="js/dice_grid.js"></script>
       <link rel="icon stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     </head>
@@ -97,15 +106,30 @@
 
             <div class="letter_board_options">
               <!-- <form submit> -->
-              <form name="frm1">
+              <form name="word_check_form">
                 <input id="word_check" type="text" placeholder="Word to Check">
-                <button class="board_button" onclick="trigger_alert();return false">Check Word</button>
+                <button class="board_button" onclick="check_word();return false">Check Word</button>
+                <button class="board_button" onclick="check_solution();return false">Check Grid</button>
+
+                <!-- <button id="opener" class="board_button">Example Grid</button>
+                <div id="dialog" title="Example Solution">
+                  <img class="example_solution" src="/img/example_1.png" alt="Example Solution" />
+                </div> -->
+
+                <!-- <div id="dialog" title="Basic dialog">
+                  <p>This is an animated dialog which is useful for displaying information. The dialog window can be moved, resized and closed with the 'x' icon.</p>
+                </div>
+
+                <button id="opener">Open Dialog</button> -->
+
               </form>
                 <!-- <input type="submit" value="submit" onclick="trigger_alert()" /> -->
               <!-- </form> -->
             </div>
           </div>
         </div>
+
+
 
       </section>
 

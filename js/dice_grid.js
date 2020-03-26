@@ -92,10 +92,10 @@ function key_press(e) {
     case 75: //k key
       auto_populate_sorted_letters();
       break;
-    case 32: //space bar key
-      // alert("space");
-      check_solution();
-      break;
+    // case 32: //space bar key
+    //   // alert("space");
+    //   check_solution();
+    //   break;
     default:
       // do nothing
   }
@@ -567,24 +567,45 @@ function get_words_to_check() {
 function check_solution() {
   var words_to_check = get_words_to_check();
   if (words_to_check.length > 0) {
-    init_iterator(words_to_check);
-    is_in_dictionary(next_word());
+    init_word_check_iterator(words_to_check);
   } else {
     //do nothing
   }
   return;
 }
 
-var words_to_check_global;
+function check_word() {
+  var word_to_check = document.getElementById("word_check").value;
+  var is_word = check_is_alphabetic(word_to_check);
 
-function init_iterator(words_to_check) {
+  if (!is_word) {
+    alert("Error: your entry was invalid");
+  } else {
+    return init_word_check_iterator([word_to_check]);
+  }
+}
+
+var words_to_check_global;
+var single_word_global;
+
+function init_word_check_iterator(words_to_check) {
   words_to_check_global = words_to_check;
+
+  if (words_to_check.length > 1) {
+    single_word_global = false;
+  } else {
+    single_word_global = true;
+  }
+  is_in_dictionary(next_word());
 }
 
 function next_word() {
   if (words_to_check_global.length == 0) {
-    alert("Congratulations, it looks like all your words are valid!");
-    return;
+    if (single_word_global) {
+      alert("Congratulations, it looks like your word is valid!");
+    } else {
+      alert("Congratulations, it looks like all your words are valid!");
+    }
   } else {
     return words_to_check_global.pop();
   }
@@ -592,10 +613,7 @@ function next_word() {
 
 function failed_check(illegal_word, similar_words) {
   alert("Sorry, it looks like your word '" + illegal_word + "' is not a valid word. Here are some similar words that might help you:\n" + similar_words);
-  return;
 }
-
-// function alert_with_message
 
 function is_in_dictionary(word) {
   var url_start = "https://dictionaryapi.com/api/v3/references/collegiate/json/";
@@ -611,8 +629,6 @@ function is_in_dictionary(word) {
       var next_word_to_test = next_word();
       if (next_word_to_test) {
         return is_in_dictionary(next_word_to_test);
-      } else {
-        return;
       }
     }
   }
@@ -632,6 +648,26 @@ function is_in_dictionary(word) {
 
   return;
 }
+
+$( function() {
+  $( "#dialog" ).dialog({
+    autoOpen: false,
+    show: {
+      effect: "blind",
+      duration: 1000
+    },
+    hide: {
+      effect: "explode",
+      duration: 1000
+    }
+  });
+
+  $( "#opener" ).on( "click", function() {
+    $( "#dialog" ).dialog( "open" );
+  });
+} );
+
+//*********************INSTRUCTIONS*********************
 
 function display_instructions() {
   var how_to_play = "Roll the letter dice, then connect the letters to form words. If you want a challenge, only make words with four or more letters.";
@@ -659,7 +695,7 @@ function display_advanced() {
   var j = "\n\nThe 'J' button sorts the dice on the board by vowels and consonants, with an empty column separating them.";
   var k = "\n\nThe 'K' button sorts the dice on the board alphabetically.";
 
-  alert("You can use keyboard inputs to control the game, too!" + arrow_keys + space + j + k + t);
+  alert("You can use keyboard inputs to control the game, too!" + arrow_keys + j + k + t);
 
 }
 
@@ -670,7 +706,9 @@ function display_faqs() {
   alert("How do I move tiles?\n" + move_tiles + "\n\nWhy are there scrabble tiles on the board?\n" + scrabble_tiles + "\n\nWhat do I do if I found a bug, or want something changed?\n" + found_bug);
 }
 
-function trigger_alert() {
-  alert("you clicked submit: " + document.getElementById("word_check").value);
+//*********************HELPER FUNCTIONS*********************
 
+function check_is_alphabetic(input) {
+  var regex = new RegExp(/^[a-z]+$/i, );
+  return regex.test(input);
 }
