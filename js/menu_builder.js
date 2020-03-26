@@ -14,8 +14,8 @@ function build_menu() {
   document.write('<li class="menu-item">');
   document.write('<a href="#0">Projects</a>');
   document.write('<ol class="sub-menu">');
-  document.write('<li class="menu-item"><a href="/letter_game.html" target="_blank">The Letter Game</a></li>');
-  document.write('<li class="menu-item"><a href="/bingo_builder.html" target="_blank">Bingo Builder</a></li>');
+  document.write('<li class="menu-item"><a href="/letter_game.html">The Letter Game</a></li>');
+  document.write('<li class="menu-item"><a href="/bingo_builder.html">Bingo Builder</a></li>');
   document.write('</ol></li>');
   document.write('<li class="menu-item">');
   document.write('<a href="#0">Look, I\'m on the Internet!</a>');

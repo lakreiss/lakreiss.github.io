@@ -24,7 +24,6 @@ img {
 .letter_board_options {
   /* float: right; */
   margin-left: 1rem;
-  margin-top: 1rem;
   padding: 0.5em;
   height: 3vw;
   width: 56.3vw;
@@ -33,7 +32,6 @@ img {
 }
 
 .letter_game_dice {
-  margin-top: 1rem;
   float: left;
 }
 

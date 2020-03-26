@@ -4,6 +4,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <head>
       <link rel="stylesheet" href="css/style.css">
+      <link rel="stylesheet" href="css/bingo_builder.css">
       <link rel="stylesheet" href="css/vincent_durand.css">
       <link rel="icon stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
       <script src="js/menu_builder.js"></script>
@@ -16,6 +17,18 @@
       <div class="clearfix">
         <div class="text title_text">
           <h1>Bingo Builder</h1>
+          <p>Make your own interactive bingo games! Simply type in the title and answers (one on each line), click "Build", and send your new url to anyone you want to play Bingo with.</p>
+        </div>
+
+        <div class="text bingo_data_entry">
+          <form name="bingo_builder_form">
+            <input id="header" type="text" placeholder="Game Title">
+            <br>
+            <textarea id="answers" rows="10" cols="30" placeholder="Answers (one on each line)"></textarea>
+            <br>
+            <!-- adding 'type="button"' to the following button element makes it not run when the text box is highlighted and enter is pressed -->
+            <button class="bingo_button" onclick="submit_bingo_entry();">Submit</button>
+          </form>
         </div>
       </div>
 
