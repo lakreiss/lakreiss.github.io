@@ -1,3 +1,15 @@
+img {
+  min-width: 5%;
+  max-width: 5%;
+  min-height: 8.5%;
+  max-height: 8.5%;
+  border: 0;
+  margin: .1rem;
+  margin-bottom: -.15rem;
+  padding: 0;
+  cursor:pointer;
+}
+
 .letter_game_intro {
   background-color: rgba(255,255,255,0.5);
   border-radius: 0.5rem;
@@ -21,9 +33,10 @@
   border-radius: 0.5rem;
   margin-left: 1rem;
   margin-top: 1rem;
-  padding: 1em;
-  height: 5vw;
+  padding: 0.5em;
+  height: 3vw;
   width: 56.3vw;
+  /* vertical-align: center; */
   /* width: 112%; */
 }
 
@@ -60,13 +73,14 @@
 .dice_button {
   /* margin: 0 auto; */
   vertical-align: middle;
-  margin-left: 1vw;
-  margin-top: 0.5rem;
-  margin-bottom: 0.55rem;
+  margin-left: 0.7vw;
+  margin-top: 0.1rem;
+  margin-bottom: 0.1rem;
   text-align:center;
   display: inline-block;
-  width: 5vw;
-  height: 3vw;
+  /* width: 5vw; */
+  min-width: 5vw;
+  height: 2vw;
   border-radius: 0.5rem;
   background-color: white;
   border: solid 1px black;
@@ -74,9 +88,25 @@
   /* position: absolute; */
 }
 
+#word_check {
+  /* margin-top: -.85vw; */
+}
+
+#opener {
+  float: right;
+  margin-top: -.1vw;
+}
+
+#opener:after {
+  clear: both;
+  content: '';
+  display: block;
+}
+
 .board_button {
-  vertical-align: middle;
   margin-left: 1vw;
+  /* float: left; */
+  /* margin-top: -1vw; */
   text-align:center;
   display: inline-block;
   min-width: 7vw;
@@ -86,22 +116,6 @@
   border: solid 1px black;
 
   /* position: absolute; */
-}
-
-img {
-  min-width: 5%;
-  max-width: 5%;
-  min-height: 8.5%;
-  max-height: 8.5%;
-  border: 0;
-  margin: .1rem;
-  margin-bottom: -.15rem;
-  padding: 0;
-  cursor:pointer;
-}
-
-#opener {
-  float: right;
 }
 
 .example_solution {
@@ -138,3 +152,7 @@ img {
 .align_center {
   float: none;
 } */
+
+.clear_floats {
+  clear: both;
+}

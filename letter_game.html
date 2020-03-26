@@ -66,7 +66,7 @@
               <span class="align_left">Instructions: <span class="fa fa-info-circle" onclick="display_instructions()"></span></span>
               <span class="align_center">&nbsp&nbsp&nbsp&nbsp&nbsp Advanced: <span class="fa fa-info-circle" onclick="display_advanced()"></span></span>
               <span class="align_right">&nbsp&nbsp&nbsp&nbsp&nbsp FAQs: <span class="fa fa-info-circle" onclick="display_faqs()"></span></span>
-              <span style="clear: both;"></span>
+              <span class="clear_floats"></span>
             </div>
 
             <div class="letter_game_dice">
@@ -104,8 +104,10 @@
               <!-- <form submit> -->
               <form name="word_check_form">
                 <input id="word_check" type="text" placeholder="Word to Check">
+
+                <!-- adding 'type="button"' to the following button element makes it not run when the text box is highlighted and enter is pressed -->
                 <button class="board_button" onclick="check_word();return false">Check Word</button>
-                <button class="board_button" onclick="check_solution();return false">Check Grid</button>
+                <button class="board_button" type="button" onclick="check_solution();return false">Check Grid</button>
 
                 <!-- <button id="opener" class="board_button">Example Grid</button>
                 <div id="dialog" title="Example Solution">
@@ -121,6 +123,7 @@
                 </div>
 
                 <button id="opener" class="board_button" type="button">Example Solution</button>
+                <span class="clear_floats"></span>
 
               </form>
                 <!-- <input type="submit" value="submit" onclick="trigger_alert()" /> -->

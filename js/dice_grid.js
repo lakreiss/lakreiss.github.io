@@ -656,7 +656,7 @@ $( function() {
     autoOpen: false,
     width: 400,
     show: {
-      effect: "bounce",
+      effect: "clip",
       // effect: "bounce",
       duration: 1000
     },
