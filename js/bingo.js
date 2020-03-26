@@ -1,6 +1,6 @@
 var board_height=5, board_width=5, blank_tile="__";
 var all_default_answers = ["Harness Peer Pressure", "Social Motivation", "Social Ability", "Willingly Change", "Personal Motivation", "Sense of Values", "Personal Ability", "Structural Motivation", "Structural Ability", "Opinion Leaders", "Foster Teamwork", "Strategies", "Modest rewards", "Control Emotions", "ID Vital Behaviors", "200% Accountability", "Open Communication", "Confront Problems", "Responsibility for others", "Speak up",  "Praise vs. Punishment", "Teach and Question", "Go to Gemba", "Make Undesirable Desirable", "Surpass Your Limits", "Reward Behaviors not Outcomes", "Change the Environment", "Intrinsic Satisfaction / Motivation", "Develop Mini-Goals", "Deliberate Practice", "Public Discourse", "Power of Propinquity"]
-var url_delim = "#", answer_delim="&";
+var url_delim = "?", answer_delim="&";
 var valid_colors = ["black", "white", "silver", "gray", "maroon", "red", "purple", "fuchsia", "green", "lime", "olive", "yellow", "navy", "blue", "teal", "aqua"];
 
 function get_tile_name(i, j) {
@@ -22,7 +22,7 @@ function check_is_valid_text(input) {
 }
 
 function check_is_valid_color(input) {
-  var regex = new RegExp(/^#[a-fA-F0-9]{6}$/, ); //takes letters and numbers, as well as a slash, comma, or space
+  var regex = new RegExp(/^#[a-fA-F0-9]{6}$|(?:)/, ); //takes letters and numbers, as well as a slash, comma, or space
   if (!regex.test(input)) {
     return valid_colors.includes(input.toLowerCase());
   }
@@ -40,7 +40,7 @@ function set_header(header) {
 function get_bingo_entries() {
   // alert("tried to set entries");
   var url_split = window.location.href.split(url_delim);
-  if (url_split.length != 3) {
+  if (url_split.length != 4) {
     alert("Error: invalid url. Default answers will be used instead.");
     return all_default_answers;
 
@@ -63,6 +63,18 @@ function get_bingo_entries() {
             alert(cur_word + " is invalid. Default answers will be used instead");
           }
         }
+
+        //colors should already be valid
+        // alert("new color: " + url_split[3]);
+        var word_color = url_split[3];
+        document.getElementById("header").style.color = word_color;
+        for (var i=0; i < board_height; i++) {
+          for (var j=0; j < board_width; j++) {
+            var tile_name = get_tile_name(i, j);
+            document.getElementById(tile_name).style.color = word_color;
+          }
+        }
+
         return all_answers;
       }
     }
@@ -230,10 +242,17 @@ function submit_bingo_entry() {
     }
     // alert("answers_to_url " + answers_to_url);
 
-    var url_start = get_url_start();
+    if (test_bingo_board()) {
+      var url_start = get_url_start();
+      var new_url = url_start + "bingo.html" + url_delim + header_to_check + url_delim + answers_to_url;
 
-    window.location.href = url_start + "bingo.html" + url_delim + header_to_check + url_delim + answers_to_url;
-    return;
+      var word_color = document.getElementById("word_color").value;
+      new_url += url_delim + word_color;
+      window.location.href = new_url;
+      return;
+    } else{
+      return;
+    }
   } else {
     alert("Error: Game title '" + header_to_check + "' is invalid");
   }
@@ -249,8 +268,16 @@ function test_bingo_board() {
   if (is_word) {
     // alert("valid color: " + word_color);
     document.getElementById("example_header").style.color = word_color;
+    for (var i=0; i < board_height; i++) {
+      for (var j=0; j < board_width; j++) {
+        var tile_name = get_tile_name(i, j);
+        document.getElementById(tile_name).style.color = word_color;
+      }
+    }
   } else {
     alert("INVALID color: " + word_color);
-    return;
+    return false;
   }
+
+  return true;
 }
