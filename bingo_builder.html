@@ -19,7 +19,7 @@
         <div class="clearfix">
           <div class="text bingo_title_text">
             <h1>Bingo Builder</h1>
-            <p>Make your own interactive bingo games! Simply type in the title and answers (one on each line), click "Build", and send your new url to anyone you want to play Bingo with.</p>
+            <p>Make your own interactive bingo games! Simply type in the title and answers (one on each line), click "Build Game", and send your new url to anyone you want to play Bingo with.</p>
           </div>
 
           <div class="text bingo_data_entry">
@@ -31,13 +31,20 @@
                 <textarea id="answers" rows="10" cols="30" placeholder="Answers (one on each line)"></textarea>
                 <br>
                 <!-- adding 'type="button"' to the following button element makes it not run when the text box is highlighted and enter is pressed -->
-                <button class="bingo_button" onclick="submit_bingo_entry();return false;">Submit</button>
+                <button class="button" type="button" onclick="submit_bingo_entry();return false;">Build Game</button>
               </div>
               <div class="bingo_data">
-
-                <!-- <input id="game_title" type="text" placeholder="Game Title"> -->
+                <br>
+                <br>
+                <span>Word Color: <input id="word_color" type="text" placeholder="Default: #1D5BA5"></span><br>
+                <span>Clicked Color: <input id="clicked_color" type="text" size="18" placeholder="Default: #000000"></span><br>
+                <span>Background Start: <input id="background_start" type="text"  size="14" placeholder="Default: #3BA4C6"></span><br>
+                <span>Background End: <input id="background_end" type="text" size="15" placeholder="Default: #9DB8F0"></span><br>
+                <span>Background Direction: <input id="background_dir" type="text" size="10" placeholder="Default: top"></span><br>
                 <br>
                 <!-- adding 'type="button"' to the following button element makes it not run when the text box is highlighted and enter is pressed -->
+                <button class="button" type="button" onclick="test_bingo();return false;">Test Colors</button>
+
               </div>
             </form>
           </div>

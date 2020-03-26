@@ -25,6 +25,8 @@
 .bingo_data {
   display: inline-block;
   vertical-align: top;
+  /* display: flex; */
+  /* justify-content: center; */
 }
 
 .bingo_example {
@@ -38,13 +40,19 @@
   color: #1D5BA5;
   -webkit-text-stroke: 1px black;
   font-size: 4vw;
-  margin-bottom: 2.2vw;
+  margin-bottom: 1.9vw;
 }
 
 .example_bingo_board {
   /* vertical-align: top; */
   text-align: center;
   box-sizing: border-box;
+}
+
+.button {
+  /* text-align: center; */
+  display: block;
+  margin: 0 auto;
 }
 
 .bingo_tile {
@@ -72,11 +80,7 @@
 }
 
 .bingo_tile span {
-  /* word-wrap: break-word; */
   max-height: 8vw;
   font-family: Calibri, sans-serif;
   margin: 1px;
-  /* vertical-align: center; */
-  /* position: relative; */
-  /* white-space: normal; */
 }
