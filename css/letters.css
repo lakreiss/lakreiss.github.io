@@ -11,26 +11,18 @@ img {
 }
 
 .letter_game_intro {
-  background-color: rgba(255,255,255,0.5);
-  border-radius: 0.5rem;
-  padding: 1em;
   width: 100%;
 }
 
 .letter_board {
   /* float: right; */
-  background-color: rgba(255,255,255,0.5);
-  border-radius: 0.5rem;
   margin-left: 1rem;
-  padding: 1em;
   height: 33vw;
   /* width: 112%; */
 }
 
 .letter_board_options {
   /* float: right; */
-  background-color: rgba(255,255,255,0.5);
-  border-radius: 0.5rem;
   margin-left: 1rem;
   margin-top: 1rem;
   padding: 0.5em;
@@ -43,9 +35,6 @@ img {
 .letter_game_dice {
   margin-top: 1rem;
   float: left;
-  background-color: rgba(255,255,255,0.5);
-  border-radius: 0.5rem;
-  padding: 1em;
 }
 
 .dice {
@@ -152,7 +141,3 @@ img {
 .align_center {
   float: none;
 } */
-
-.clear_floats {
-  clear: both;
-}

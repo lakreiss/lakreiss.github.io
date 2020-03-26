@@ -61,7 +61,7 @@
       <section class="letter_game">
         <div class="row">
           <div class="col-4">
-            <div class="letter_game_intro">
+            <div class="text letter_game_intro">
               <h1>Welcome to the Letter Game!</h1>
               <span class="align_left">Instructions: <span class="fa fa-info-circle" onclick="display_instructions()"></span></span>
               <span class="align_center">&nbsp&nbsp&nbsp&nbsp&nbsp Advanced: <span class="fa fa-info-circle" onclick="display_advanced()"></span></span>
@@ -69,7 +69,7 @@
               <span class="clear_floats"></span>
             </div>
 
-            <div class="letter_game_dice">
+            <div class="text letter_game_dice">
               <button class="dice_button" onclick="roll_dice()">Roll Dice</button>
               <button class="dice_button" onclick="reset_board()">Reset Board</button>
               <button class="dice_button" onclick="upload_dice()">Upload</button>
@@ -86,7 +86,7 @@
 
 
           <div class="col-8">
-            <div class="letter_board">
+            <div class="text letter_board">
               <script language="JavaScript">
                 for (var i=0; i < board_height; i++)
                 { document.write("<nobr>");
@@ -100,7 +100,7 @@
               </script>
             </div>
 
-            <div class="letter_board_options">
+            <div class="text letter_board_options">
               <!-- <form submit> -->
               <form name="word_check_form">
                 <input id="word_check" type="text" placeholder="Word to Check">
@@ -122,8 +122,7 @@
                   </div>
                 </div>
 
-                <button id="opener" class="board_button" type="button">Example Solution</button>
-                <span class="clear_floats"></span>
+                <button id="opener" class="clearfix board_button" type="button">Example Solution</button>
 
               </form>
                 <!-- <input type="submit" value="submit" onclick="trigger_alert()" /> -->
