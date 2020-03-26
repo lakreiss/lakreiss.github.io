@@ -30,10 +30,20 @@ function set_bingo_tiles() {
             k = answer_words.length;
           }
         }
-        document.getElementById(tile_name).getElementsByTagName("span")[0].innerHTML = next_answer;
+        document.getElementById(tile_name).getElementsByTagName("span")[0].innerHTML = "<br>" + next_answer;
       } else {
         alert("Error: not enough words in the word bank");
       }
+    }
+  }
+}
+
+function remove_brs() {
+  for (var i=0; i < board_height; i++) {
+    for (var j=0; j < board_width; j++) {
+      var tile_name = get_tile_name(i, j);
+      var initial_html = document.getElementById(tile_name).getElementsByTagName("span")[0].innerHTML;
+      document.getElementById(tile_name).getElementsByTagName("span")[0].innerHTML = initial_html.subsring(4);
     }
   }
 }
