@@ -26,7 +26,7 @@ function set_bingo_tiles() {
         answer_words = next_answer.split(" ");
         for (var k = 0; k < answer_words.length; k++) {
           if (answer_words[k].length > 10) {
-            document.getElementById(tile_name).getElementsByTagName("span")[0].style.fontSize = "0.9em";
+            document.getElementById(tile_name).getElementsByTagName("span")[0].className += "small_font";
             k = answer_words.length;
           }
         }

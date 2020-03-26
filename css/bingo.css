@@ -39,6 +39,10 @@ body {
   /* color: #FFFFFF; */
 }
 
+.small_font {
+  font-size: 0.9em;
+}
+
 .bingo_tile span {
   /* word-wrap: break-word; */
   max-height: 8vw;
@@ -47,4 +51,15 @@ body {
   /* vertical-align: center; */
   /* position: relative; */
   /* white-space: normal; */
+}
+
+/* If the screen size is 600px wide or less, hide the element */
+@media only screen and (max-width: 600px) {
+  .bingo_tile {
+    font-size: 0.3em;
+  }
+
+  .small_font {
+    font-size: 0.3em;
+  }
 }
