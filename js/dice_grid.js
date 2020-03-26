@@ -656,13 +656,16 @@ $( function() {
     autoOpen: false,
     width: 400,
     show: {
-        effect: "blind",
-        duration: 1000
-      },
-      hide: {
-        effect: "explode",
-        duration: 1000
-      }
+      effect: "bounce",
+      // effect: "bounce",
+      duration: 1000
+    },
+    hide: {
+      effect: "clip",
+      // effect: "clip",
+      // effect: "fade",
+      duration: 1000
+    }
   });
 
   $( "#opener" ).on( "click", function() {
