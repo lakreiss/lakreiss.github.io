@@ -1,5 +1,6 @@
 var board_height=5, board_width=5, blank_tile="__";
 var all_default_answers = ["Harness Peer Pressure", "Social Motivation", "Social Ability", "Willingly Change", "Personal Motivation", "Sense of Values", "Personal Ability", "Structural Motivation", "Structural Ability", "Opinion Leaders", "Foster Teamwork", "Strategies", "Modest rewards", "Control Emotions", "ID Vital Behaviors", "200% Accountability", "Open Communication", "Confront Problems", "Responsibility for others", "Speak up",  "Praise vs. Punishment", "Teach and Question", "Go to Gemba", "Make Undesirable Desirable", "Surpass Your Limits", "Reward Behaviors not Outcomes", "Change the Environment", "Intrinsic Satisfaction / Motivation", "Develop Mini-Goals", "Deliberate Practice", "Public Discourse", "Power of Propinquity"]
+var url_delim = "#", answer_delim="&";
 
 function get_tile_name(i, j) {
   return "tile" + String.fromCharCode(65+j)+eval(i+1);
@@ -20,7 +21,7 @@ function check_is_valid_text(input) {
 }
 
 function url_has_bingo_entries() {
-  return window.location.href.includes("#");
+  return window.location.href.includes(url_delim);
 }
 
 function set_header(header) {
@@ -29,7 +30,7 @@ function set_header(header) {
 
 function get_bingo_entries() {
   // alert("tried to set entries");
-  var url_split = window.location.href.split("#");
+  var url_split = window.location.href.split(url_delim);
   if (url_split.length != 3) {
     alert("Error: invalid url. Default answers will be used instead.");
     return all_default_answers;
@@ -42,7 +43,7 @@ function get_bingo_entries() {
     } else {
       set_header(header);
 
-      var all_answers = url_split[2].split("&");
+      var all_answers = url_split[2].split(answer_delim);
       if (all_answers.length < board_width * board_height) {
         alert("Error: there are not enough answers to fill the board. Default answers will be used instead.");
         return all_default_answers;
@@ -191,4 +192,44 @@ function check_for_bingo(click_id) {
       }
     }
   }
+}
+
+function submit_bingo_entry() {
+  var header_to_check = document.getElementById("game_title").value;
+  var is_word = check_is_valid_text(header_to_check);
+  if (is_word) {
+    var answers_to_check = document.getElementById("answers").value.split("\n");
+    var answers_to_url = "";
+
+    if (answers_to_check.length < board_width * board_height) {
+      alert("Error: You don't have enough answers to fill the board. Please add more answers.");
+      return;
+    }
+
+    for (var i = 0; i < answers_to_check.length; i++) {
+      if (check_is_valid_text(answers_to_check[i])) {
+        // alert("answer number " + i + ": " + answers_to_check[i]);
+        if (answers_to_url == "") {
+          answers_to_url += answers_to_check[i];
+        } else {
+          answers_to_url += answer_delim + answers_to_check[i];
+        }
+      } else {
+        alert("Error: one of your answers was invalid. Try to remove any unusual characters.")
+        return;
+      }
+    }
+    // alert("answers_to_url " + answers_to_url);
+
+    var url_start = get_url_start();
+
+    window.location.href = url_start + "bingo.html" + url_delim + header_to_check + url_delim + answers_to_url;
+    return;
+  } else {
+    alert("Error: Game title '" + header_to_check + "' is invalid");
+  }
+}
+
+function get_url_start() {
+  return window.location.href.split("bingo_builder.html")[0];
 }

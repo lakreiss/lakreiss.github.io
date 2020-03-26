@@ -8,6 +8,7 @@
       <link rel="stylesheet" href="css/vincent_durand.css">
       <link rel="icon stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
       <script src="js/menu_builder.js"></script>
+      <script src="js/bingo.js"></script>
     </head>
 
     <body>
@@ -22,12 +23,12 @@
 
         <div class="text bingo_data_entry">
           <form name="bingo_builder_form">
-            <input id="header" type="text" placeholder="Game Title">
+            <input id="game_title" size="32" type="text" placeholder="Game Title">
             <br>
             <textarea id="answers" rows="10" cols="30" placeholder="Answers (one on each line)"></textarea>
             <br>
             <!-- adding 'type="button"' to the following button element makes it not run when the text box is highlighted and enter is pressed -->
-            <button class="bingo_button" onclick="submit_bingo_entry();">Submit</button>
+            <button class="bingo_button" onclick="submit_bingo_entry();return false;">Submit</button>
           </form>
         </div>
       </div>
