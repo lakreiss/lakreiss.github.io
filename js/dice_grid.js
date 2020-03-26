@@ -578,7 +578,9 @@ function check_word() {
   var word_to_check = document.getElementById("word_check").value;
   var is_word = check_is_alphabetic(word_to_check);
 
-  if (!is_word) {
+  if (word_to_check == "") {
+    alert("Error: you forgot to enter a word!");
+  } else if (!is_word) {
     alert("Error: your entry was invalid");
   } else {
     return init_word_check_iterator([word_to_check]);
