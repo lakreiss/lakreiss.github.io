@@ -1,6 +1,7 @@
 var board_height=5, board_width=5, blank_tile="__";
 var all_default_answers = ["Harness Peer Pressure", "Social Motivation", "Social Ability", "Willingly Change", "Personal Motivation", "Sense of Values", "Personal Ability", "Structural Motivation", "Structural Ability", "Opinion Leaders", "Foster Teamwork", "Strategies", "Modest rewards", "Control Emotions", "ID Vital Behaviors", "200% Accountability", "Open Communication", "Confront Problems", "Responsibility for others", "Speak up",  "Praise vs. Punishment", "Teach and Question", "Go to Gemba", "Make Undesirable Desirable", "Surpass Your Limits", "Reward Behaviors not Outcomes", "Change the Environment", "Intrinsic Satisfaction / Motivation", "Develop Mini-Goals", "Deliberate Practice", "Public Discourse", "Power of Propinquity"]
 var url_delim = "#", answer_delim="&";
+var valid_colors = ["black", "white", "silver", "gray", "maroon", "red", "purple", "fuchsia", "green", "lime", "olive", "yellow", "navy", "blue", "teal", "aqua"];
 
 function get_tile_name(i, j) {
   return "tile" + String.fromCharCode(65+j)+eval(i+1);
@@ -18,6 +19,14 @@ function get_tile_coords(name) {
 function check_is_valid_text(input) {
   var regex = new RegExp(/^[-0-9a-z/,'"%. ]+$/i, ); //takes letters and numbers, as well as a slash, comma, or space
   return regex.test(input);
+}
+
+function check_is_valid_color(input) {
+  var regex = new RegExp(/^#[a-fA-F0-9]{6}$/, ); //takes letters and numbers, as well as a slash, comma, or space
+  if (!regex.test(input)) {
+    return valid_colors.includes(input.toLowerCase());
+  }
+  return true;
 }
 
 function url_has_bingo_entries() {
@@ -232,4 +241,16 @@ function submit_bingo_entry() {
 
 function get_url_start() {
   return window.location.href.split("bingo_builder.html")[0];
+}
+
+function test_bingo_board() {
+  var word_color = document.getElementById("word_color").value;
+  var is_word = check_is_valid_color(word_color);
+  if (is_word) {
+    // alert("valid color: " + word_color);
+    document.getElementById("example_header").style.color = word_color;
+  } else {
+    alert("INVALID color: " + word_color);
+    return;
+  }
 }

@@ -43,7 +43,7 @@
                 <span>Background Direction: <input id="background_dir" type="text" size="10" placeholder="Default: top"></span><br>
                 <br>
                 <!-- adding 'type="button"' to the following button element makes it not run when the text box is highlighted and enter is pressed -->
-                <button class="button" type="button" onclick="test_bingo();return false;">Test Colors</button>
+                <button class="button" type="button" onclick="test_bingo_board();return false;">Test Colors</button>
 
               </div>
             </form>
@@ -52,7 +52,7 @@
       </div>
       <div class="right_side">
         <div class="text bingo_example">
-          <h1 id="header" class="example_title">BINGO</h1>
+          <h1 id="example_header" class="example_title">BINGO</h1>
           <script language="JavaScript">
             document.write("<div class=\"example_bingo_board\">")
             for (var i=0; i < board_height; i++)
