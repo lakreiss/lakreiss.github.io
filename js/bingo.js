@@ -215,7 +215,7 @@ function submit_bingo_entry() {
           answers_to_url += answer_delim + answers_to_check[i];
         }
       } else {
-        alert("Error: one of your answers was invalid. Try to remove any unusual characters (the dash c) and empty lines.")
+        alert("Error: one of your answers was invalid. Try to remove any empty lines and unusual characters.")
         return;
       }
     }

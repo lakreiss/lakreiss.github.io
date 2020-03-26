@@ -14,22 +14,53 @@
     <body>
       <script>build_menu();</script>
 
+      <div class="left_side">
 
-      <div class="clearfix">
-        <div class="text title_text">
-          <h1>Bingo Builder</h1>
-          <p>Make your own interactive bingo games! Simply type in the title and answers (one on each line), click "Build", and send your new url to anyone you want to play Bingo with.</p>
+        <div class="clearfix">
+          <div class="text bingo_title_text">
+            <h1>Bingo Builder</h1>
+            <p>Make your own interactive bingo games! Simply type in the title and answers (one on each line), click "Build", and send your new url to anyone you want to play Bingo with.</p>
+          </div>
+
+          <div class="text bingo_data_entry">
+            <form name="bingo_builder_form">
+              <div class="bingo_data">
+
+                <input id="game_title" type="text" placeholder="Game Title">
+                <br>
+                <textarea id="answers" rows="10" cols="30" placeholder="Answers (one on each line)"></textarea>
+                <br>
+                <!-- adding 'type="button"' to the following button element makes it not run when the text box is highlighted and enter is pressed -->
+                <button class="bingo_button" onclick="submit_bingo_entry();return false;">Submit</button>
+              </div>
+              <div class="bingo_data">
+
+                <!-- <input id="game_title" type="text" placeholder="Game Title"> -->
+                <br>
+                <!-- adding 'type="button"' to the following button element makes it not run when the text box is highlighted and enter is pressed -->
+              </div>
+            </form>
+          </div>
         </div>
-
-        <div class="text bingo_data_entry">
-          <form name="bingo_builder_form">
-            <input id="game_title" size="32" type="text" placeholder="Game Title">
-            <br>
-            <textarea id="answers" rows="10" cols="30" placeholder="Answers (one on each line)"></textarea>
-            <br>
-            <!-- adding 'type="button"' to the following button element makes it not run when the text box is highlighted and enter is pressed -->
-            <button class="bingo_button" onclick="submit_bingo_entry();return false;">Submit</button>
-          </form>
+      </div>
+      <div class="right_side">
+        <div class="text bingo_example">
+          <h1 id="header" class="example_title">BINGO</h1>
+          <script language="JavaScript">
+            document.write("<div class=\"example_bingo_board\">")
+            for (var i=0; i < board_height; i++)
+            {
+              // document.write("<nobr>");
+              for (var j=0; j < board_width; j++)
+              {
+                var tile_name = get_tile_name(i, j);
+                document.write("<div class=\"bingo_tile\" id=\""+tile_name+"\"onclick=\"clicked(\'"+tile_name+"\')\" data-is_clicked=\'false\' title='"+tile_name+"' alt='"+tile_name+"'><span>" + blank_tile + "</span></div>");
+              }
+              // document.writeln("</nobr><br>");
+              document.writeln("<br>");
+            }
+            document.write("</div>")
+          </script>
         </div>
       </div>
 

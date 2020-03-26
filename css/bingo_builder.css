@@ -1,3 +1,82 @@
+.left_side {
+  max-width: 49%;
+  display: inline-block;
+}
+
+.right_side {
+  margin-left: 1vw;
+  min-width: 49%;
+  max-width: 50%;
+  display: inline-block;
+  vertical-align: top;
+}
+
+.bingo_title_text {
+  width: 100%;
+  display: inline-block;
+}
+
 .bingo_data_entry {
-  width: 21vw;
+  width: 100%;
+  box-sizing: border-box;
+  display: inline-block;
+}
+
+.bingo_data {
+  display: inline-block;
+  vertical-align: top;
+}
+
+.bingo_example {
+  min-width: 101%;
+  max-width: 101%;
+  background-image: linear-gradient(to top, #3BA4C6, #9DB8F0);
+}
+
+.example_title {
+  text-align: center;
+  color: #1D5BA5;
+  -webkit-text-stroke: 1px black;
+  font-size: 4vw;
+  margin-bottom: 2.2vw;
+}
+
+.example_bingo_board {
+  /* vertical-align: top; */
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.bingo_tile {
+  background-color: rgba(255,255,255);
+  outline: 2px solid #1D5BA5;
+  display: inline-block;
+  max-width: 4vw;
+  min-width: 4vw;
+  max-height: 4vw;
+  min-height: 4vw;
+  position: relative;
+  vertical-align: top;
+  margin: 1px;
+  font-size: 1em;
+  color: #1D5BA5;
+}
+
+.clicked_tile {
+  background-color: rgba(0,0,0);
+  /* color: #FFFFFF; */
+}
+
+.small_font {
+  font-size: 0.9em;
+}
+
+.bingo_tile span {
+  /* word-wrap: break-word; */
+  max-height: 8vw;
+  font-family: Calibri, sans-serif;
+  margin: 1px;
+  /* vertical-align: center; */
+  /* position: relative; */
+  /* white-space: normal; */
 }
