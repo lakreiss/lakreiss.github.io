@@ -17,7 +17,7 @@ var all_letter_dice = [
   ["W", "O", "T", "U", "O", "F"]
 ];
 
-var num_dice=all_letter_dice.length, board_height=12, board_width=18;
+var num_dice=all_letter_dice.length, board_height=11, board_width=18;
 var auto_populate_start_col = 1;
 
 var tile_path_start="img/letter_pieces/";
@@ -668,4 +668,9 @@ function display_faqs() {
   var scrabble_tiles = "The board uses scrabble tiles because they look nice. The numbers don't mean anything; there are no points in this game. If you really want them to have meaning, you can sum up the points of your letters, and think of the total as the roll's 'difficulty.'";
   var found_bug = "If you find a bug, or something that you think could be improved, please email me with a detailed explanation of your findings or thoughts. If you can take a picture or video of the problem and include it, that'd be great. The more specific you can be, the better. Thank you! My email is available from the email icon below.";
   alert("How do I move tiles?\n" + move_tiles + "\n\nWhy are there scrabble tiles on the board?\n" + scrabble_tiles + "\n\nWhat do I do if I found a bug, or want something changed?\n" + found_bug);
+}
+
+function trigger_alert() {
+  alert("you clicked submit: " + document.getElementById("word_check").value);
+
 }
