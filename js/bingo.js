@@ -16,7 +16,7 @@ function get_tile_coords(name) {
 }
 
 function check_is_valid_text(input) {
-  var regex = new RegExp(/^[0-9a-z/,'"-%. ]+$/i, ); //takes letters and numbers, as well as a slash, comma, or space
+  var regex = new RegExp(/^[-0-9a-z/,'"%. ]+$/i, ); //takes letters and numbers, as well as a slash, comma, or space
   return regex.test(input);
 }
 
@@ -215,7 +215,7 @@ function submit_bingo_entry() {
           answers_to_url += answer_delim + answers_to_check[i];
         }
       } else {
-        alert("Error: one of your answers was invalid. Try to remove any unusual characters.")
+        alert("Error: one of your answers was invalid. Try to remove any unusual characters (the dash c) and empty lines.")
         return;
       }
     }
