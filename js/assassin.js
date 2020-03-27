@@ -64,7 +64,6 @@ function get_assassin_targets_as_string(assassin_players, num_targets) {
 
   var random_ordered_players = assassin_players.sort(function(a, b){return 0.5 - Math.random()});
   var final_players = remove_duplicates(random_ordered_players);
-  alert(final_players);
   var num_players = final_players.length;
 
   var target_mapping = [];
