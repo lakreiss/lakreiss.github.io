@@ -8,6 +8,7 @@
     <link rel="icon stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <script src="js/menu_builder.js"></script>
+    <script src="js/assassin.js"></script>
   </head>
 
   <body>
@@ -18,12 +19,12 @@
       <div class="text assassin_text">
         <h1 style="color:black">Assassin</h1>
         <p>I noticed that there are no good websites that create <i>Assassin</i> games, so I made one! Hope you enjoy.</p>
-        <p>Here is an interesting article
-
-        <p>Enter comma separated names to generate an assassin cycle.</p>
+      </div>
+      <div class="text assassin_text">
+        <p>Enter one name per line to generate an assassin cycle.</p>
 
         <!-- TODO: NEED TO FIGURE OUT HOW TO DO THIS WITHOUT PHP POST REQUEST. JAVASCRIPT? -->
-        <form action="temp_game.php" method="post">
+        <form class="assassin_form">
           <p id="failed_game_creation"></p>
 
           <script>
@@ -40,8 +41,8 @@
 
           <!-- TODO: keep player text info in the text area if there's an error thrown -->
 
-          <textarea name="players" rows="10" cols="30" placeholder="Enter names here"></textarea>
-          <p>How many targets should each person have? 1 is standard.</p>
+          <textarea id="assassin_players" name="players" rows="10" cols="30" placeholder="Enter names here"></textarea><br>
+          <span>How many targets should each person have? 1 is standard.</span><br>
           <input type="radio" id="one_target" name="num_targets" value="1" checked="checked">
           <label for="one_target">1</label>
           <input type="radio" id="two_targets" name="num_targets" value="2">
@@ -51,7 +52,7 @@
           <input type="radio" id="four_targets" name="num_targets" value="4">
           <label for="four_targets">4</label>
           <br>
-          <input type="submit" name="enter"></input>
+          <button class="button" type="button" onclick="create_assassin_game();return false;">Create Game</button>
         </form>
 
 
