@@ -54,7 +54,7 @@ function get_bingo_entries() {
       alert("Error: invalid header. Default answers will be used instead.");
       return all_default_answers;
     } else {
-      set_header(header.replace("%20", " "));
+      set_header(header.replace(/%20/g, " "));
 
       var all_answers = url_split[2].split(answer_delim);
       if (all_answers.length < board_width * board_height) {
@@ -65,7 +65,7 @@ function get_bingo_entries() {
           if (!check_is_valid_text(all_answers[i])) {
             alert(all_answers[i] + " is invalid. Default answers will be used instead");
           }
-          all_answers[i] = all_answers[i].replace("%20", " ");
+          all_answers[i] = all_answers[i].replace(/%20/g, " ");
         }
 
         // alert("new color: " + url_split[3]);
