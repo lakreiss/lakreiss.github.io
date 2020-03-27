@@ -41,8 +41,16 @@
                 <!-- <span>Background Start: <input id="background_start" type="text"  size="14" placeholder="Default: #3BA4C6"></span><br>
                 <span>Background End: <input id="background_end" type="text" size="15" placeholder="Default: #9DB8F0"></span><br>
                 <span>Background Direction: <input id="background_dir" type="text" size="10" placeholder="Default: top"></span><br> -->
+                <span>Background Direction:
+                  <select id="background_dir">
+                    <option value="top">Top</option>
+                    <option value="bottom">Bottom</option>
+                    <option value="left">Left</option>
+                    <option value="right">Right</option>
+                  </select>
+                </span>
+
                 <br>
-                <!-- adding 'type="button"' to the following button element makes it not run when the text box is highlighted and enter is pressed -->
                 <button class="button" type="button" onclick="test_bingo_board();return false;">Test Colors</button>
 
               </div>
@@ -51,7 +59,7 @@
         </div>
       </div>
       <div class="right_side">
-        <div class="text bingo_example">
+        <div id="bingo_example" class="text">
           <h1 id="example_header" class="example_title">BINGO</h1>
           <script language="JavaScript">
             document.write("<div class=\"example_bingo_board\">")

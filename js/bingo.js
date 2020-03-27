@@ -40,7 +40,7 @@ function set_header(header) {
 function get_bingo_entries() {
   // alert("tried to set entries");
   var url_split = window.location.href.split(url_delim);
-  if (url_split.length != 5) {
+  if (url_split.length != 6) {
     alert("Error: invalid url. Default answers will be used instead.");
     return all_default_answers;
 
@@ -87,6 +87,9 @@ function get_bingo_entries() {
             }
           }
         }
+
+        var background_dir = url_split[5];
+        document.body.style.backgroundImage = "linear-gradient(to " + background_dir + ", #3BA4C6, #9DB8F0)";
 
         return all_answers;
       }
@@ -269,6 +272,10 @@ function submit_bingo_entry() {
 
       var clicked_color = document.getElementById("clicked_color").value;
       new_url += url_delim + clicked_color;
+
+      var background_dir = document.getElementById("background_dir").value;
+      new_url += url_delim + background_dir;
+
       window.location.href = new_url;
       return;
     } else{
@@ -284,6 +291,8 @@ function get_url_start() {
 }
 
 function test_bingo_board() {
+
+  //word color (including title)
   var word_color = document.getElementById("word_color").value;
   if (check_is_valid_color(word_color) || word_color == "") {
     // alert("valid color: " + word_color);
@@ -299,7 +308,7 @@ function test_bingo_board() {
     return false;
   }
 
-// tried to allow for changing the tile background color on click, but it's hard because the class name changes
+  //click background color
   var clicked_color = document.getElementById("clicked_color").value;
   if (check_is_valid_color(clicked_color) || clicked_color == "") {
     clicked_true_color = clicked_color=="" ? "black" : clicked_color;
@@ -319,6 +328,11 @@ function test_bingo_board() {
     alert("INVALID color: " + clicked_color);
     return false;
   }
+
+  //background fade direction
+  var background_dir = document.getElementById("background_dir").value;
+  document.getElementById("bingo_example").style.backgroundImage = "linear-gradient(to " + background_dir + ", #3BA4C6, #9DB8F0)";
+
 
   return true;
 }

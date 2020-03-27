@@ -29,7 +29,7 @@
   /* justify-content: center; */
 }
 
-.bingo_example {
+#bingo_example {
   min-width: 101%;
   max-width: 101%;
   background-image: linear-gradient(to top, #3BA4C6, #9DB8F0);
