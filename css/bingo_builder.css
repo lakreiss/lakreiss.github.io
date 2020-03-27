@@ -70,10 +70,9 @@
   color: #1D5BA5;
 }
 
-.clicked_tile {
+/* .clicked_tile {
   background-color: rgba(0,0,0);
-  /* color: #FFFFFF; */
-}
+} */
 
 .small_font {
   font-size: 0.9em;

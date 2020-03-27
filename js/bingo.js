@@ -40,7 +40,7 @@ function set_header(header) {
 function get_bingo_entries() {
   // alert("tried to set entries");
   var url_split = window.location.href.split(url_delim);
-  if (url_split.length != 4) {
+  if (url_split.length != 5) {
     alert("Error: invalid url. Default answers will be used instead.");
     return all_default_answers;
 
@@ -72,6 +72,19 @@ function get_bingo_entries() {
           for (var j=0; j < board_width; j++) {
             var tile_name = get_tile_name(i, j);
             document.getElementById(tile_name).style.color = word_color;
+          }
+        }
+
+        var clicked_color = url_split[4];
+        clicked_true_color = clicked_color;
+        for (var i=0; i < board_height; i++) {
+          for (var j=0; j < board_width; j++) {
+            var tile_name = get_tile_name(i, j);
+            if (document.getElementById(tile_name).dataset.is_clicked == "false") {
+              document.getElementById(tile_name).style.backgroundColor = clicked_false_color;
+            } else {
+              document.getElementById(tile_name).style.backgroundColor = clicked_color;
+            }
           }
         }
 
@@ -135,13 +148,18 @@ class Bingo_Tile_Iterator {
   }
 }
 
+var clicked_false_color = "white";
+var clicked_true_color = "black";
+
 function clicked(click_id) {
   var cur_element = document.getElementById(click_id);
   if (cur_element.dataset.is_clicked == "true") {
-    cur_element.className = "bingo_tile";
+    // cur_element.className = "bingo_tile";
     cur_element.dataset.is_clicked = "false";
+    cur_element.style.backgroundColor = clicked_false_color;
   } else {
-    cur_element.className += " clicked_tile";
+    // cur_element.className += " clicked_tile";
+    cur_element.style.backgroundColor = clicked_true_color;
     cur_element.dataset.is_clicked = "true";
     check_for_bingo(click_id);
   }
@@ -248,6 +266,9 @@ function submit_bingo_entry() {
 
       var word_color = document.getElementById("word_color").value;
       new_url += url_delim + word_color;
+
+      var clicked_color = document.getElementById("clicked_color").value;
+      new_url += url_delim + clicked_color;
       window.location.href = new_url;
       return;
     } else{
@@ -274,6 +295,28 @@ function test_bingo_board() {
         document.getElementById(tile_name).style.color = word_color;
       }
     }
+  } else {
+    alert("INVALID color: " + word_color);
+    return false;
+  }
+
+// tried to allow for changing the tile background color on click, but it's hard because the class name changes
+  var clicked_color = document.getElementById("clicked_color").value;
+  var is_word = check_is_valid_color(clicked_color);
+  if (is_word) {
+    clicked_true_color = clicked_color;
+    for (var i=0; i < board_height; i++) {
+      for (var j=0; j < board_width; j++) {
+        var tile_name = get_tile_name(i, j);
+        if (document.getElementById(tile_name).dataset.is_clicked == "false") {
+          document.getElementById(tile_name).style.backgroundColor = clicked_false_color;
+        } else {
+          document.getElementById(tile_name).style.backgroundColor = clicked_color;
+        }
+      }
+    }
+    // alert("clicked_color: " + clicked_color);
+
   } else {
     alert("INVALID color: " + word_color);
     return false;
