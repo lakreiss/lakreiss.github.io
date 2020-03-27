@@ -47,6 +47,7 @@
   /* vertical-align: top; */
   text-align: center;
   box-sizing: border-box;
+  /* z-index:-1; */
 }
 
 .button {
@@ -68,6 +69,7 @@
   margin: 1px;
   font-size: 1em;
   color: #1D5BA5;
+  opacity: 1;
 }
 
 /* .clicked_tile {

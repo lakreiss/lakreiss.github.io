@@ -1,7 +1,7 @@
 var board_height=5, board_width=5, blank_tile="__";
 var all_default_answers = ["Harness Peer Pressure", "Social Motivation", "Social Ability", "Willingly Change", "Personal Motivation", "Sense of Values", "Personal Ability", "Structural Motivation", "Structural Ability", "Opinion Leaders", "Foster Teamwork", "Strategies", "Modest rewards", "Control Emotions", "ID Vital Behaviors", "200% Accountability", "Open Communication", "Confront Problems", "Responsibility for others", "Speak up",  "Praise vs. Punishment", "Teach and Question", "Go to Gemba", "Make Undesirable Desirable", "Surpass Your Limits", "Reward Behaviors not Outcomes", "Change the Environment", "Intrinsic Satisfaction / Motivation", "Develop Mini-Goals", "Deliberate Practice", "Public Discourse", "Power of Propinquity"]
 var url_delim = "?", answer_delim="&";
-var valid_colors = ["black", "white", "silver", "gray", "maroon", "red", "purple", "fuchsia", "green", "lime", "olive", "yellow", "navy", "blue", "teal", "aqua"];
+var valid_colors = ["black", "white", "silver", "gray", "maroon", "red", "purple", "fuchsia", "green", "lime", "olive", "yellow", "navy", "blue", "teal", "aqua", "pink"];
 
 function get_tile_name(i, j) {
   return "tile" + String.fromCharCode(65+j)+eval(i+1);
@@ -29,6 +29,10 @@ function check_is_valid_color(input) {
   return true;
 }
 
+function check_is_valid_direction(input) {
+  return (input=="top" || input=="bottom" || input=="left" || input=="right");
+}
+
 function url_has_bingo_entries() {
   return window.location.href.includes(url_delim);
 }
@@ -40,7 +44,7 @@ function set_header(header) {
 function get_bingo_entries() {
   // alert("tried to set entries");
   var url_split = window.location.href.split(url_delim);
-  if (url_split.length != 6) {
+  if (url_split.length != 8) {
     alert("Error: invalid url. Default answers will be used instead.");
     return all_default_answers;
 
@@ -64,18 +68,26 @@ function get_bingo_entries() {
           }
         }
 
-        //colors should already be valid
         // alert("new color: " + url_split[3]);
         var word_color = url_split[3];
+        if (!check_is_valid_color(word_color) && word_color != "") {
+          alert("Error: illegal url. Please don't try to hack me.");
+          return;
+        }
         document.getElementById("header").style.color = word_color;
         for (var i=0; i < board_height; i++) {
           for (var j=0; j < board_width; j++) {
             var tile_name = get_tile_name(i, j);
             document.getElementById(tile_name).style.color = word_color;
+            document.getElementById(tile_name).style.outlineColor = word_color;
           }
         }
 
         var clicked_color = url_split[4];
+        if (!check_is_valid_color(clicked_color) && clicked_color != "") {
+          alert("Error: illegal url. Please don't try to hack me.");
+          return;
+        }
         clicked_true_color = clicked_color=="" ? "black" : clicked_color;
         for (var i=0; i < board_height; i++) {
           for (var j=0; j < board_width; j++) {
@@ -89,7 +101,26 @@ function get_bingo_entries() {
         }
 
         var background_dir = url_split[5];
-        document.body.style.backgroundImage = "linear-gradient(to " + background_dir + ", #3BA4C6, #9DB8F0)";
+        if (!check_is_valid_direction(background_dir)) {
+          alert("Error: illegal url. Please don't try to hack me.");
+          return;
+        }
+        var background_start = url_split[6];
+        if (!check_is_valid_color(background_start) && background_start != "") {
+          alert("Error: illegal url. Please don't try to hack me.");
+          return;
+        }
+        var background_end = url_split[7];
+        if (!check_is_valid_color(background_end) && background_end != "") {
+          alert("Error: illegal url. Please don't try to hack me.");
+          return;
+        }
+        background_start = background_start=="" ? "#3BA4C6" : background_start;
+        background_end = background_end=="" ? "#9DB8F0" : background_end;
+
+        // document.body.style.backgroundImage = "linear-gradient(to " + background_dir + ", #3BA4C6, #9DB8F0)";
+        document.body.style.backgroundImage = "linear-gradient(to " + background_dir + ", " + background_start + ", " + background_end + ")";
+
 
         return all_answers;
       }
@@ -271,10 +302,19 @@ function submit_bingo_entry() {
       new_url += url_delim + word_color;
 
       var clicked_color = document.getElementById("clicked_color").value;
+      clicked_color = clicked_color=="" ? "#000000" : clicked_color;
       new_url += url_delim + clicked_color;
 
       var background_dir = document.getElementById("background_dir").value;
       new_url += url_delim + background_dir;
+
+      var background_start = document.getElementById("background_start").value;
+      background_start = background_start=="" ? "#3BA4C6" : background_start;
+      new_url += url_delim + background_start;
+
+      var background_end = document.getElementById("background_end").value;
+      background_end = background_end=="" ? "#9DB8F0" : background_end;
+      new_url += url_delim + background_end;
 
       window.location.href = new_url;
       return;
@@ -301,6 +341,7 @@ function test_bingo_board() {
       for (var j=0; j < board_width; j++) {
         var tile_name = get_tile_name(i, j);
         document.getElementById(tile_name).style.color = word_color;
+        document.getElementById(tile_name).style.outlineColor = word_color;
       }
     }
   } else {
@@ -329,9 +370,27 @@ function test_bingo_board() {
     return false;
   }
 
+  //background fade start
+  var background_start = document.getElementById("background_start").value;
+  if (check_is_valid_color(background_start) || background_start == "") {
+    background_start = background_start=="" ? "#3BA4C6" : background_start;
+  } else {
+    alert("INVALID color: " + background_start);
+    return false;
+  }
+
+  //background fade end
+  var background_end = document.getElementById("background_end").value;
+  if (check_is_valid_color(background_end) || background_end == "") {
+    background_end = background_end=="" ? "#9DB8F0" : background_end;
+  } else {
+    alert("INVALID color: " + background_end);
+    return false;
+  }
+
   //background fade direction
   var background_dir = document.getElementById("background_dir").value;
-  document.getElementById("bingo_example").style.backgroundImage = "linear-gradient(to " + background_dir + ", #3BA4C6, #9DB8F0)";
+  document.getElementById("bingo_example").style.backgroundImage = "linear-gradient(to " + background_dir + ", " + background_start + ", " + background_end + ")";
 
 
   return true;
