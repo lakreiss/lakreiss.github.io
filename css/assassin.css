@@ -1,0 +1,21 @@
+.assassin_text {
+  box-sizing: border-box;
+}
+
+.left_side {
+  max-width: 49%;
+  min-width: 49%;
+  display: inline-block;
+}
+
+.right_side {
+  border-radius: 0.5rem;
+  margin-left: 1vw;
+  padding-left: 1vw;
+  min-width: 49%;
+  background-color: black;
+  color: white;
+  max-width: 50%;
+  display: inline-block;
+  vertical-align: top;
+}
