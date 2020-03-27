@@ -22,7 +22,7 @@ function check_is_valid_text(input) {
 }
 
 function check_is_valid_color(input) {
-  var regex = new RegExp(/^#[a-fA-F0-9]{6}$|(?:)/, ); //takes letters and numbers, as well as a slash, comma, or space
+  var regex = new RegExp(/^#[a-fA-F0-9]{6}$/, ); //takes letters and numbers, as well as a slash, comma, or space
   if (!regex.test(input)) {
     return valid_colors.includes(input.toLowerCase());
   }
@@ -76,14 +76,14 @@ function get_bingo_entries() {
         }
 
         var clicked_color = url_split[4];
-        clicked_true_color = clicked_color;
+        clicked_true_color = clicked_color=="" ? "black" : clicked_color;
         for (var i=0; i < board_height; i++) {
           for (var j=0; j < board_width; j++) {
             var tile_name = get_tile_name(i, j);
             if (document.getElementById(tile_name).dataset.is_clicked == "false") {
               document.getElementById(tile_name).style.backgroundColor = clicked_false_color;
             } else {
-              document.getElementById(tile_name).style.backgroundColor = clicked_color;
+              document.getElementById(tile_name).style.backgroundColor = clicked_true_color;
             }
           }
         }
@@ -285,8 +285,7 @@ function get_url_start() {
 
 function test_bingo_board() {
   var word_color = document.getElementById("word_color").value;
-  var is_word = check_is_valid_color(word_color);
-  if (is_word) {
+  if (check_is_valid_color(word_color) || word_color == "") {
     // alert("valid color: " + word_color);
     document.getElementById("example_header").style.color = word_color;
     for (var i=0; i < board_height; i++) {
@@ -302,23 +301,22 @@ function test_bingo_board() {
 
 // tried to allow for changing the tile background color on click, but it's hard because the class name changes
   var clicked_color = document.getElementById("clicked_color").value;
-  var is_word = check_is_valid_color(clicked_color);
-  if (is_word) {
-    clicked_true_color = clicked_color;
+  if (check_is_valid_color(clicked_color) || clicked_color == "") {
+    clicked_true_color = clicked_color=="" ? "black" : clicked_color;
+
     for (var i=0; i < board_height; i++) {
       for (var j=0; j < board_width; j++) {
         var tile_name = get_tile_name(i, j);
         if (document.getElementById(tile_name).dataset.is_clicked == "false") {
           document.getElementById(tile_name).style.backgroundColor = clicked_false_color;
         } else {
-          document.getElementById(tile_name).style.backgroundColor = clicked_color;
+          document.getElementById(tile_name).style.backgroundColor = clicked_true_color;
         }
       }
     }
-    // alert("clicked_color: " + clicked_color);
 
   } else {
-    alert("INVALID color: " + word_color);
+    alert("INVALID color: " + clicked_color);
     return false;
   }
 
