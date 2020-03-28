@@ -6,6 +6,7 @@ function build_menu() {
   document.write('<li class="menu-item">');
   document.write('<a href="#0">Coding</a>');
   document.write('<ol class="sub-menu">');
+  document.write('<li class="menu-item"><a href="/plus4.html">Plus4</a></li>');
   document.write('<li class="menu-item"><a href="/quadris.html">Quadris</a></li>');
   document.write('<li class="menu-item"><a href="/free_rice.html">Free Rice</a></li>');
   document.write('<li class="menu-item"><a href="/iReverse.html">iReverse</a></li>');
@@ -38,6 +39,7 @@ function build_menu() {
     <li class="menu-item">
       <a href="#0">Coding</a>
       <ol class="sub-menu">
+        <li class="menu-item"><a href="/plus4.html">Plus4</a></li>
         <li class="menu-item"><a href="/quadris.html">Quadris</a></li>
         <li class="menu-item"><a href="/free_rice.html">Free Rice</a></li>
         <li class="menu-item"><a href="/iReverse.html">iReverse</a></li>
