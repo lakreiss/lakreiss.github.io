@@ -164,6 +164,7 @@ function set_bingo_tiles() {
       if (has_free_space == "true") {
         if (i == Math.floor(board_height / 2) && j ==  Math.floor(board_width / 2)) {
           set_bingo_tile(tile_name, free_tile);
+          clicked(tile_name);
         } else {
           if (iter.has_next()) {
             next_answer = iter.next();
@@ -439,6 +440,7 @@ function test_bingo_board() {
     var tile_name = get_tile_name(Math.floor(board_height / 2), Math.floor(board_width / 2));
     if (free_space) {
       document.getElementById(tile_name).innerHTML = free_tile;
+      clicked(tile_name);
     } else {
       document.getElementById(tile_name).innerHTML = blank_tile;
     }
