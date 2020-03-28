@@ -10,7 +10,7 @@ function build_menu() {
   document.write('<li class="menu-item"><a href="/quadris.html">Quadris</a></li>');
   document.write('<li class="menu-item"><a href="/free_rice.html">Free Rice</a></li>');
   document.write('<li class="menu-item"><a href="/iReverse.html">iReverse</a></li>');
-  document.write('<li class="menu-item"><a href="/grubsteak_home_page.html">Grubsteak</a></li>');
+  document.write('<li class="menu-item"><a href="/grubsteak.html">Grubsteak</a></li>');
   document.write('</ol></li>');
   document.write('<li class="menu-item">');
   document.write('<a href="#0">Projects</a>');
