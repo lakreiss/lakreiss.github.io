@@ -2,7 +2,7 @@ var board_height=5, board_width=5, blank_tile="__", free_tile = "FREE";
 var all_default_answers = ["Harness Peer Pressure", "Social Motivation", "Social Ability", "Willingly Change", "Personal Motivation", "Sense of Values", "Personal Ability", "Structural Motivation", "Structural Ability", "Opinion Leaders", "Foster Teamwork", "Strategies", "Modest rewards", "Control Emotions", "ID Vital Behaviors", "200% Accountability", "Open Communication", "Confront Problems", "Responsibility for others", "Speak up",  "Praise vs. Punishment", "Teach and Question", "Go to Gemba", "Make Undesirable Desirable", "Surpass Your Limits", "Reward Behaviors not Outcomes", "Change the Environment", "Intrinsic Satisfaction / Motivation", "Develop Mini-Goals", "Deliberate Practice", "Public Discourse", "Power of Propinquity"]
 var url_delim = "?", answer_delim="&";
 var valid_colors = ["black", "white", "silver", "gray", "maroon", "red", "purple", "fuchsia", "green", "lime", "olive", "yellow", "navy", "blue", "teal", "aqua", "pink"];
-var has_free_space = "true";
+var has_free_space = "true", automatically_click_free = false;
 
 function get_tile_name(i, j) {
   return "tile" + String.fromCharCode(65+j)+eval(i+1);
@@ -155,6 +155,7 @@ function set_bingo_tiles() {
   if (url_has_bingo_entries()) {
     iter = new Bingo_Tile_Iterator(get_bingo_entries());
   } else {
+    free_tile = "YOU!";
     iter = new Bingo_Tile_Iterator(all_default_answers);
   }
   var next_answer;
@@ -164,7 +165,9 @@ function set_bingo_tiles() {
       if (has_free_space == "true") {
         if (i == Math.floor(board_height / 2) && j ==  Math.floor(board_width / 2)) {
           set_bingo_tile(tile_name, free_tile);
-          clicked(tile_name);
+          if (automatically_click_free) {
+            clicked(tile_name);
+          }
         } else {
           if (iter.has_next()) {
             next_answer = iter.next();
@@ -440,7 +443,9 @@ function test_bingo_board() {
     var tile_name = get_tile_name(Math.floor(board_height / 2), Math.floor(board_width / 2));
     if (free_space) {
       document.getElementById(tile_name).innerHTML = free_tile;
-      clicked(tile_name);
+      if (automatically_click_free) {
+        clicked(tile_name);
+      }
     } else {
       document.getElementById(tile_name).innerHTML = blank_tile;
     }
