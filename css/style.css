@@ -96,6 +96,16 @@ footer {
   margin-bottom: 1em;
 }
 
+.text > h1 > a:link {
+  text-decoration: none;
+  color: black;
+}
+
+.text > h1 > a:visited {
+  text-decoration: none;
+  color: black;
+}
+
 .quadris_text {
   float: right;
   /* width: 68.5%; */
