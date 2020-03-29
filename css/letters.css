@@ -71,38 +71,17 @@ img {
   border-radius: 0.5rem;
   background-color: white;
   border: solid 1px black;
-
-  /* position: absolute; */
-}
-
-#word_check {
-  /* margin-top: -.85vw; */
-}
-
-#opener {
-  float: right;
-  margin-top: -.1vw;
-}
-
-#opener:after {
-  clear: both;
-  content: '';
-  display: block;
 }
 
 .board_button {
   margin-left: 1vw;
-  /* float: left; */
-  /* margin-top: -1vw; */
   text-align:center;
   display: inline-block;
-  min-width: 7vw;
+  min-width: 2vw;
   height: 2vw;
   border-radius: 0.5rem;
   background-color: white;
   border: solid 1px black;
-
-  /* position: absolute; */
 }
 
 .example_solution {

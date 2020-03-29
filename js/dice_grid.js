@@ -83,15 +83,15 @@ function key_press(e) {
     case 40: //down key
       move_tiles("down");
       break;
-    case 84: //t key
-      transpose();
-      break;
-    case 74: //j key
-      auto_populate_sorted_letters(vowel_sort);
-      break;
-    case 75: //k key
-      auto_populate_sorted_letters();
-      break;
+    // case 84: //t key
+    //   transpose();
+    //   break;
+    // case 74: //j key
+    //   auto_populate_sorted_letters(vowel_sort);
+    //   break;
+    // case 75: //k key
+    //   auto_populate_sorted_letters();
+    //   break;
     // case 32: //space bar key
     //   // alert("space");
     //   check_solution();
@@ -676,11 +676,12 @@ $( function() {
 //*********************INSTRUCTIONS*********************
 
 function display_instructions() {
-  var how_to_play = "How to play:\nRoll the letter dice, then connect the letters to form words. If you want a challenge, only make words with four or more letters.";
+  var how_to_play = "How to play:\nRoll the letter dice, then connect the letters to form words. Each dice must be used, and each word must connect with the other words. If you want a challenge, only make words with four or more letters.";
+  var example = "\n\nIf you need an example to see what a solved board looks like, click the 'Example Solution' button.";
   var arrow_keys = "\n\nUse the arrow keys to shift your board so that you can add letters once you've run into an edge.";
   var how_to_upload = "\n\nHow to upload:\nTo upload your own set of dice, include \"#xxxxxxxxxxxxxxxx\" at the end of the url, where you substitute the xs for the letters you want. \"Q\" will automatically be converted to \"Qu\". Then click \"enter\" after highlighting the url to ensure the new url is loaded. Make sure you include exactly 16 letters; the website will not accept the entry otherwise.";
   var how_to_download = "\n\nWhat is downloading?\nDownloading saves the dice roll in your url so that you can share your roll with other people; simply download, send them the url, and ta-da: you can both solve the same letters.";
-  alert(how_to_play + arrow_keys + how_to_download);
+  alert(how_to_play + example + arrow_keys + how_to_download);
 }
 
 function display_advanced() {
@@ -690,18 +691,18 @@ function display_advanced() {
   var t;
   if (board_width > board_height) {
     var num_cols = board_width - board_height;
-    t = "\n\nThe 'T' button transposes the board, although it only works if the " + num_cols + " right-most columns are empty.";
+    t = "\n\nThe 'Transpose' button transposes the board, although it only works if the " + num_cols + " right-most columns are empty.";
   } else if (board_height > board_width) {
     var num_rows = board_height - board_width;
-    t = "\n\nThe 'T' button transposes the board, although it only works if the " + num_rows + " bottom-most rows are empty.";
+    t = "\n\nThe 'Transpose' button transposes the board, although it only works if the " + num_rows + " bottom-most rows are empty.";
   } else {
-    t = "\n\nThe 'T' button transposes the board.";
+    t = "\n\nThe 'Transpose' button transposes the board.";
   }
 
-  var j = "\n\nThe 'J' button sorts the dice on the board by vowels and consonants, with an empty column separating them.";
-  var k = "\n\nThe 'K' button sorts the dice on the board alphabetically.";
+  var j = "\n\nThe 'Vowel Sort' button sorts the dice on the board by vowels and consonants, with an empty column separating them.";
+  var k = "\n\nThe 'Sort' button sorts the dice on the board alphabetically.";
 
-  alert("You can use keyboard inputs to control the game, too!" + arrow_keys + j + k + t);
+  alert("You can use keyboard inputs to control the game, too!" + arrow_keys + t + j + k);
 
 }
 
