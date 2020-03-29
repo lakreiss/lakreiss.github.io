@@ -98,21 +98,20 @@ footer {
 
 .quadris_text {
   float: right;
-  width: 68.5%;
+  /* width: 68.5%; */
+  width: calc(98.5% - 332px);
 }
 
 .plus4_text {
   float: right;
-  width: 47.5%;
-}
-
-.plus4_video {
-  width: 50%;
+  /* width: 47.5%; */
+  width: calc(98.5% - 560px);
 }
 
 .free_rice_text {
   float: right;
-  width: 46%;
+  width: calc(98.5% - 578px);
+  /* width: 46%; */
 }
 
 .grubsteak_text {
@@ -122,7 +121,8 @@ footer {
 
 .iReverse_text {
   float: right;
-  width: 53.5%;
+  /* width: 53.5%; */
+  width: calc(98.5% - 493px);
 }
 
 .assassin_text {

@@ -4,7 +4,7 @@ function build_menu() {
   document.write('<ol>');
   document.write('<li class="menu-item"><a href="/index.html">Home</a></li>');
   document.write('<li class="menu-item">');
-  document.write('<a href="#0">Coding</a>');
+  document.write('<a href="/portfolio.html">Portfolio</a>');
   document.write('<ol class="sub-menu">');
   document.write('<li class="menu-item"><a href="/plus4.html">Plus4</a></li>');
   document.write('<li class="menu-item"><a href="/quadris.html">Quadris</a></li>');
@@ -13,7 +13,7 @@ function build_menu() {
   document.write('<li class="menu-item"><a href="/grubsteak.html">Grubsteak</a></li>');
   document.write('</ol></li>');
   document.write('<li class="menu-item">');
-  document.write('<a href="#0">Projects</a>');
+  document.write('<a href="#0">Web Apps</a>');
   document.write('<ol class="sub-menu">');
   document.write('<li class="menu-item"><a href="/letter_game.html">The Letter Game</a></li>');
   document.write('<li class="menu-item"><a href="/bingo_builder.html">Bingo Builder</a></li>');
