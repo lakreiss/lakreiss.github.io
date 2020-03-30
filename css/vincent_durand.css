@@ -862,7 +862,7 @@ body {
     transition-delay: 1650ms;
   }
 }
-@media (max-width: 45rem) {
+@media (max-width: 50rem) {
   .menu {
     background-image: linear-gradient(to bottom, #ed6ea0 0%, #ec8c69 100%);
   }
