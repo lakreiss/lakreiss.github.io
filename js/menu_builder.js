@@ -86,9 +86,9 @@ function build_menu() {
 */
 
 function dark_mode() {
-  document.cookie = 'theme=' + (document.cookie.split("theme=")[1] == 'light' ? 'dark' : 'light');
+  document.cookie = 'theme=' + (document.cookie.split("theme=")[1].includes('light') ? 'dark' : 'light');
   console.log('Cookies are now: ' + document.cookie.split("theme=")[1]);
-  toggle_dark_mode(); 
+  toggle_dark_mode();
 }
 
 function toggle_dark_mode() {
@@ -122,7 +122,8 @@ function toggle_dark_mode() {
 
 function is_dark_mode() {
   var cur_theme = document.cookie.split("theme=")[1];
-  return cur_theme == "dark";
+  // alert("is dark? " + cur_theme.includes("dark"));
+  return cur_theme.includes("dark");
 }
 
 function check_and_set_dark_mode() {
@@ -138,7 +139,7 @@ function build_footer() {
   document.write('<a class="icon" title="Books I\'ve Read" href="https://www.goodreads.com/user/show/82975472-liam-kreiss" target="_blank"><i class="fas fa-book"></i></i></a>');
   document.write('<a class="icon" title="My LinkedIn" href="https://www.linkedin.com/in/lakreiss/" target="_blank"><i class="fab fa-linkedin"></i></a>');
   document.write('<a class="icon" title="My Github" href="https://github.com/lakreiss" target="_blank"><i class="fab fa-github"></i></a>');
-  document.write('<a class="icon" id="dark_mode_button" title="Dark Mode" href="#0" onclick="dark_mode()"><i class="fas fa-moon"></i></a>');
+  document.write('<a class="icon" id="dark_mode_button" title="Dark Mode" onclick="dark_mode()"><i class="fas fa-moon"></i></a>');
   document.write('</div>');
   document.write('</div>');
 }
