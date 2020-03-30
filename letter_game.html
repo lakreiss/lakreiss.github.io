@@ -17,7 +17,7 @@
       <script src="js/dice_grid.js"></script>
     </head>
 
-    <body onload=upload_dice()>
+    <body onload="upload_dice(); check_and_set_dark_mode();">
       <script language="JavaScript">
         var is_mobile = !!navigator.userAgent.match(/iphone|android|blackberry/ig) || false;
         if (is_mobile) {

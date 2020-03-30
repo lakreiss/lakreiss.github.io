@@ -85,6 +85,13 @@ function build_menu() {
 */
 
 function dark_mode() {
+  toggle_dark_mode();
+
+  document.cookie = 'theme=' + (document.cookie.split("theme=")[1] == 'light' ? 'dark' : 'light');
+  console.log('Cookies are now: ' + document.cookie.split("theme=")[1]);
+}
+
+function toggle_dark_mode() {
   var body = document.body;
   body.classList.toggle("dark-mode-body");
 
@@ -103,9 +110,13 @@ function dark_mode() {
   for (var i = 0; i < footer_icons.length; i++) {
     footer_icons[i].classList.toggle("dark-mode-icon");
   }
-  // alert(footer);
-  // footer.classList.toggle("dark-mode-footer");
+}
 
+function check_and_set_dark_mode() {
+  var cur_theme = document.cookie.split("theme=")[1];
+  if (cur_theme == "dark") {
+    toggle_dark_mode();
+  }
 }
 
 function build_footer() {

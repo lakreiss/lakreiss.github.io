@@ -298,26 +298,32 @@ function clear_board() {
 }
 
 function upload_dice() {
-  var letters = window.location.href.split("#")[1].toLowerCase();
-  if (letters.length == 16) {
-    for (var i = 0; i < letters.length; i++) {
-      var cur_letter = letters[i];
-      var regexp = /^[a-z]/;
-      if (regexp.test(cur_letter)) {
-        var cur_id = "dice" + i;
-        if (cur_letter == "q") {
-          document.getElementById(cur_id).innerHTML = "Qu";
+  var letters = [];
+  if (window.location.href.split("#")[1]) {
+    letters = window.location.href.split("#")[1].toLowerCase();
+    if (letters.length == 16) {
+      for (var i = 0; i < letters.length; i++) {
+        var cur_letter = letters[i];
+        var regexp = /^[a-z]/;
+        if (regexp.test(cur_letter)) {
+          var cur_id = "dice" + i;
+          if (cur_letter == "q") {
+            document.getElementById(cur_id).innerHTML = "Qu";
+          } else {
+            document.getElementById(cur_id).innerHTML = cur_letter.toUpperCase();
+          }
+          reset_board();
         } else {
-          document.getElementById(cur_id).innerHTML = cur_letter.toUpperCase();
+          alert("Make sure you only use valid letters in the url.");
         }
-        reset_board();
-      } else {
-        alert("Make sure you only use valid letters in the url.");
       }
+    } else {
+      alert("Make sure you include a hashtag (#) followed by 16 letters at the end of the url.");
     }
   } else {
-    alert("Make sure you include a hashtag (#) followed by 16 letters at the end of the url.");
+
   }
+
 }
 
 function download_dice() {
