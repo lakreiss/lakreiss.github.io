@@ -47,6 +47,9 @@
   color: white;
 }
 
+.dark-mode-text a:link {
+  color: #39ff14;
+}
 
 .dark-mode-text a:visited {
   color: #39ff14;
