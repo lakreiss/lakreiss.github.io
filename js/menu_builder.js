@@ -88,7 +88,7 @@ function build_menu() {
 function dark_mode() {
   document.cookie = 'theme=' + (document.cookie.split("theme=")[1] == 'light' ? 'dark' : 'light');
   console.log('Cookies are now: ' + document.cookie.split("theme=")[1]);
-  toggle_dark_mode();
+  toggle_dark_mode(); 
 }
 
 function toggle_dark_mode() {
