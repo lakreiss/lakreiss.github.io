@@ -57,6 +57,11 @@
   outline: 1px solid #FFFFFF;
 }
 
+.dark-mode-text .right_side {
+  color: #000000;
+  background-color: #FFFFFF;
+}
+
 .dark-mode-icon i {
   color: black;
 }
