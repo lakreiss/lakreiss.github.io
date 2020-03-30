@@ -52,6 +52,11 @@
   color: #39ff14;
 }
 
+.dark-mode-text .unused_dice {
+  background-color: #000000;
+  outline: 1px solid #FFFFFF;
+}
+
 .dark-mode-icon i {
   color: black;
 }
