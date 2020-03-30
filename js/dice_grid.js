@@ -323,7 +323,7 @@ function upload_dice() {
 function download_dice() {
   var url_start = window.location.href.split("#")[0];
 
-  if (url_start != "http://localhost:8000/letter_game.html" && url_start != "https://lakreiss.github.io/letter_game.html" && url_start != "https://liamkreiss.me/letter_game.html") {
+  if (url_start != "http://localhost:8000/letter_game.html" && url_start != "https://lakreiss.github.io/letter_game.html" && url_start != "https://liamkreiss.me/letter_game.html" && url_start != "http://liamkreiss.me/letter_game.html") {
     alert("Are you trying to hack in to my website! Please don\'t!");
   } else {
     var letters_to_add = "#";
