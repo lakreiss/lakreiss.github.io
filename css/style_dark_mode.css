@@ -1,5 +1,57 @@
-.dark-mode {
+.dark-mode-body {
   background-image: url('../img/sunset_inverted.jpeg');
-  /* background-color: black; */
+}
+
+.dark-mode-menu {
+  background-image: linear-gradient(to right, #137396 0%, #12915f 100%);
+  color: rgba(0, 0, 0, 0.7);
+}
+
+.dark-mode-menu a:link{
+  color: rgba(0, 0, 0, 0.7);
+}
+
+.dark-mode-menu a:link:hover{
+  color: rgba(0, 0, 0, 1);
+}
+
+.dark-mode-menu a:visited {
+  color: rgba(0, 0, 0, 0.7);
+}
+
+.dark-mode-menu a:visited:hover {
+  color: rgba(0, 0, 0, 1);
+}
+
+/* .dark-mode-menu ol li ol { */
+  /* background: rgba(0, 0, 0, 0.1); for debugging later TODO */
+
+/* } */
+
+.dark-mode-menu ol li ol li a {
+  /* background: #12915f; */
+  /* TODO: need to fix this */
+  background-image: linear-gradient(to right, #137396 0%, #12915f 100%);
+}
+
+.dark-mode-text {
+  background-color: rgba(0, 0, 0, 0.8);
   color: white;
+}
+
+.dark-mode-text h1 a:link {
+  color: white;
+}
+
+.dark-mode-text h1 a:visited {
+  color: white;
+}
+
+
+.dark-mode-text a:visited {
+  color: #39ff14;
+}
+
+.dark-mode-icon i {
+  color: black;
 }

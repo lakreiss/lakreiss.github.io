@@ -2,7 +2,9 @@ function build_header() {
   document.write('<link rel="shortcut icon" href="img/favicon/favicon_real.ico"/>');
   document.write('<link rel="stylesheet" href="css/style.css">');
   document.write('<link rel="stylesheet" href="css/vincent_durand.css">');
+  document.write('<link rel="stylesheet" href="css/style_dark_mode.css">');
   document.write('<script src="https://kit.fontawesome.com/fc40f0ea91.js" crossorigin="anonymous"></script>');
+
 }
 
 // <link rel="shortcut icon" href="img/favicon/favicon_real.ico" />
@@ -83,8 +85,27 @@ function build_menu() {
 */
 
 function dark_mode() {
-  var element = document.body;
-  element.classList.toggle("dark-mode");
+  var body = document.body;
+  body.classList.toggle("dark-mode-body");
+
+  var menu = document.getElementsByClassName("menu");
+  for (var i = 0; i < menu.length; i++) {
+    menu[i].classList.toggle("dark-mode-menu");
+  }
+
+  var text_elements = document.getElementsByClassName("text");
+  for (var i = 0; i < text_elements.length; i++) {
+    text_elements[i].classList.toggle("dark-mode-text");
+  }
+
+  var footer = document.getElementById("footer");
+  var footer_icons = footer.getElementsByClassName("icon");
+  for (var i = 0; i < footer_icons.length; i++) {
+    footer_icons[i].classList.toggle("dark-mode-icon");
+  }
+  // alert(footer);
+  // footer.classList.toggle("dark-mode-footer");
+
 }
 
 function build_footer() {
@@ -94,7 +115,7 @@ function build_footer() {
   document.write('<a class="icon" title="Books I\'ve Read" href="https://www.goodreads.com/user/show/82975472-liam-kreiss" target="_blank"><i class="fas fa-book"></i></i></a>');
   document.write('<a class="icon" title="My LinkedIn" href="https://www.linkedin.com/in/lakreiss/" target="_blank"><i class="fab fa-linkedin"></i></a>');
   document.write('<a class="icon" title="My Github" href="https://github.com/lakreiss" target="_blank"><i class="fab fa-github"></i></a>');
-  // document.write('<a class="icon" title="Dark Mode" href="#0" onclick="dark_mode()"><i class="fas fa-moon"></i></a>');
+  document.write('<a class="icon" title="Dark Mode" href="#0" onclick="dark_mode()"><i class="fas fa-moon"></i></a>');
   document.write('</div>');
   document.write('</div>');
 }
