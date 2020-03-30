@@ -1,3 +1,17 @@
+function build_header() {
+  document.write('<link rel="shortcut icon" href="img/favicon/favicon_real.ico"/>');
+  document.write('<link rel="stylesheet" href="css/style.css">');
+  document.write('<link rel="stylesheet" href="css/vincent_durand.css">');
+  document.write('<script src="https://kit.fontawesome.com/fc40f0ea91.js" crossorigin="anonymous"></script>');
+}
+
+// <link rel="shortcut icon" href="img/favicon/favicon_real.ico" />
+// <link rel="stylesheet" href="css/style.css">
+// <link rel="stylesheet" href="css/vincent_durand.css">
+// <script src="https://kit.fontawesome.com/fc40f0ea91.js" crossorigin="anonymous"></script>
+//
+// <script src="js/menu_builder.js"></script>
+
 
 function build_menu() {
   document.write('<nav class="menu">');
@@ -68,27 +82,31 @@ function build_menu() {
 
 */
 
-
+function dark_mode() {
+  var element = document.body;
+  element.classList.toggle("dark-mode");
+}
 
 function build_footer() {
-  document.write('<footer id="my_footer">');
+  document.write('<div id="footer">');
   document.write('<div class="icons">');
-  document.write('<a title="Email Me" href="mailto:liam.kreiss@gmail.com" class="fa social fa-envelope" target="_blank"></a>');
-  document.write('<a title="Books I\'ve Read" href="https://www.goodreads.com/user/show/82975472-liam-kreiss" class="fa social fa-book" target="_blank"></a>');
-  document.write('<a title="My LinkedIn" href="https://www.linkedin.com/in/lakreiss/" class="fa social fa-linkedin" target="_blank"></a>');
-  document.write('<a title="My Github" href="https://github.com/lakreiss" class="fa social fa-github" target="_blank"></a>');
+  document.write('<a class="icon" title="Email Me" href="mailto:liam.kreiss@gmail.com" target="_blank"><i class="fas fa-envelope"></i></a>');
+  document.write('<a class="icon" title="Books I\'ve Read" href="https://www.goodreads.com/user/show/82975472-liam-kreiss" target="_blank"><i class="fas fa-book"></i></i></a>');
+  document.write('<a class="icon" title="My LinkedIn" href="https://www.linkedin.com/in/lakreiss/" target="_blank"><i class="fab fa-linkedin"></i></a>');
+  document.write('<a class="icon" title="My Github" href="https://github.com/lakreiss" target="_blank"><i class="fab fa-github"></i></a>');
+  // document.write('<a class="icon" title="Dark Mode" href="#0" onclick="dark_mode()"><i class="fas fa-moon"></i></a>');
   document.write('</div>');
-  document.write('</footer>');
+  document.write('</div>');
 }
 
 /*
-<footer id="my_footer">
+<div id="footer">
   <div class="icons">
     <a title="Email Me" href="mailto:liam.kreiss@gmail.com" class="fa social fa-envelope" target="_blank"></a>
     <a title="Books I've Read" href="https://www.goodreads.com/user/show/82975472-liam-kreiss" class="fa social fa-book" target="_blank"></a>
     <a title="My LinkedIn" href="https://www.linkedin.com/in/lakreiss/" class="fa social fa-linkedin" target="_blank"></a>
     <a title="My Github" href="https://github.com/lakreiss" class="fa social fa-github" target="_blank"></a>
   </div>
-</footer>
+</div>
 
 */

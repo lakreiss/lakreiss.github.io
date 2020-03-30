@@ -1,0 +1,5 @@
+.dark-mode {
+  background-image: url('../img/sunset_inverted.jpeg');
+  /* background-color: black; */
+  color: white;
+}
