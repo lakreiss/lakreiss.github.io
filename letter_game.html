@@ -38,10 +38,12 @@
             </div>
 
             <div class="text letter_game_dice">
-              <button class="dice_button" onclick="roll_dice()">Roll Dice</button>
-              <button class="dice_button" onclick="reset_board()">Reset Board</button>
-              <!-- <button class="dice_button" onclick="upload_dice()">Upload</button> -->
-              <button class="dice_button" onclick="download_dice()">Download</button>
+              <div class="dice_button_container">
+                <button class="dice_button" onclick="roll_dice()">Roll Dice</button>
+                <button class="dice_button" onclick="reset_board()">Reset Board</button>
+                <!-- <button class="dice_button" onclick="upload_dice()">Upload</button> -->
+                <button class="dice_button" onclick="download_dice()">Download</button>
+              </div>
               <script language="JavaScript">
                 for (var index=0; index < num_dice; index++) {
                   var dice_id = "dice" + index;

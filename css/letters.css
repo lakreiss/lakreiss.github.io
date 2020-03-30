@@ -11,38 +11,70 @@ img {
 }
 
 .letter_game_intro {
-  width: 100%;
+  width: calc(100vw - calc(10rem + 59vw));
 }
 
 .letter_board {
   /* float: right; */
   margin-left: 1rem;
   height: 33vw;
+  min-width: calc(calc(100vw - 15.25vw) - calc(calc(100vw - 10rem) - 59vw));
+  max-width: calc(calc(100vw - 15.25vw) - calc(calc(100vw - 10rem) - 59vw));
   /* width: 112%; */
-} 
+}
 
 .letter_board_options {
   /* float: right; */
   margin-left: 1rem;
   padding: 0.5em;
   height: 3vw;
-  width: 56.3vw;
-  /* vertical-align: center; */
-  /* width: 112%; */
+  min-width: calc(calc(100vw - 15.25vw) - calc(calc(100vw - 10rem) - 59vw));
+  max-width: calc(calc(100vw - 15.25vw) - calc(calc(100vw - 10rem) - 59vw));
 }
 
 .letter_game_dice {
   float: left;
+  min-width: calc(calc(100vw - 10rem) - 59vw);
+  max-width: calc(calc(100vw - 10rem) - 59vw);
+  box-sizing: border-box;
+}
+
+.dice_button_container {
+  text-align: center;
+  width: 90%;
+  margin-left: 5%;
+  margin-right: 5%;
+}
+
+.dice_button {
+  margin-top: 0.1rem;
+  margin-bottom: 0.1rem;
+  margin-left: 2.5%;
+  margin-right: 2.5%;
+  text-align:center;
+  display: inline-block;
+  min-width: 10%;
+  height: 2vw;
+  border-radius: 0.5rem;
+  background-color: white;
+  border: solid 1px black;
 }
 
 .dice {
-    margin: 1rem;
-    padding: 1rem;
+    margin: 1vw;
+    padding: 1vw;
     margin-bottom: 0.33rem;
     max-width: 15%;
     min-width: 15%;
+
+    min-width: calc(calc(calc(calc(100vw - 10rem) - 59vw) / 4) - 3vw);
+    max-width: calc(calc(calc(calc(100vw - 10rem) - 59vw) / 4) - 3vw);
+    min-height: calc(calc(calc(calc(100vw - 10rem) - 59vw) / 4) - 3vw);
+    max-height: calc(calc(calc(calc(100vw - 10rem) - 59vw) / 4) - 3vw);
+
     border-radius: 0.5rem;
     cursor:pointer;
+    text-align:center;
 }
 
 .unused_dice {
@@ -55,22 +87,6 @@ img {
 
 .used_dice {
   background-color: #6794B3;
-}
-
-.dice_button {
-  /* margin: 0 auto; */
-  vertical-align: middle;
-  margin-left: 2.2vw;
-  margin-top: 0.1rem;
-  margin-bottom: 0.1rem;
-  text-align:center;
-  display: inline-block;
-  /* width: 5vw; */
-  min-width: 5vw;
-  height: 2vw;
-  border-radius: 0.5rem;
-  background-color: white;
-  border: solid 1px black;
 }
 
 .board_button {
@@ -108,13 +124,15 @@ img {
   display: inline-block;
 }
 
-/*DECIDED TO USE &nbsp INSTEAD OF ALIGNING, MIGHT CHANGE LATER*/
-/* .align_left {
-  float: left;
+@media (max-width: 50rem) {
+  .dice {
+    margin: 1rem;
+    padding: 1rem;
+    margin-bottom: 0.33rem;
+    max-width: 15%;
+    min-width: 15%;
+    border-radius: 0.5rem;
+    cursor:pointer;
+  }
+
 }
-.align_right {
-  float: right;
-}
-.align_center {
-  float: none;
-} */
