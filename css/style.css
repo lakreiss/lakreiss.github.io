@@ -168,6 +168,7 @@ section {
 
 .icon:hover {
   color: rgba(255, 255, 255, 1);
+  cursor: pointer;
 }
 
 /* If the screen size is 600px wide or less, hide the element */
