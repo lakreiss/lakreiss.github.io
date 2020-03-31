@@ -90,7 +90,7 @@ function dark_mode() {
     document.cookie = 'theme=' + (document.cookie.split("theme=")[1].includes('light') ? 'dark' : 'light');
     console.log('Cookies are now: ' + document.cookie.split("theme=")[1]);
   } else {
-    document.cookie = 'theme=light';
+    document.cookie = 'theme=dark';
   }
   toggle_dark_mode();
 }
