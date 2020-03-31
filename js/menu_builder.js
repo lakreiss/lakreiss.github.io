@@ -86,8 +86,12 @@ function build_menu() {
 */
 
 function dark_mode() {
-  document.cookie = 'theme=' + (document.cookie.split("theme=")[1].includes('light') ? 'dark' : 'light');
-  console.log('Cookies are now: ' + document.cookie.split("theme=")[1]);
+  if (document.cookie.includes("theme=")) {
+    document.cookie = 'theme=' + (document.cookie.split("theme=")[1].includes('light') ? 'dark' : 'light');
+    console.log('Cookies are now: ' + document.cookie.split("theme=")[1]);
+  } else {
+    document.cookie = 'theme=light';
+  }
   toggle_dark_mode();
 }
 
