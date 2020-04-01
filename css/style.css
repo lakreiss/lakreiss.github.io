@@ -171,6 +171,19 @@ section {
   cursor: pointer;
 }
 
+.left_side {
+  max-width: 49%;
+  display: inline-block;
+}
+
+.right_side {
+  margin-left: 1vw;
+  min-width: 49%;
+  max-width: 50%;
+  display: inline-block;
+  vertical-align: top;
+}
+
 /* If the screen size is 600px wide or less, hide the element */
 /* @media only screen and (max-width: 45rem) { */
 @media (max-width: 50rem) {
