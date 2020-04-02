@@ -10,7 +10,7 @@
       <script src="js/balanced_ternary.js"></script>
     </head>
 
-    <body onload="check_and_set_dark_mode(); set_html_to_empty('display_area');">
+    <body onload="check_and_set_dark_mode(); set_html_to_empty_display('display_area');">
       <script language="JavaScript">
         var is_mobile = !!navigator.userAgent.match(/iphone|android|blackberry/ig) || false;
         if (is_mobile) {
@@ -48,7 +48,8 @@
         <div class="balanced_ternary_board">
           <br>
           <div class="full_width calc_display">
-            <p id="display_area"></p>
+            <p id="stored_area" class="half_width"></p>
+            <p id="display_area" class="half_width"></p>
           </div><br><br>
 
           <div class="button_area">
@@ -59,10 +60,10 @@
               <button id="clear_button" class="column calc_button" onclick="clear_all()">C</button>
             </div><br>
             <div class="button_row">
-              <button id="plus_button" class="column calc_button">+</button>
-              <button id="minus_button" class="column calc_button">-</button>
-              <button id="times_button" class="column calc_button">x</button>
-              <button id="divide_button" class="column calc_button">/</button>
+              <button id="plus_button" class="column calc_button" onclick="set_operator('+')">+</button>
+              <button id="minus_button" class="column calc_button" onclick="set_operator('-')">-</button>
+              <button id="times_button" class="column calc_button" onclick="set_operator('x')">x</button>
+              <button id="divide_button" class="column calc_button" onclick="set_operator('/')">/</button>
             </div><br>
             <div class="button_row">
               <button id="sign_button" class="half_width calc_button" onclick="switch_sign()">+/-</button>

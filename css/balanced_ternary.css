@@ -65,10 +65,23 @@ table, th, td {
   border-radius: 0.5rem;
   background-color: white;
   border: solid 1px black;
+  box-sizing: border-box;
 }
 
 #display_area {
   text-align: right;
-  margin-top: 1em;
+  margin-top: 1.5em;
   margin-right: 1em;
+  display: inline-block;
+  overflow: scroll;
+  /* background-color: rgba(0, 0, 0, 0.5); */
+}
+
+#stored_area {
+  text-align: left;
+  margin-top: 1.5em;
+  margin-left: 1em;
+  display: inline-block;
+  overflow: scroll;
+  /* background-color: rgba(0, 0, 0, 0.5); */
 }
