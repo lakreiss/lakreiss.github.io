@@ -61,10 +61,13 @@
 
 .dark-mode-text .calc_display {
   background-color: black;
+  border: solid 1px white;
+  color: white;
 }
 
 .dark-mode-text .calc_button {
   background-color: black;
+  border: solid 1px white;
   color: white;
 }
 

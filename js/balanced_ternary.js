@@ -79,6 +79,22 @@ class BalancedTernaryNumber {
     return this.base_ten_number;
   }
 
+  static multiply(bt1, bt2) {
+    var bt1_string = bt1.get_bt_string(), bt2_string = bt2.get_bt_string();
+    var running_total = new BalancedTernaryNumber("0");
+    for (var i = bt2.length - 1; i >= 0; i--) {
+      var cur_row = "";
+      for (var num_zeros = 0; num_zeros < bt2.length - 1 - i; num_zeros++) {
+        cur_row += "0";
+      }
+      for (var j = bt1.length - 1; j >= 0; j--) {
+        cur_row = BalancedTernaryNumber.get_multiplication(bt1_string.charAt(j), bt2_string.charAt(i)) + cur_row;
+      }
+      running_total = new BalancedTernaryNumber(BalancedTernaryNumber.add(running_total, new BalancedTernaryNumber(cur_row)));
+    }
+    return running_total.get_bt_string();
+  }
+
   static subtract(bt1, bt2) {
     return BalancedTernaryNumber.add(bt1, bt2.invert());
   }
@@ -146,6 +162,12 @@ function equals() {
           break;
         case "-":
           new_value = remove_leading_zeros(BalancedTernaryNumber.subtract(stored_btnum, display_btnum));
+          break;
+        case "x":
+          new_value = remove_leading_zeros(BalancedTernaryNumber.multiply(stored_btnum, display_btnum));
+          break;
+        case "-":
+          new_value = remove_leading_zeros(BalancedTernaryNumber.divide(stored_btnum, display_btnum));
           break;
         default:
           alert("Error: " + operator);
@@ -232,5 +254,5 @@ function remove_leading_zeros(input) {
 }
 
 function onload_warning() {
-  alert("Warning: only addition and subtraction have been implemented so far. Come back soon for multiplication and divison.");
+  alert("Warning: only addition, subtraction, and multiplication have been implemented so far. Come back soon for divison.");
 }
