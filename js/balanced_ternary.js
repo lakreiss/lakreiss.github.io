@@ -230,3 +230,7 @@ function remove_leading_zeros(input) {
   }
   return input.substring(start);
 }
+
+function onload_warning() {
+  alert("Warning: only addition and subtraction have been implemented so far. Come back soon for multiplication and divison.");
+}

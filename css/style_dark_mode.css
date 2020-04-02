@@ -47,6 +47,27 @@
   color: white;
 }
 
+.dark-mode-text table {
+  border: 1px solid white;
+}
+
+.dark-mode-text th {
+  border: 1px solid white;
+}
+
+.dark-mode-text td {
+  border: 1px solid white;
+}
+
+.dark-mode-text .calc_display {
+  background-color: black;
+}
+
+.dark-mode-text .calc_button {
+  background-color: black;
+  color: white;
+}
+
 .dark-mode-text a:link {
   color: #39ff14;
 }
