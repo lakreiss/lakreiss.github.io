@@ -21,7 +21,7 @@ table, th, td {
 .balanced_ternary_board {
   border-radius: 0.5rem;
   width: 100%;
-  background-color: rgba(255, 255, 255, 0.5);
+  background-color: rgba(0, 0, 0, 0.5);
 }
 
 .column {
@@ -70,6 +70,10 @@ table, th, td {
   background-color: white;
   border: solid 1px black;
   box-sizing: border-box;
+}
+
+.center {
+  text-align: center;
 }
 
 #display_area {

@@ -381,14 +381,28 @@ function set_html_to_empty_display(id) {
 }
 
 var is_balanced_ternary = true;
-var cur_bt_num;
+var cur_bt_num, cur_bt_stored;
 function convert() {
   if (is_balanced_ternary) {
     cur_bt_num = new BalancedTernaryNumber(get_display_text());
     set_display_text(cur_bt_num.get_value());
+
+    if (get_stored_text()) {
+      var stored_text = get_stored_text().split(" ");
+      cur_bt_stored = new BalancedTernaryNumber(stored_text[0]);
+      set_stored_text(cur_bt_stored.get_value() + " " + stored_text[1]);
+    }
+
     set_balanced_ternary_off();
+
   } else {
     set_display_text(cur_bt_num.get_bt_string());
+
+    if (get_stored_text()) {
+      var stored_text = get_stored_text().split(" ");
+      set_stored_text(cur_bt_stored.get_bt_string() + " " + stored_text[1]);
+    }
+
     set_balanced_ternary_on();
   }
 }
@@ -445,6 +459,13 @@ function set_balanced_ternary_off() {
     convert_button.classList.toggle("balanced_ternary_off")
     is_balanced_ternary = false;
   }
+}
+
+function show_information() {
+  var division = "*Note that the division is integer division.";
+  var division2 = "\nNo decimals are included in this calculator right now.";
+  var conversion = "\n\nOnce you convert a number to base 10, you must convert it back to Balanced Ternary before proceeding.";
+  alert(division + division2 + conversion);
 }
 
 function onload_warning() {
