@@ -465,7 +465,8 @@ function show_information() {
   var division = "*Note that the division is integer division.";
   var division2 = "\nNo decimals are included in this calculator right now.";
   var conversion = "\n\nOnce you convert a number to base 10, you must convert it back to Balanced Ternary before proceeding.";
-  alert(division + division2 + conversion);
+  var how_it_works = "\n\nThe addition, subtraction, and multiplication are all calculated entirely with balanced ternary notation (no conversions to base 10). While I've determined a strategy for performing division in balanced ternary, coding my process has proved quite tedious. I might try again soon though!";
+  alert(division + division2 + conversion + how_it_works);
 }
 
 function onload_warning() {
