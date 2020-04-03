@@ -10,8 +10,8 @@
       <script src="js/balanced_ternary.js"></script>
     </head>
 
-    <body onload="check_and_set_dark_mode(); set_html_to_empty_display('display_area'); onload_warning();">
-    <!-- <body onload="check_and_set_dark_mode(); set_html_to_empty_display('display_area');"> -->
+    <!-- <body onload="check_and_set_dark_mode(); set_html_to_empty_display('display_area'); onload_warning();"> -->
+    <body onload="check_and_set_dark_mode(); set_html_to_empty_display('display_area');">
       <script language="JavaScript">
         var is_mobile = !!navigator.userAgent.match(/iphone|android|blackberry/ig) || false;
         if (is_mobile) {
@@ -45,8 +45,8 @@
           </div>
         </div>
       </div>
-      <div class="right_side text">
-        <div class="balanced_ternary_board">
+      <div class="right_side">
+        <div class="balanced_ternary_board text">
           <br>
           <div class="full_width calc_display">
             <p id="stored_area" class="half_width"></p>
@@ -75,8 +75,11 @@
             </div><br>
           </div>
         </div>
-      </div>
 
+        <div class="text">
+          <span>*Note that the division is integer division. <br> No decimals are included in this calculator right now.</span>
+        </div>
+      </div>
 
 
       <script>build_footer();</script>

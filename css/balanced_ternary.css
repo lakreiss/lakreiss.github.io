@@ -54,6 +54,10 @@ table, th, td {
   border: solid 1px black;
 }
 
+.balanced_ternary_off {
+  background-color: yellow;
+}
+
 .calc_display {
   margin-left: 1vw;
   margin-right: 1vw;

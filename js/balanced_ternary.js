@@ -3,9 +3,17 @@ var up = '\u039B', down = 'V', zero = '0', empty_display = "0", empty_stored = "
 class BalancedTernaryNumber {
 
   constructor(digits) {
-    this.bt_string = digits;
-    this.length = digits.length;
+    this.bt_string = BalancedTernaryNumber.remove_leading_zeros(digits);
+    this.length = this.bt_string.length;
     this.base_ten_number = this.convert_to_base_10(digits);
+  }
+
+  static remove_leading_zeros(input_string) {
+    var start = 0;
+    while (start < input_string.length - 1 && input_string.charAt(start) == zero) {
+      start += 1;
+    }
+    return input_string.substring(start);
   }
 
   static get_addition(char1, char2) {
@@ -60,15 +68,20 @@ class BalancedTernaryNumber {
   }
 
   invert() {
+    var new_string = this.get_inverse();
+    this.bt_string = new_string;
+    this.base_ten_number = this.convert_to_base_10(new_string);
+    return this;
+  }
+
+  get_inverse() {
     var new_string = "";
     for (var i = 0; i < this.bt_string.length; i++) {
       var cur_digit = this.bt_string.charAt(i);
       var inverse_digit = BalancedTernaryNumber.get_convert((BalancedTernaryNumber.get_convert(cur_digit) * -1));
       new_string += inverse_digit;
     }
-    this.bt_string = new_string;
-    this.base_ten_number = this.convert_to_base_10(new_string);
-    return this;
+    return new_string;
   }
 
   get_bt_string() {
@@ -77,6 +90,171 @@ class BalancedTernaryNumber {
 
   get_value() {
     return this.base_ten_number;
+  }
+
+  is_greater_absolute(bt_other) {
+    var this_bt_num = this.get_bt_string();
+    if (this_bt_num.charAt(0) == down) {
+      this_bt_num = this.get_inverse();
+    }
+
+    var other_bt_num = bt_other.get_bt_string();
+    if (other_bt_num.charAt(0) == down) {
+      other_bt_num = bt_other.get_inverse();
+    }
+
+    if (this_bt_num.length > bt_other.length) {
+      return true;
+    } else if (this_bt_num.length < bt_other.length) {
+      return false;
+    }
+
+    // alert("NOW GOT HERE checking is greater absolute: " + this_bt_num + " or " + other_bt_num);
+
+    while (this_bt_num.length > 0) {
+      var this_char = this_bt_num.charAt(0);
+      var other_char = other_bt_num.charAt(0);
+      // alert("NOW GOT HERE TOO checking: " + this_bt_num + " or " + other_bt_num);
+      if (this_char == up) {
+        if (other_char != up) {
+          return true;
+        }
+      } else if (this_char == zero) {
+        if (other_char == up) {
+          return false;
+        } else if (other_char == down) {
+          return true;
+        }
+      } else if (this_char == down) {
+        if (other_char != down) {
+          return false;
+        }
+      }
+      this_bt_num = this_bt_num.substring(1);
+      other_bt_num = other_bt_num.substring(1);
+    }
+    return false; //could be either one
+  }
+
+  static get_smallest_absolute_difference(bt1, bt2) {
+    var diff1 = new BalancedTernaryNumber(BalancedTernaryNumber.subtract(bt1, bt2));
+    var diff2 = new BalancedTernaryNumber(BalancedTernaryNumber.add(bt2, bt1));
+    if (diff1.is_greater_absolute(diff2)) {
+      return diff2;
+    } else {
+      return diff1;
+    }
+  }
+
+  static divide(bt1, bt2) {
+    if (bt2.length > bt1.length) {
+      return "0";
+    }
+
+    var orig_bt1_length = bt1.length + 1;
+    var final_number_string = "";
+
+    bt1 = new BalancedTernaryNumber(bt1.get_bt_string() + "00000000000");
+    for (var i = 0; i < orig_bt1_length; i++) {
+
+      alert("starting again with " + bt1.get_bt_string() + " and " + bt2.get_bt_string() + ", final string is " + final_number_string);
+
+      // alert("done: " + BalancedTernaryNumber.get_smallest_absolute_difference(bt1, bt2).get_bt_string());
+
+      var cur_num = new BalancedTernaryNumber(bt1.get_bt_string().charAt(0));
+      var cur_difference = BalancedTernaryNumber.get_smallest_absolute_difference(cur_num, bt2);
+
+      var j = 1, getting_closer = true;
+      while (getting_closer && j < bt1.length) {
+        var next_num = new BalancedTernaryNumber(bt1.get_bt_string().substring(0, j + 1));
+        var next_difference = BalancedTernaryNumber.get_smallest_absolute_difference(next_num, bt2);
+        // alert("cur num: " + cur_num.get_bt_string() + " bt2: " + bt2.get_bt_string() + " cur difference" + cur_difference.get_bt_string()
+              // + "\n\n" + "next num: " + next_num.get_bt_string() + " bt2: " + bt2.get_bt_string() + " next difference" + next_difference.get_bt_string());
+
+        alert("checking is greater absolute: " + cur_difference.get_bt_string() + " or " + next_difference.get_bt_string());
+
+        if (cur_difference.is_greater_absolute(next_difference)) {
+          alert("returned true");
+          cur_num = next_num;
+          cur_difference = next_difference;
+          final_number_string += zero;
+          j += 1;
+          orig_bt1_length -= 1;
+        } else {
+          alert("returned false");
+          getting_closer = false;
+          final_number_string += cur_num.get_bt_string().charAt(0) == bt2.get_bt_string().charAt(0) ? up : down;
+        }
+      }
+      alert("new final number string: " + final_number_string + " new cur_difference = " + cur_difference.get_bt_string());
+      bt1 = new BalancedTernaryNumber(cur_difference.get_bt_string() + bt1.get_bt_string().substring(j));
+    }
+    alert("FINAL NUMBER: " + final_number_string);
+
+    // alert("done");
+    return "0";
+  }
+
+  //really wanted to figure out division without converting to balanced ternary, but it was taking a while so I did this. in the future I'll try to fix the above code so that I never need to do this.
+  static hacky_divide(bt1, bt2) {
+    function convert_to_bt(decimal_number) {
+      var decimal_number = parseInt(decimal_number);
+      var digits = 1;
+      var counter = 1;
+      var abs_number = Math.abs(decimal_number);
+
+      while (abs_number > counter) {
+        counter += Math.pow(3, digits);
+        digits += 1;
+      }
+
+      var numToReturn = "";
+      if (digits == 1) {
+        if (decimal_number > 0) {
+          return up;
+        } else if (decimal_number < 0) {
+          return down;
+        } else {
+          return zero;
+        }
+      } else {
+        for (var i = 1; i < digits; i++) {
+          numToReturn += zero;
+        }
+      }
+
+      var numToSubtract;
+      if (decimal_number > 0) {
+        numToReturn = up + numToReturn;
+        numToSubtract = Math.pow(3, digits - 1);
+      } else {
+        numToReturn = down + numToReturn;
+        numToSubtract = -1 * Math.pow(3, digits - 1);
+      }
+
+      if (digits > 1) {
+        return BalancedTernaryNumber.add(new BalancedTernaryNumber(numToReturn), new BalancedTernaryNumber(convert_to_bt(decimal_number - numToSubtract)));
+      } else {
+        return numToReturn;
+      }
+    }
+
+    var bt1_value = bt1.get_value();
+    var bt2_value = bt2.get_value();
+    var negative = false;
+    // alert(bt1.get_value() + " " + bt2.get_value());
+    if ((bt1_value > 0 && bt2_value < 0) || (bt1_value < 0 && bt2_value > 0)) {
+      bt1_value *= -1;
+      negative = true;
+    }
+    var quotient = Math.floor(bt1_value/bt2_value);
+    // alert(bt1_value + " " + bt2_value + " " + quotient);
+
+    if (negative) {
+      return convert_to_bt(quotient * -1);
+    } else {
+    return convert_to_bt(quotient);
+    }
   }
 
   static multiply(bt1, bt2) {
@@ -96,7 +274,7 @@ class BalancedTernaryNumber {
   }
 
   static subtract(bt1, bt2) {
-    return BalancedTernaryNumber.add(bt1, bt2.invert());
+    return BalancedTernaryNumber.add(bt1, new BalancedTernaryNumber(bt2.get_inverse()));
   }
 
   static add(bt1, bt2) {
@@ -166,8 +344,8 @@ function equals() {
         case "x":
           new_value = remove_leading_zeros(BalancedTernaryNumber.multiply(stored_btnum, display_btnum));
           break;
-        case "-":
-          new_value = remove_leading_zeros(BalancedTernaryNumber.divide(stored_btnum, display_btnum));
+        case "/":
+          new_value = remove_leading_zeros(BalancedTernaryNumber.hacky_divide(stored_btnum, display_btnum));
           break;
         default:
           alert("Error: " + operator);
@@ -195,7 +373,7 @@ function clear_all() {
   } else {
     set_display_text(empty_display);
   }
-  is_balanced_ternary = true;
+  set_balanced_ternary_on();
 }
 
 function set_html_to_empty_display(id) {
@@ -208,10 +386,10 @@ function convert() {
   if (is_balanced_ternary) {
     cur_bt_num = new BalancedTernaryNumber(get_display_text());
     set_display_text(cur_bt_num.get_value());
-    is_balanced_ternary = false;
+    set_balanced_ternary_off();
   } else {
     set_display_text(cur_bt_num.get_bt_string());
-    is_balanced_ternary = true;
+    set_balanced_ternary_on();
   }
 }
 
@@ -251,6 +429,22 @@ function remove_leading_zeros(input) {
     start += 1;
   }
   return input.substring(start);
+}
+
+function set_balanced_ternary_on() {
+  if (!is_balanced_ternary) {
+    var convert_button = document.getElementById("convert_button");
+    convert_button.classList.toggle("balanced_ternary_off")
+    is_balanced_ternary = true;
+  }
+}
+
+function set_balanced_ternary_off() {
+  if (is_balanced_ternary) {
+    var convert_button = document.getElementById("convert_button");
+    convert_button.classList.toggle("balanced_ternary_off")
+    is_balanced_ternary = false;
+  }
 }
 
 function onload_warning() {

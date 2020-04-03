@@ -71,6 +71,11 @@
   color: white;
 }
 
+.dark-mode-text .balanced_ternary_off {
+  background-color: #39ff14;
+  color: black;
+}
+
 .dark-mode-text a:link {
   color: #39ff14;
 }
