@@ -12,15 +12,43 @@
     <body onload="check_and_set_dark_mode();">
       <script>build_menu();</script>
 
+      <div class="text">
+        <h1>Pong</h1>
+        <p>A simple pong application that can be played with one or two people. <br> With one player, you can use either up/down or w/s. <br>With two players, the up and down arrows control the right paddle and the 'w' and 's' keys control the left paddle.</p>
+      </div>
+
+
+      <div class="text game_options">
+        <form class="game_option_form">
+          <span>Opponent:</span><br>
+          <input type="radio" id="vs_CPU" name="opponent" value="cpu" onclick="show_difficulty()" checked="checked">
+          <label for="cpu">CPU</label>
+          <input type="radio" id="vs_Human" name="opponent" value="human" onclick="hide_difficulty()">
+          <label for="human">Human</label><br>
+
+          <div class="difficulty_section">
+            <span>Difficulty:</span><br>
+            <input type="radio" id="dif_easy" name="difficulty" value="easy">
+            <label for="easy">Easy</label><br>
+            <input type="radio" id="dif_medium" name="difficulty" value="medium">
+            <label for="medium">Medium</label><br>
+            <input type="radio" id="dif_hard" name="difficulty" value="hard" checked="checked">
+            <label for="hard">Hard</label><br>
+            <input type="radio" id="dif_impossible" name="difficulty" value="impossible">
+            <label for="impossible">Impossible</label><br>
+          </div>
+
+          <button class="button" type="button" onclick="startGame();return false;">Start Game</button>
+          <button id="play_again_button" class="button" type="button" onclick="startNewGame();return false;" hidden>Play Again</button>
+        </form>
+      </div>
+
       <div id="pong_game">
         <!-- <canvas id="canvasOne" width="500" height="300">
         Your browser does not support HTML5 Canvas.
         </canvas> -->
-        <span id="pong_game_end"></span>
       </div>
 
-      <!-- <button class="button" type="button" onclick="canvasApp();return false;">Start Game</button> -->
-      <button class="button" type="button" onclick="startGame();return false;">Start Game</button>
 
       <script>build_footer();</script>
 

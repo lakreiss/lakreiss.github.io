@@ -1,5 +1,16 @@
 #pong_game {
-  position: absolute;
-  top: 140px;
-  left: calc(calc(100% - 500px) / 2);
+  /* position: absolute; */
+  /* top: 140px; */
+  /* left: calc(100% - 500px) */
+  display: inline-block;
+  /* left: calc(calc(100% - 500px) / 2); */
+}
+
+.game_options {
+  vertical-align: top;
+  display: inline-block;
+  width: calc(calc(calc(100% - 500px) - 1em) / 2);
+  height: 300px;
+  border-right: 1em;
+  text-align: center;
 }
