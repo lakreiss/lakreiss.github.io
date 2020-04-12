@@ -18,7 +18,7 @@ function get_tile_coords(name) {
 }
 
 function replaceAllEncodingReferences(input) {
-  console.log(input + " is being decoded");
+  // console.log(input + " is being decoded");
   input = input.replace(/%92/g, "'");
   return decodeURI(input);
 }
@@ -34,6 +34,12 @@ function check_is_valid_color(input) {
     return valid_colors.includes(input.toLowerCase());
   }
   return true;
+}
+
+function remove_empty_lines_from_array(input_array) {
+  return input_array.filter(
+    function(value, index, arr){ return value != "";}
+  );
 }
 
 function check_is_valid_direction(input) {
@@ -72,6 +78,7 @@ function get_bingo_entries() {
       set_header(replaceAllEncodingReferences(header));
 
       var all_answers = url_split[2].split(answer_delim);
+      all_answers = remove_empty_lines_from_array(all_answers);
       if (all_answers.length < board_width * board_height) {
         alert("Error: there are not enough answers to fill the board. Default answers will be used instead.");
         return all_default_answers;
@@ -321,6 +328,7 @@ function submit_bingo_entry() {
   var is_word = check_is_valid_text(header_to_check);
   if (is_word) {
     var answers_to_check = document.getElementById("answers").value.split("\n");
+    answers_to_check = remove_empty_lines_from_array(answers_to_check);
     var answers_to_url = "";
 
     if (answers_to_check.length < board_width * board_height) {
