@@ -581,7 +581,7 @@ function check_solution() {
 }
 
 function check_word() {
-  var word_to_check = document.getElementById("word_check").value;
+  var word_to_check = document.getElementById("word_check").value.trim();
   var is_word = check_is_alphabetic(word_to_check);
 
   if (word_to_check == "") {
