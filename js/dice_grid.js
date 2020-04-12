@@ -426,12 +426,12 @@ function move_tiles_right() {
 }
 
 function transpose() {
-  if (check_for_empty_outside_square()) {
+  // if (check_for_empty_outside_square()) {
     //do transpose
     transpose_square();
-  } else {
-    alert("You can only transpose the board if the area outside the upper-left square is empty.");
-  }
+  // } else {
+  //   alert("You can only transpose the board if the area outside the upper-left square is empty.");
+  // }
 }
 
 function transpose_square() {
@@ -694,16 +694,17 @@ function display_advanced() {
   var arrow_keys = "\n\nUse the arrow keys to move your letter board around. This can be helpful if your solution branches off in one direction.";
   var space = "\n\nThe space bar checks your words against Merriam-Webster's dictionary. This includes abbreviations, some proper nouns, and words that are shorter than four letters, and ignores single tiles, so passing this check doesn't necessarily mean you've completed the puzzle, it just means that all your words are real words. \nIf you have a word attempt that isn't quite right, this feature will suggest similar words (which may or may not be possible to build with the given tiles).";
 
-  var t;
-  if (board_width > board_height) {
-    var num_cols = board_width - board_height;
-    t = "\n\nThe 'Transpose' button transposes the board, although it only works if the " + num_cols + " right-most columns are empty.";
-  } else if (board_height > board_width) {
-    var num_rows = board_height - board_width;
-    t = "\n\nThe 'Transpose' button transposes the board, although it only works if the " + num_rows + " bottom-most rows are empty.";
-  } else {
-    t = "\n\nThe 'Transpose' button transposes the board.";
-  }
+  var t = "\n\nThe 'Transpose' button transposes the left side of the board while keeping the right-most side the same."
+  // var t;
+  // if (board_width > board_height) {
+  //   var num_cols = board_width - board_height;
+  //   t = "\n\nThe 'Transpose' button transposes the board, although it only works if the " + num_cols + " right-most columns are empty.";
+  // } else if (board_height > board_width) {
+  //   var num_rows = board_height - board_width;
+  //   t = "\n\nThe 'Transpose' button transposes the board, although it only works if the " + num_rows + " bottom-most rows are empty.";
+  // } else {
+  //   t = "\n\nThe 'Transpose' button transposes the board.";
+  // }
 
   var j = "\n\nThe 'Vowel Sort' button sorts the dice on the board by vowels and consonants, with an empty column separating them.";
   var k = "\n\nThe 'Sort' button sorts the dice on the board alphabetically.";
