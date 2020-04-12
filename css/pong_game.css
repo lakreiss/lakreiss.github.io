@@ -1,0 +1,5 @@
+#pong_game {
+  position: absolute;
+  top: 140px;
+  left: calc(calc(100% - 500px) / 2);
+}

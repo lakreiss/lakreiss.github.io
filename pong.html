@@ -1,0 +1,28 @@
+<!doctype html>
+<!-- This is a comment -->
+<html class="no-js" lang="en-US">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <head>
+      <script src="js/menu_builder.js"></script>
+      <link rel="stylesheet" href="css/pong_game.css">
+      <script>build_header();</script>
+      <script src="js/pong_game.js"></script>
+    </head>
+
+    <body onload="check_and_set_dark_mode();">
+      <script>build_menu();</script>
+
+      <div id="pong_game">
+        <!-- <canvas id="canvasOne" width="500" height="300">
+        Your browser does not support HTML5 Canvas.
+        </canvas> -->
+        <span id="pong_game_end"></span>
+      </div>
+
+      <!-- <button class="button" type="button" onclick="canvasApp();return false;">Start Game</button> -->
+      <button class="button" type="button" onclick="startGame();return false;">Start Game</button>
+
+      <script>build_footer();</script>
+
+    </body>
+</html>
