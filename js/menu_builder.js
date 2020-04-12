@@ -128,6 +128,9 @@ function toggle_dark_mode() {
 function is_dark_mode() {
   var cur_theme = document.cookie.split("theme=")[1];
   // alert("is dark? " + cur_theme.includes("dark"));
+  if (!cur_theme) {
+    return false;
+  }
   return cur_theme.includes("dark");
 }
 

@@ -17,8 +17,14 @@ function get_tile_coords(name) {
   }
 }
 
+function replaceAllEncodingReferences(input) {
+  console.log(input + " is being decoded");
+  input = input.replace(/%92/g, "'");
+  return decodeURI(input);
+}
+
 function check_is_valid_text(input) {
-  var regex = new RegExp(/^[-0-9a-z/,'"%. ]+$/i, ); //takes letters and numbers, as well as a slash, comma, or space
+  var regex = new RegExp(/^[-0-9a-z/,\u2019_’`'"(). ]+$/i, ); //takes letters and numbers, as well as a slash, comma, or space
   return regex.test(input);
 }
 
@@ -63,7 +69,7 @@ function get_bingo_entries() {
       alert("Error: invalid header. Default answers will be used instead.");
       return all_default_answers;
     } else {
-      set_header(header.replace(/%20/g, " "));
+      set_header(replaceAllEncodingReferences(header));
 
       var all_answers = url_split[2].split(answer_delim);
       if (all_answers.length < board_width * board_height) {
@@ -71,10 +77,11 @@ function get_bingo_entries() {
         return all_default_answers;
       } else {
         for (var i = 0; i < all_answers.length; i++) {
-          if (!check_is_valid_text(all_answers[i])) {
-            alert(all_answers[i] + " is invalid. Default answers will be used instead");
+          var cur_answer = replaceAllEncodingReferences(all_answers[i]);
+          if (!check_is_valid_text(cur_answer)) {
+            alert(cur_answer + " is invalid. Default answers will be used instead");
           }
-          all_answers[i] = all_answers[i].replace(/%20/g, " ");
+          all_answers[i] = cur_answer;
         }
 
         // alert("new color: " + url_split[3]);
@@ -330,7 +337,7 @@ function submit_bingo_entry() {
           answers_to_url += answer_delim + answers_to_check[i];
         }
       } else {
-        alert("Error: one of your answers was invalid. Try to remove any empty lines and unusual characters.")
+        alert("Error: your input: '" + answers_to_check[i] + "' was invalid. Try to remove any empty lines and unusual characters.")
         return;
       }
     }
