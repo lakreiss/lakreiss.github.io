@@ -35,6 +35,7 @@ function build_menu() {
   document.write('<li class="menu-item"><a href="/bingo_builder.html">Bingo Builder</a></li>');
   document.write('<li class="menu-item"><a href="/balanced_ternary.html">Balanced Ternary Calculator</a></li>');
   document.write('<li class="menu-item"><a href="/assassin.html">Assassin</a></li>');
+  document.write('<li class="menu-item"><a href="/pong.html">Pong</a></li>');
   document.write('</ol></li>');
   document.write('<li class="menu-item">');
   document.write('<a href="#0">Look, I\'m on the Internet!</a>');

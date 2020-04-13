@@ -4,6 +4,7 @@ window.addEventListener('keyup', function(e) { key_up(e); });
 var GAME_WIDTH = 500, GAME_HEIGHT = 300;
 // var GAME_WIDTH = window.innerWidth * (1/2), GAME_HEIGHT = window.innerHeight * (1/2);
 var BALL_SIZE = 8, BALL_MAX_SPEED = 40, BALL_START_SPEED = 5, SPEED_MULTIPLIER = 1.05;
+// BALL_START_SPEED = 20; //FOR DEBUGGING
 var PADDLE_HEIGHT = 60, PADDLE_WIDTH = 16, PLAYER_PADDLE_SPEED = 5, CPU_PADDLE_SPEED;
 var BALL_COLOR = "#000000", PADDLE_COLOR = "#000000", TEXT_COLOR = "#000000";
 var TEXT_FONT_SIZE = 30;
@@ -16,7 +17,8 @@ var paddles = new Array(); //paddles[0] is the left paddle (player), paddles[1] 
 var cur_paddle, cur_paddle_speed;
 var score_text;
 
-var p2_is_computer = false; //might want to allow to humans to play against each other in the future
+var p2_is_computer = false;
+var curved_paddles = false; //TODO: fix the curved bouncing and add this as a game option
 var WINNING_SCORE = 7;
 
 function key_press(e) {
@@ -206,6 +208,7 @@ function  drawScreen () {
 function update() {
 
   //update ball
+  update_ball_velocity();
   ball.next_x = (ball.x += ball.velocity_x);
   ball.next_y = (ball.y += ball.velocity_y);
 
@@ -229,11 +232,13 @@ function testWalls() {
     ball.next_x = ball.radius;
     add_point(user_2);
   } else if (ball.next_y+ball.radius > myGameArea.canvas.height ) {
-    ball.velocity_y = ball.velocity_y*(-1);
+    //ball hit the bottom of the canvas
+    ball.angle *= -1;
     ball.next_y = myGameArea.canvas.height - ball.radius;
 
   } else if(ball.next_y-ball.radius < 0) {
-    ball.velocity_y = ball.velocity_y*(-1);
+    //ball hit the top of the canvas
+    ball.angle *= -1;
     ball.next_y = ball.radius;
   }
 
@@ -253,7 +258,12 @@ function testPaddleCollision() {
   cur_paddle = paddles[user_1];
   if (ball.next_x-ball.radius < paddle_right(cur_paddle) && ball.next_x+ball.radius > paddle_left(cur_paddle)) {
     if (ball.next_y-ball.radius < paddle_bottom(cur_paddle) && ball.next_y+ball.radius > paddle_top(cur_paddle)) {
-      ball.velocity_x = ball.velocity_x*(-1);
+      if (curved_paddles) {
+        ball.angle = Math.PI - ball.angle; //TODO FIX THIS
+
+      } else {
+        ball.angle = Math.PI - ball.angle;
+      }
       ball.next_x = paddle_right(cur_paddle) + ball.radius;
       increase_ball_speed();
     }
@@ -263,7 +273,12 @@ function testPaddleCollision() {
   cur_paddle = paddles[user_2];
   if (ball.next_x+ball.radius > paddle_left(cur_paddle) && ball.next_x-ball.radius < paddle_right(cur_paddle)) {
     if (ball.next_y-ball.radius < paddle_bottom(cur_paddle) && ball.next_y+ball.radius > paddle_top(cur_paddle)) {
-      ball.velocity_x = ball.velocity_x*(-1);
+      if (curved_paddles) {
+        ball.angle = Math.PI - ball.angle; //TODO FIX THIS
+
+      } else {
+        ball.angle = Math.PI - ball.angle;
+      }
       ball.next_x = paddle_left(cur_paddle) - ball.radius;
       increase_ball_speed();
     }
@@ -289,7 +304,20 @@ function render() {
     cur_paddle = paddles[i];
     cur_paddle.x = cur_paddle.next_x;
     cur_paddle.y = cur_paddle.next_y;
-    myGameArea.context.fillRect(paddle_left(cur_paddle), paddle_top(cur_paddle), cur_paddle.width, cur_paddle.height);
+    if (curved_paddles) {
+      myGameArea.context.setLineDash([]);
+      myGameArea.context.beginPath();
+      if (i == user_1) {
+        myGameArea.context.moveTo(paddle_left(cur_paddle), paddle_top(cur_paddle));
+        myGameArea.context.bezierCurveTo(paddle_right(cur_paddle), paddle_top(cur_paddle), paddle_right(cur_paddle), paddle_bottom(cur_paddle), paddle_left(cur_paddle), paddle_bottom(cur_paddle));
+      } else {
+        myGameArea.context.moveTo(paddle_right(cur_paddle), paddle_top(cur_paddle));
+        myGameArea.context.bezierCurveTo(paddle_left(cur_paddle), paddle_top(cur_paddle), paddle_left(cur_paddle), paddle_bottom(cur_paddle), paddle_right(cur_paddle), paddle_bottom(cur_paddle));
+      }
+      myGameArea.context.stroke();
+    } else {
+      myGameArea.context.fillRect(paddle_left(cur_paddle), paddle_top(cur_paddle), cur_paddle.width, cur_paddle.height);
+    }
   }
 
   //render score
@@ -347,8 +375,7 @@ function paddle_right(paddle) {
 }
 
 function stop_ball() {
-  ball.velocity_x = 0;
-  ball.velocity_y = 0;
+  ball.speed = 0;
 }
 
 function add_point(player) {
@@ -370,13 +397,7 @@ function get_score_as_text() {
 }
 
 function increase_ball_speed() {
-  ball.speed *= SPEED_MULTIPLIER;
-  if (ball.speed > BALL_MAX_SPEED) {
-    //do nothing
-  } else {
-    ball.velocity_x *= SPEED_MULTIPLIER;
-    ball.velocity_y *= SPEED_MULTIPLIER;
-  }
+  ball.speed = ball.speed > BALL_MAX_SPEED ? BALL_MAX_SPEED : ball.speed * SPEED_MULTIPLIER;
 }
 
 function hide_difficulty() {
@@ -423,5 +444,10 @@ function set_cpu_paddle_speed(difficulty) {
       break;
     default:
       alert("ERROR: INVALID DIFFICULTY " + difficulty);
-    }
   }
+}
+
+function update_ball_velocity() {
+  ball.velocity_x = Math.cos(ball.angle) * ball.speed;
+  ball.velocity_y = Math.sin(ball.angle) * ball.speed;
+}
