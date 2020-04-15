@@ -1,5 +1,5 @@
 const BOARD_HEIGHT: number = 20, BOARD_WIDTH: number = 22;
-var game_is_active: boolean = false, edge_wrapping: boolean = true;
+var game_is_active: boolean = false, edge_wrapping: boolean = true, frame_count = 0;
 var cur_interval, cur_element: HTMLElement, cur_select_element: HTMLSelectElement, cur_shape_name: string, click_type: string, num_neighbors: number, cur_tile: string, cur_row: boolean[], cur_board: boolean[][], next_board: boolean[][];
 
 function get_tile_name(i: number, j: number): string {
@@ -77,6 +77,8 @@ function clear_board(): void {
       }
     }
   }
+  frame_count = 0;
+  document.getElementById('frame_count_display').innerHTML = frame_count.toString();
 }
 
 function update_board(overwrite_game_is_active: boolean = false): void {
@@ -116,6 +118,8 @@ function update_board(overwrite_game_is_active: boolean = false): void {
       }
     }
 
+    frame_count += 1;
+    document.getElementById('frame_count_display').innerHTML = frame_count.toString();
   } else {
     // console.log("game is not active");
 
@@ -186,7 +190,7 @@ function clicked(tile_name: string) {
 function build_shape(cur_shape: boolean[][], top_left_tile: string): void {
   var cur_tile_coords = get_tile_coords(top_left_tile);
   for (var i: number = 0; i < cur_shape.length; i++) {
-    for (var j: number = 0; j < cur_shape[0].length; j++) {
+    for (var j: number = 0; j < cur_shape[i].length; j++) {
       if (cur_shape[i][j]) {
         cur_tile = get_tile_name(cur_tile_coords[0] + i, cur_tile_coords[1] + j);
         if (cur_tile) {
@@ -204,44 +208,119 @@ class Shape {
       [true, true],
       [true, true]]],
     ['bee-hive', [
-      [false, true, true, false],
+      [false, true, true],
       [true, false, false, true],
-      [false, true, true, false]]],
+      [false, true, true]]],
     ['loaf', [
-      [false, true, true, false],
+      [false, true, true],
       [true, false, false, true],
       [false, true, false, true],
-      [false, false, true, false]]],
+      [false, false, true]]],
     ['boat', [
-      [true, true, false],
+      [true, true],
       [true, false, true],
-      [false, true, false]]],
+      [false, true]]],
     ['tub', [
-      [false, true, false],
+      [false, true],
       [true, false, true],
-      [false, true, false]]],
+      [false, true]]],
     ['blinker', [
       [true, true, true]]],
     ['toad', [
       [false, true, true, true],
-      [true, true, true, false]]],
+      [true, true, true]]],
     ['beacon', [
-      [true, true, false, false],
-      [true, false, false, false],
+      [true, true],
+      [true],
       [false, false, false, true],
       [false, false, true, true]]],
+    ['pulsar', [
+      [false, false, true, true, false, false, false, false, false, true, true],
+      [false, false, false, true, true, false, false, false, true, true],
+      [true, false, false, true, false, true, false, true, false, true, false, false, true],
+      [true, true, true, false, true, true, false, true, true, false, true, true, true],
+      [false, true, false, true, false, true, false, true, false, true, false, true],
+      [false, false, true, true, true, false, false, false, true, true, true],
+      [],
+      [false, false, true, true, true, false, false, false, true, true, true],
+      [false, true, false, true, false, true, false, true, false, true, false, true],
+      [true, true, true, false, true, true, false, true, true, false, true, true, true],
+      [true, false, false, true, false, true, false, true, false, true, false, false, true],
+      [false, false, false, true, true, false, false, false, true, true],
+      [false, false, true, true, false, false, false, false, false, true, true]]],
     ['penta-decathlon', [
-      [false, false, true, false, false, false, false, true, false, false],
+      [false, false, true, false, false, false, false, true],
       [true, true, false, true, true, true, true, false, true, true],
-      [false, false, true, false, false, false, false, true, false, false]]],
+      [false, false, true, false, false, false, false, true]]],
     ['ten', [
       [true, true, true, true, true, true, true, true, true, true]]],
     ['glider', [
-      [false, true, false],
+      [false, true],
       [false, false, true],
-      [true, true, true]]]
-
-  ]); // using tuples to define values: [string, number][]
+      [true, true, true]]],
+    ['lwss', [
+      [false, true, true],
+      [true, true, true, true],
+      [true, true, false, true, true],
+      [false, false, true, true]]],
+    ['mwss', [
+      [false, true, true, true],
+      [true, true, true, true, true],
+      [true, true, true, false, true, true],
+      [false, false, false, true, true]]],
+    ['hwss', [
+      [false, true, true, true, true],
+      [true, true, true, true, true, true],
+      [true, true, true, true, false, true, true],
+      [false, false, false, false, true, true]]],
+    ['r-pentomino', [
+      [false, true, true],
+      [true, true],
+      [false, true]]],
+    ['diehard', [
+      [false, false, false, false, false, false, true],
+      [true, true],
+      [false, true, false, false, false, true, true, true]]],
+    ['acorn', [
+      [false, true],
+      [false, false, false, true],
+      [true, true, false, false, true, true, true]]],
+    ['tumbler', [
+      [false, true, true, false, true, true],
+      [false, true, true, false, true, true],
+      [false, false, true, false, true],
+      [true, false, true, false, true, false, true],
+      [true, false, true, false, true, false, true],
+      [true, true, false, false, false, true, true]]],
+    ['small exploder', [
+      [false, true],
+      [true, true, true],
+      [true, false, true],
+      [false, true]]],
+    ['exploder', [
+      [true, true, true, true, true],
+      [],
+      [true, false, false, false, true],
+      [],
+      [true, true, true, true, true]]],
+    ['bomb', [
+      [true, true, false, false, false, true, true],
+      [true, true, false, false, false, true, true],
+      [],
+      [false, false, true, true, true],
+      [false, false, true, true, true],
+      [false, false, false, true]]],
+    ['john conway', [
+      [false, false, true, true, true],
+      [false, false, true, false, true],
+      [false, false, true, false, true],
+      [false, false, false, true],
+      [true, false, true, true, true],
+      [false, true, false, true, false, true],
+      [false, false, false, true, false, false, true],
+      [false, false, true, false, true],
+      [false, false, true, false, true]]]
+    ]);
 
   static get_shape(shape_name: string): boolean[][] {
     if (Shape.all_shapes.get(shape_name)) {

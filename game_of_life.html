@@ -37,6 +37,16 @@
 
                 <table class="center">
                   <tr>
+                    <td></td>
+                    <th class="big">Frame Count:</th>
+                    <td id="frame_count_display" class="small">
+                      <script> document.write(frame_count) </script>
+                    </td>
+                  </tr>
+                </table>
+
+                <table class="center">
+                  <tr>
                     <th>Normal click:</th>
                     <td></td>
                     <td class="left_align">
@@ -81,6 +91,9 @@
                     <td>
                       <select id="spaceship_shape">
                         <option>Glider</option>
+                        <option>LWSS</option>
+                        <option>MWSS</option>
+                        <option>HWSS</option>
                       </select>
                     </td>
                     <td class="left_align">
@@ -93,6 +106,14 @@
                     <td>
                       <select id="surprise_shape" width=10>
                         <option>Ten</option>
+                        <option>R-Pentomino</option>
+                        <option>Diehard</option>
+                        <option>Acorn</option>
+                        <option>Tumbler</option>
+                        <option>Small Exploder</option>
+                        <option>Exploder</option>
+                        <option>Bomb</option>
+                        <option>John Conway</option>
                       </select>
                     </td>
                     <td class="left_align">
@@ -101,7 +122,7 @@
                   </tr>
                 </table>
 
-                <table>
+                <table class="center">
                   <tr>
                     <!-- <te></td> -->
                     <td class="small"></td>
