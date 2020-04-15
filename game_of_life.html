@@ -31,9 +31,71 @@
               <button class="button" type="button" onclick="step_board();return false;">Step Board</button>
               <button class="button" type="button" onclick="clear_board();return false;">Clear Board</button>
             </div>
+            <br>
+            <div class="shape_adding">
+              <form name="shape_adding_form">
+
+                <table class="center">
+                  <tr>
+                    <th>Normal click:</th>
+                    <td></td>
+                    <td>
+                      <button id="normal_click_button" class="button shape_button" type="button" onclick="add_type('click', 'normal_click_button');return false;">Add</button>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <th>Statics:</th>
+                    <td>
+                      <select id="static_shape">
+                        <option>Block</option>
+                        <option>Bee-hive</option>
+                        <option>Loaf</option>
+                        <option>Boat</option>
+                        <option>Tub</option>
+                      </select>
+                    </td>
+                    <td>
+                      <button id="static_shape_button" class="button shape_button" type="button" onclick="add_type('static_shape', 'static_shape_button');return false;">Add</button>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <th>Oscillators:</th>
+                    <td>
+                      <select id="oscillator_shape">
+                        <option>Blinker</option>
+                        <option>Toad</option>
+                        <option>Beacon</option>
+                        <option>Pulsar</option>
+                        <option>Penta-decathlon</option>
+                      </select>
+                    </td>
+                    <td>
+                      <button id="oscillator_shape_button" class="button shape_button" type="button" onclick="add_type('oscillator_shape', 'oscillator_shape_button');return false;">Add</button>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <th>Surprises:</th>
+                    <td>
+                      <select id="surprise_shape" width=10>
+                        <option>Ten</option>
+                      </select>
+                    </td>
+                    <td>
+                      <button id="surprise_shape_button" class="button shape_button" type="button" onclick="add_type('surprise_shape', 'surprise_shape_button');return false;">Add</button>
+                    </td>
+                  </tr>
+                </table>
+
+                <script>add_type('click', 'normal_click_button')</script> <!--TOGGLES THE NORMAL CLICK BUTTON TO START-->
+
+              </form>
+            </div>
           </div>
 
-          <div class="text game_board">
+          <div class="text right_side game_board">
             <script language="JavaScript">build_empty_board();</script>
           </div>
         </div>

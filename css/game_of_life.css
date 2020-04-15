@@ -6,8 +6,13 @@
   margin: 1px 1px 1px 1px;
 }
 
+.left_side {
+  max-width: calc(40% - 1em);
+}
+
 .game_board {
   margin-left: 1em;
+  min-width: 60%;
 }
 
 .tile.tile_on {
@@ -17,4 +22,27 @@
 .buttons {
   text-align: center;
   width: 100%;
+}
+
+.shape_adding {
+  margin-top: 3vh;
+}
+
+th {
+  width: 50%;
+  text-align: right;
+}
+
+tr {
+  width:25%;
+  text-align: right;
+}
+
+select {
+  width: 100px;
+}
+
+.shape_button.button_active {
+  background-color: black;
+  color: white;
 }

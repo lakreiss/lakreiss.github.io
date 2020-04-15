@@ -1,12 +1,16 @@
 var BOARD_HEIGHT = 20, BOARD_WIDTH = 22;
 var game_is_active = false, interval_exists = false;
-var cur_element, cur_tile_coords, num_neighbors, cur_tile, cur_row, cur_board, next_board;
+var cur_element, cur_select_element, cur_shape_name, click_type, num_neighbors, cur_tile, cur_row, cur_board, next_board;
 function get_tile_name(i, j) {
+    if (i < 0 || i >= BOARD_HEIGHT || j < 0 || j >= BOARD_WIDTH) {
+        return null;
+    }
     return "tile" + String.fromCharCode(65 + j) + (i + 1).toString();
 }
 function get_tile_coords(name) {
     if (name.substring(0, 4) != "tile") {
-        alert("illegal tile name");
+        // alert("illegal tile name");
+        return null;
     }
     else {
         // alert("tile coords for " + name + " are (" + eval(name.charCodeAt(4) - 65) +", " + parseInt(name.substring(5)) - 1 + ")");
@@ -20,7 +24,7 @@ function build_empty_board() {
         for (var j = 0; j < BOARD_WIDTH; j++) {
             cur_tile = get_tile_name(i, j);
             cur_board[i][j] = false;
-            document.write("<div class=\"tile\" id=\"" + cur_tile + "\" onclick=\"toggle_tile(\'" + cur_tile + "\')\"></div>");
+            document.write("<div class=\"tile\" id=\"" + cur_tile + "\" onclick=\"clicked(\'" + cur_tile + "\')\"></div>");
         }
         document.writeln("<br>");
     }
@@ -28,7 +32,7 @@ function build_empty_board() {
 function toggle_tile(tile_name) {
     cur_element = document.getElementById(tile_name);
     cur_element.classList.toggle("tile_on");
-    cur_tile_coords = get_tile_coords(tile_name);
+    var cur_tile_coords = get_tile_coords(tile_name);
     // console.log(!cur_board[cur_tile_coords[0]][cur_tile_coords[1]]);
     cur_board[cur_tile_coords[0]][cur_tile_coords[1]] = !cur_board[cur_tile_coords[0]][cur_tile_coords[1]];
     // print_board();
@@ -140,3 +144,101 @@ function print_board() {
     }
     console.log(output);
 }
+function add_type(type, button_id) {
+    //remove past type //I GUESS I COULD SAVE A REFERENCE TO THE ONE I ACTUALLY NEED TO TOGGLE, BUT OH WELL
+    var all_shape_buttons = document.getElementsByClassName("shape_button");
+    for (var i = 0; i < all_shape_buttons.length; i++) {
+        if (all_shape_buttons[i].className.includes("button_active")) {
+            all_shape_buttons[i].classList.toggle("button_active");
+        }
+    }
+    //set new type
+    document.getElementById(button_id).classList.toggle("button_active");
+    click_type = type;
+}
+function clicked(tile_name) {
+    if (click_type == "click") { //normal click
+        toggle_tile(tile_name);
+    }
+    else {
+        cur_select_element = (document.getElementById(click_type));
+        cur_shape_name = cur_select_element.options[cur_select_element.selectedIndex].text.toLowerCase();
+        build_shape(Shape.get_shape(cur_shape_name), tile_name);
+    }
+}
+function build_shape(cur_shape, top_left_tile) {
+    var cur_tile_coords = get_tile_coords(top_left_tile);
+    for (var i = 0; i < cur_shape.length; i++) {
+        for (var j = 0; j < cur_shape[0].length; j++) {
+            if (cur_shape[i][j]) {
+                cur_tile = get_tile_name(cur_tile_coords[0] + i, cur_tile_coords[1] + j);
+                if (cur_tile) {
+                    toggle_tile(cur_tile);
+                }
+            }
+        }
+    }
+}
+//SHAPE CLASS
+var Shape = /** @class */ (function () {
+    function Shape() {
+    }
+    Shape.get_shape = function (shape_name) {
+        if (Shape.all_shapes.get(shape_name)) {
+            return Shape.all_shapes.get(shape_name);
+        }
+        else {
+            console.log("Error: shape " + shape_name + " is not implemented");
+            return [[true]];
+        }
+    };
+    Shape.all_shapes = new Map([
+        ['block', [
+                [true, true],
+                [true, true]
+            ]],
+        ['bee-hive', [
+                [false, true, true, false],
+                [true, false, false, true],
+                [false, true, true, false]
+            ]],
+        ['loaf', [
+                [false, true, true, false],
+                [true, false, false, true],
+                [false, true, false, true],
+                [false, false, true, false]
+            ]],
+        ['boat', [
+                [true, true, false],
+                [true, false, true],
+                [false, true, false]
+            ]],
+        ['tub', [
+                [false, true, false],
+                [true, false, true],
+                [false, true, false]
+            ]],
+        ['blinker', [
+                [true, true, true]
+            ]],
+        ['toad', [
+                [false, true, true, true],
+                [true, true, true, false]
+            ]],
+        ['beacon', [
+                [true, true, false, false],
+                [true, false, false, false],
+                [false, false, false, true],
+                [false, false, true, true]
+            ]],
+        ['penta-decathlon', [
+                [false, false, true, false, false, false, false, true, false, false],
+                [true, true, false, true, true, true, true, false, true, true],
+                [false, false, true, false, false, false, false, true, false, false]
+            ]],
+        ['ten', [
+                [true, true, true, true, true, true, true, true, true, true]
+            ]]
+    ]); // using tuples to define values: [string, number][]
+    return Shape;
+}());
