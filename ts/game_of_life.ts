@@ -1,6 +1,5 @@
 const BOARD_HEIGHT: number = 20, BOARD_WIDTH: number = 22;
-var game_is_active: boolean = false;
-var interval; //not sure what type this is
+var game_is_active: boolean = false, interval_exists: boolean = false;
 var cur_element: Element, cur_tile_coords: number[], num_neighbors: number, cur_tile: string, cur_row: boolean[], cur_board: boolean[][], next_board: boolean[][];
 
 function get_tile_name(i: number, j: number): string {
@@ -43,10 +42,12 @@ function start_game(): void {
     //do nothing because game is already active
   } else {
     game_is_active = true;
-    if (interval) {
+    if (interval_exists) {
       //do nothing because an interval already exists
     } else {
       setInterval(update_board, 300);
+      interval_exists = true;
+      console.log("set interval");
     }
   }
 }
@@ -59,10 +60,24 @@ function stop_game(): void {
   }
 }
 
-function update_board() {
+function step_board() {
+  update_board(true);
+}
 
-  if (game_is_active) {
-    console.log("game is active");
+function clear_board() {
+  for (var i: number = 0; i < BOARD_HEIGHT; i++) {
+    for (var j: number = 0; j < BOARD_WIDTH; j++) {
+      if (cur_board[i][j] == true) {
+        toggle_tile(get_tile_name(i, j));
+      }
+    }
+  }
+}
+
+function update_board(overwrite_game_is_active: boolean = false) {
+
+  if (game_is_active || overwrite_game_is_active) {
+    // console.log("game is active");
     //get next states
     next_board = [];
     for (var i: number = 0; i < BOARD_HEIGHT; i++) {
@@ -90,14 +105,13 @@ function update_board() {
     for (var i: number = 0; i < BOARD_HEIGHT; i++) {
       for (var j: number = 0; j < BOARD_WIDTH; j++) {
         if (next_board[i][j] != cur_board[i][j]) {
-          cur_board[i][j] = next_board[i][j];
           toggle_tile(get_tile_name(i, j));
         }
       }
     }
 
   } else {
-    console.log("game is not active");
+    // console.log("game is not active");
 
   }
 }
@@ -121,7 +135,7 @@ function get_num_alive_neighbors(row: number, col: number): number {
   return total_count;
 }
 
-function print_board() {
+function print_board() { //FOR DEBUGGING
   var output: string = "";
   for (var i: number = 0; i < BOARD_HEIGHT; i++) {
     output += "\n";

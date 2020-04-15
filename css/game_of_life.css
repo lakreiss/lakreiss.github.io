@@ -13,3 +13,8 @@
 .tile.tile_on {
   background-color: black;
 }
+
+.buttons {
+  text-align: center;
+  width: 100%;
+}

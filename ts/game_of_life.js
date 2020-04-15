@@ -1,6 +1,5 @@
 var BOARD_HEIGHT = 20, BOARD_WIDTH = 22;
-var game_is_active = false;
-var interval; //not sure what type this is
+var game_is_active = false, interval_exists = false;
 var cur_element, cur_tile_coords, num_neighbors, cur_tile, cur_row, cur_board, next_board;
 function get_tile_name(i, j) {
     return "tile" + String.fromCharCode(65 + j) + (i + 1).toString();
@@ -40,11 +39,13 @@ function start_game() {
     }
     else {
         game_is_active = true;
-        if (interval) {
+        if (interval_exists) {
             //do nothing because an interval already exists
         }
         else {
             setInterval(update_board, 300);
+            interval_exists = true;
+            console.log("set interval");
         }
     }
 }
@@ -56,9 +57,22 @@ function stop_game() {
         game_is_active = false;
     }
 }
-function update_board() {
-    if (game_is_active) {
-        console.log("game is active");
+function step_board() {
+    update_board(true);
+}
+function clear_board() {
+    for (var i = 0; i < BOARD_HEIGHT; i++) {
+        for (var j = 0; j < BOARD_WIDTH; j++) {
+            if (cur_board[i][j] == true) {
+                toggle_tile(get_tile_name(i, j));
+            }
+        }
+    }
+}
+function update_board(overwrite_game_is_active) {
+    if (overwrite_game_is_active === void 0) { overwrite_game_is_active = false; }
+    if (game_is_active || overwrite_game_is_active) {
+        // console.log("game is active");
         //get next states
         next_board = [];
         for (var i = 0; i < BOARD_HEIGHT; i++) {
@@ -87,14 +101,13 @@ function update_board() {
         for (var i = 0; i < BOARD_HEIGHT; i++) {
             for (var j = 0; j < BOARD_WIDTH; j++) {
                 if (next_board[i][j] != cur_board[i][j]) {
-                    cur_board[i][j] = next_board[i][j];
                     toggle_tile(get_tile_name(i, j));
                 }
             }
         }
     }
     else {
-        console.log("game is not active");
+        // console.log("game is not active");
     }
 }
 function get_num_alive_neighbors(row, col) {
