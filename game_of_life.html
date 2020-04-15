@@ -39,7 +39,7 @@
                   <tr>
                     <th>Normal click:</th>
                     <td></td>
-                    <td>
+                    <td class="left_align">
                       <button id="normal_click_button" class="button shape_button" type="button" onclick="add_type('click', 'normal_click_button');return false;">Add</button>
                     </td>
                   </tr>
@@ -55,7 +55,7 @@
                         <option>Tub</option>
                       </select>
                     </td>
-                    <td>
+                    <td class="left_align">
                       <button id="static_shape_button" class="button shape_button" type="button" onclick="add_type('static_shape', 'static_shape_button');return false;">Add</button>
                     </td>
                   </tr>
@@ -71,8 +71,20 @@
                         <option>Penta-decathlon</option>
                       </select>
                     </td>
-                    <td>
+                    <td class="left_align">
                       <button id="oscillator_shape_button" class="button shape_button" type="button" onclick="add_type('oscillator_shape', 'oscillator_shape_button');return false;">Add</button>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <th>Spaceships:</th>
+                    <td>
+                      <select id="spaceship_shape">
+                        <option>Glider</option>
+                      </select>
+                    </td>
+                    <td class="left_align">
+                      <button id="spaceship_shape_button" class="button shape_button" type="button" onclick="add_type('spaceship_shape', 'spaceship_shape_button');return false;">Add</button>
                     </td>
                   </tr>
 
@@ -83,14 +95,24 @@
                         <option>Ten</option>
                       </select>
                     </td>
-                    <td>
+                    <td class="left_align">
                       <button id="surprise_shape_button" class="button shape_button" type="button" onclick="add_type('surprise_shape', 'surprise_shape_button');return false;">Add</button>
                     </td>
                   </tr>
                 </table>
 
-                <script>add_type('click', 'normal_click_button')</script> <!--TOGGLES THE NORMAL CLICK BUTTON TO START-->
+                <table>
+                  <tr>
+                    <!-- <te></td> -->
+                    <td class="small"></td>
+                    <th class="big">Edge Wrapping:</th>
+                    <td class="small">
+                      <input type="checkbox" id="edge_wrapping_checkbox" checked>
+                    </td>
+                  </tr>
+                </table>
 
+                <script>add_type('click', 'normal_click_button')</script> <!--TOGGLES THE NORMAL CLICK BUTTON TO START-->
               </form>
             </div>
           </div>

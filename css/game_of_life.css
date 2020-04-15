@@ -33,9 +33,21 @@ th {
   text-align: right;
 }
 
-tr {
+td {
   width:25%;
   text-align: right;
+}
+
+td.small {
+  width: 10%;
+}
+
+td.left_align {
+  text-align: left;
+}
+
+th.wide {
+  width: 80%;
 }
 
 select {

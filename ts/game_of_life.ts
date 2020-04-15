@@ -1,5 +1,5 @@
 const BOARD_HEIGHT: number = 20, BOARD_WIDTH: number = 22;
-var game_is_active: boolean = false, interval_exists: boolean = false;
+var game_is_active: boolean = false, interval_exists: boolean = false, edge_wrapping: boolean = true;
 var cur_element: HTMLElement, cur_select_element: HTMLSelectElement, cur_shape_name: string, click_type: string, num_neighbors: number, cur_tile: string, cur_row: boolean[], cur_board: boolean[][], next_board: boolean[][];
 
 function get_tile_name(i: number, j: number): string {
@@ -51,7 +51,7 @@ function start_game(): void {
     } else {
       setInterval(update_board, 300);
       interval_exists = true;
-      console.log("set interval");
+      // console.log("set interval");
     }
   }
 }
@@ -79,6 +79,7 @@ function clear_board(): void {
 }
 
 function update_board(overwrite_game_is_active: boolean = false): void {
+  edge_wrapping = (<HTMLInputElement> document.getElementById('edge_wrapping_checkbox')).checked;
 
   if (game_is_active || overwrite_game_is_active) {
     // console.log("game is active");
@@ -118,6 +119,8 @@ function update_board(overwrite_game_is_active: boolean = false): void {
     // console.log("game is not active");
 
   }
+
+  print_board();
 }
 
 function get_num_alive_neighbors(row: number, col: number): number {
@@ -129,7 +132,11 @@ function get_num_alive_neighbors(row: number, col: number): number {
         //skip, main cell
       } else {
         if (row + i < 0 || row + i >= BOARD_HEIGHT || col + j < 0 || col + j >= BOARD_WIDTH) {
-          //skip, out of bounds
+          if (edge_wrapping) {
+            total_count += cur_board[(row + i + BOARD_HEIGHT) % BOARD_HEIGHT][(col + j + BOARD_WIDTH) % BOARD_WIDTH] ? 1 : 0;
+          } else {
+            //skip, out of bounds
+          }
         } else {
           total_count += cur_board[row + i][col + j] ? 1 : 0;
         }
@@ -144,7 +151,7 @@ function print_board(): void { //FOR DEBUGGING
   for (var i: number = 0; i < BOARD_HEIGHT; i++) {
     output += "\n";
     for (var j: number = 0; j < BOARD_WIDTH; j++) {
-      output += (cur_board[i][j] == true ? "T" : "f") + " ";
+      output += (cur_board[i][j] == true ? "T" : ".") + " ";
     }
   }
   console.log(output);
@@ -226,7 +233,11 @@ class Shape {
       [true, true, false, true, true, true, true, false, true, true],
       [false, false, true, false, false, false, false, true, false, false]]],
     ['ten', [
-      [true, true, true, true, true, true, true, true, true, true]]]
+      [true, true, true, true, true, true, true, true, true, true]]],
+    ['glider', [
+      [false, true, false],
+      [false, false, true],
+      [true, true, true]]]
 
   ]); // using tuples to define values: [string, number][]
 
