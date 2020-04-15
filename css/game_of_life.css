@@ -1,0 +1,15 @@
+.tile {
+  background-color: white;
+  outline: 1px solid black;
+  height: 2vw;
+  width: 2vw;
+  margin: 1px 1px 1px 1px;
+}
+
+.game_board {
+  margin-left: 1em;
+}
+
+.tile.tile_on {
+  background-color: black;
+}

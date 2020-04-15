@@ -1,0 +1,46 @@
+<!doctype html>
+<!-- This is a comment -->
+<!-- MUCH OF THE CODE FROM THIS GAME WAS INSPIRED BY http://www.lutanho.net/play/hex.html -->
+<html class="no-js" lang="en-US">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <head>
+      <script src="js/menu_builder.js"></script>
+      <script>build_header();</script>
+
+      <link rel="stylesheet" href="css/game_of_life.css">
+
+      <script src="ts/game_of_life.js"></script>
+    </head>
+
+    <body onload="check_and_set_dark_mode();">
+      <script language="JavaScript">
+        var is_mobile = !!navigator.userAgent.match(/iphone|android|blackberry/ig) || false;
+        if (is_mobile) {
+          alert("Sorry, this website doesn't work well on mobile. I suggest trying it on a laptop or desktop!")
+        }
+      </script>
+      <script>build_menu();</script>
+
+      <section class="">
+        <div class="row">
+          <div class="text left_side">
+            <h1 class="title">Welcome to Conway's Game of Life!</h1>
+            <div class="buttons">
+              <button class="button" type="button" onclick="start_game();return false;">Start Game</button>
+              <button class="button" type="button" onclick="stop_game();return false;">Stop Game</button>
+            </div>
+          </div>
+
+          <div class="text game_board">
+            <script language="JavaScript">build_empty_board();</script>
+          </div>
+        </div>
+
+
+
+      </section>
+
+      <script>build_footer();</script>
+
+    </body>
+</html>
