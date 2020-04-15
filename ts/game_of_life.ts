@@ -1,6 +1,6 @@
 const BOARD_HEIGHT: number = 20, BOARD_WIDTH: number = 22;
-var game_is_active: boolean = false, interval_exists: boolean = false, edge_wrapping: boolean = true;
-var cur_element: HTMLElement, cur_select_element: HTMLSelectElement, cur_shape_name: string, click_type: string, num_neighbors: number, cur_tile: string, cur_row: boolean[], cur_board: boolean[][], next_board: boolean[][];
+var game_is_active: boolean = false, edge_wrapping: boolean = true;
+var cur_interval, cur_element: HTMLElement, cur_select_element: HTMLSelectElement, cur_shape_name: string, click_type: string, num_neighbors: number, cur_tile: string, cur_row: boolean[], cur_board: boolean[][], next_board: boolean[][];
 
 function get_tile_name(i: number, j: number): string {
   if (i < 0 || i >= BOARD_HEIGHT || j < 0 || j >= BOARD_WIDTH) {
@@ -46,11 +46,10 @@ function start_game(): void {
     //do nothing because game is already active
   } else {
     game_is_active = true;
-    if (interval_exists) {
+    if (cur_interval) {
       //do nothing because an interval already exists
     } else {
-      setInterval(update_board, 300);
-      interval_exists = true;
+      cur_interval = setInterval(update_board, 300);
       // console.log("set interval");
     }
   }
@@ -61,6 +60,8 @@ function stop_game(): void {
     //do nothing
   } else {
     game_is_active = false;
+    clearInterval(cur_interval);
+    cur_interval = null;
   }
 }
 
@@ -120,7 +121,8 @@ function update_board(overwrite_game_is_active: boolean = false): void {
 
   }
 
-  print_board();
+  // print_board();
+  console.log(cur_interval ? cur_interval : "null");
 }
 
 function get_num_alive_neighbors(row: number, col: number): number {

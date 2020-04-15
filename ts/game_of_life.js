@@ -1,6 +1,6 @@
 var BOARD_HEIGHT = 20, BOARD_WIDTH = 22;
-var game_is_active = false, interval_exists = false, edge_wrapping = true;
-var cur_element, cur_select_element, cur_shape_name, click_type, num_neighbors, cur_tile, cur_row, cur_board, next_board;
+var game_is_active = false, edge_wrapping = true;
+var cur_interval, cur_element, cur_select_element, cur_shape_name, click_type, num_neighbors, cur_tile, cur_row, cur_board, next_board;
 function get_tile_name(i, j) {
     if (i < 0 || i >= BOARD_HEIGHT || j < 0 || j >= BOARD_WIDTH) {
         return null;
@@ -43,12 +43,11 @@ function start_game() {
     }
     else {
         game_is_active = true;
-        if (interval_exists) {
+        if (cur_interval) {
             //do nothing because an interval already exists
         }
         else {
-            setInterval(update_board, 300);
-            interval_exists = true;
+            cur_interval = setInterval(update_board, 300);
             // console.log("set interval");
         }
     }
@@ -59,6 +58,8 @@ function stop_game() {
     }
     else {
         game_is_active = false;
+        clearInterval(cur_interval);
+        cur_interval = null;
     }
 }
 function step_board() {
@@ -114,7 +115,8 @@ function update_board(overwrite_game_is_active) {
     else {
         // console.log("game is not active");
     }
-    print_board();
+    // print_board();
+    console.log(cur_interval ? cur_interval : "null");
 }
 function get_num_alive_neighbors(row, col) {
     //TODO write this
