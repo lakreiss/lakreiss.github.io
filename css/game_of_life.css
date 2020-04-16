@@ -6,6 +6,12 @@
   margin: 1px 1px 1px 1px;
 }
 
+.center {
+  text-align: center;
+  min-width: 100%;
+  max-width: 100%;
+}
+
 .left_side {
   max-width: calc(40% - 1em);
 }
@@ -38,23 +44,68 @@ td {
   text-align: right;
 }
 
-td.small {
-  width: 10%;
-}
-
-td.left_align {
+.left_align {
   text-align: left;
 }
 
-th.wide {
-  width: 80%;
+.right_align {
+  text-align: right;
+}
+
+td.small {
+  width: 10%;
+  text-align: left;
+}
+
+.half {
+  width: 50%;
+}
+
+
+.dark-mode-text table {
+  border: none;
+}
+
+.dark-mode-text th {
+  border: none;
+}
+
+.dark-mode-text td {
+  border: none;
 }
 
 select {
   width: 100px;
 }
 
+input[type="range"] {
+  width:100px;
+}
+
 .shape_button.button_active {
   background-color: black;
   color: white;
 }
+
+.dark-mode-text .shape_button {
+  background-color: black;
+  color: white;
+}
+
+.dark-mode-text .shape_button.button_active {
+  background-color: white;
+  color: black;
+}
+
+.dark-mode-text .tile {
+  background-color: black;
+  outline: 1px solid white;
+}
+
+.dark-mode-text .tile.tile_on {
+  background-color: white;
+}
+
+/* .dark-mode-text.game_board {
+  background-color: white;
+} */

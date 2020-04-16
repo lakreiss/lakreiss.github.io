@@ -1,6 +1,6 @@
 var BOARD_HEIGHT = 20, BOARD_WIDTH = 22;
 var game_is_active = false, edge_wrapping = true, frame_count = 0;
-var cur_interval, cur_element, cur_select_element, cur_shape_name, click_type, num_neighbors, cur_tile, cur_row, cur_board, next_board;
+var cur_number, cur_value, cur_interval, cur_element, cur_select_element, cur_shape_name, click_type, num_neighbors, cur_tile, cur_row, cur_board, next_board;
 function get_tile_name(i, j) {
     if (i < 0 || i >= BOARD_HEIGHT || j < 0 || j >= BOARD_WIDTH) {
         return null;
@@ -47,10 +47,22 @@ function start_game() {
             //do nothing because an interval already exists
         }
         else {
-            cur_interval = setInterval(update_board, 300);
+            cur_interval = setInterval(update_board, get_speed());
             // console.log("set interval");
         }
     }
+}
+function get_speed() {
+    cur_value = document.getElementById('speed').value;
+    cur_number = 600 - parseInt(cur_value);
+    if (cur_number > 300) {
+        cur_number = 300 + ((cur_number - 300) * (7 / 3));
+    }
+    return cur_number;
+}
+function update_interval() {
+    clearInterval(cur_interval);
+    cur_interval = setInterval(update_board, get_speed());
 }
 function stop_game() {
     if (!game_is_active) {
@@ -230,6 +242,12 @@ var Shape = /** @class */ (function () {
                 [false, true],
                 [true, false, true],
                 [false, true]
+            ]],
+        ['big tub', [
+                [false, true, true],
+                [true, false, false, true],
+                [true, false, false, true],
+                [false, true, true]
             ]],
         ['blinker', [
                 [true, true, true]

@@ -37,15 +37,24 @@
 
                 <table class="center">
                   <tr>
+                    <th>Frame Count:</th>
+                    <td class="left_align">
+                      <span id="frame_count_display">
+                        <script> document.write(frame_count) </script>
+                      </span>
+                    </td>
                     <td></td>
-                    <th class="big">Frame Count:</th>
-                    <td id="frame_count_display" class="small">
-                      <script> document.write(frame_count) </script>
+                  </tr>
+
+                  <tr>
+                    <th>Speed:</th>
+                    <td>
+                      <input type="range" id="speed" name="vol" min="0" max="600" onchange="update_interval()">
+                    </td>
+                    <td class="left_align">
                     </td>
                   </tr>
-                </table>
 
-                <table class="center">
                   <tr>
                     <th>Normal click:</th>
                     <td></td>
@@ -63,6 +72,7 @@
                         <option>Loaf</option>
                         <option>Boat</option>
                         <option>Tub</option>
+                        <option>Big Tub</option>
                       </select>
                     </td>
                     <td class="left_align">
@@ -120,15 +130,13 @@
                       <button id="surprise_shape_button" class="button shape_button" type="button" onclick="add_type('surprise_shape', 'surprise_shape_button');return false;">Add</button>
                     </td>
                   </tr>
-                </table>
 
-                <table class="center">
                   <tr>
-                    <!-- <te></td> -->
-                    <td class="small"></td>
-                    <th class="big">Edge Wrapping:</th>
-                    <td class="small">
+                    <th>Edge Wrapping:</th>
+                    <td class="left_align">
                       <input type="checkbox" id="edge_wrapping_checkbox" checked>
+                    </td>
+                    <td>
                     </td>
                   </tr>
                 </table>
