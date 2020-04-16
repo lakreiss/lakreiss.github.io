@@ -48,7 +48,6 @@ function start_game() {
         }
         else {
             cur_interval = setInterval(update_board, get_speed());
-            // console.log("set interval");
         }
     }
 }
@@ -132,7 +131,7 @@ function update_board(overwrite_game_is_active) {
         // console.log("game is not active");
     }
     // print_board();
-    console.log(cur_interval ? cur_interval : "null");
+    // console.log(cur_interval ? cur_interval : "null");
 }
 function get_num_alive_neighbors(row, col) {
     //TODO write this

@@ -66,7 +66,7 @@
                   <tr>
                     <th>Statics:</th>
                     <td>
-                      <select id="static_shape">
+                      <select id="static_shape" onchange="add_type('static_shape', 'static_shape_button');">
                         <option>Block</option>
                         <option>Bee-hive</option>
                         <option>Loaf</option>
@@ -83,7 +83,7 @@
                   <tr>
                     <th>Oscillators:</th>
                     <td>
-                      <select id="oscillator_shape">
+                      <select id="oscillator_shape" onchange="add_type('oscillator_shape', 'oscillator_shape_button');">
                         <option>Blinker</option>
                         <option>Toad</option>
                         <option>Beacon</option>
@@ -99,7 +99,7 @@
                   <tr>
                     <th>Spaceships:</th>
                     <td>
-                      <select id="spaceship_shape">
+                      <select id="spaceship_shape" onchange="add_type('spaceship_shape', 'spaceship_shape_button');">
                         <option>Glider</option>
                         <option>LWSS</option>
                         <option>MWSS</option>
@@ -114,7 +114,7 @@
                   <tr>
                     <th>Surprises:</th>
                     <td>
-                      <select id="surprise_shape" width=10>
+                      <select id="surprise_shape" width=10 onchange="add_type('surprise_shape', 'surprise_shape_button');">
                         <option>Ten</option>
                         <option>R-Pentomino</option>
                         <option>Diehard</option>
