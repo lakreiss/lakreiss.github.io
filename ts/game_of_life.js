@@ -20,20 +20,21 @@ function get_tile_coords(name) {
         return [parseInt(name.substring(5)) - 1, name.charCodeAt(4) - 65];
     }
 }
-function build_empty_board() {
-    cur_board = [];
-    for (var i = 0; i < BOARD_HEIGHT; i++) {
-        cur_board.push([]);
-        document.write("<nobr>");
-        for (var j = 0; j < BOARD_WIDTH; j++) {
-            cur_tile = get_tile_name(i, j);
-            cur_board[i][j] = false;
-            document.write("<div class=\"tile\" id=\"" + cur_tile + "\" onclick=\"clicked(\'" + cur_tile + "\')\"></div>");
-        }
-        document.write("</nobr>");
-        document.writeln("<br>");
-    }
-}
+//DEPRECATED
+// function build_empty_board(): void {
+//   cur_board = [];
+//   for (var i: number = 0; i < BOARD_HEIGHT; i++) {
+//     cur_board.push([]);
+//     document.write("<nobr>");
+//     for (var j: number = 0; j < BOARD_WIDTH; j++) {
+//       cur_tile = get_tile_name(i, j);
+//       cur_board[i][j] = false;
+//       document.write("<div class=\"tile\" id=\""+cur_tile+"\" onclick=\"clicked(\'"+cur_tile+"\')\"></div>");
+//     }
+//     document.write("</nobr>");
+//     document.writeln("<br>");
+//   }
+// }
 function build_empty_grid_board() {
     cur_board = [];
     document.write('<div class="grid-container">');
@@ -44,21 +45,7 @@ function build_empty_grid_board() {
             cur_board[i][j] = false;
             document.write('<div class="grid-item tile" id="' + cur_tile + '" onclick=\"clicked(\'' + cur_tile + '\')\"></div>');
         }
-        // document.writeln("<br>");
     }
-    /*
-    <div class="grid-container">
-      <div class="grid-item">1</div>
-      <div class="grid-item">2</div>
-      <div class="grid-item">3</div>
-      <div class="grid-item">4</div>
-      <div class="grid-item">5</div>
-      <div class="grid-item">6</div>
-      <div class="grid-item">7</div>
-      <div class="grid-item">8</div>
-      <div class="grid-item">9</div>
-    </div>
-    */
 }
 function toggle_tile(tile_name) {
     cur_element = document.getElementById(tile_name);
