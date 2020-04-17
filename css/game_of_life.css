@@ -4,6 +4,7 @@
   height: 2vw;
   width: 2vw;
   margin: 1px 1px 1px 1px;
+  display: inline-block;
 }
 
 .center {
@@ -19,6 +20,12 @@
 .game_board {
   margin-left: 1em;
   min-width: 60%;
+}
+
+.grid-container {
+  display: grid;
+  /* 22 autos because 22 columns; must change if you change the BOARD_WIDTH */
+  grid-template-columns: auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto;
 }
 
 .tile.tile_on {

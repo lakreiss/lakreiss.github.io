@@ -1,3 +1,6 @@
+//TODO LIST:
+//add rotations for shapes
+//make it work for different board heights and widths
 var BOARD_HEIGHT = 20, BOARD_WIDTH = 22;
 var game_is_active = false, edge_wrapping = true, frame_count = 0;
 var cur_number, cur_value, cur_interval, cur_element, cur_select_element, cur_shape_name, click_type, num_neighbors, cur_tile, cur_row, cur_board, next_board;
@@ -21,13 +24,41 @@ function build_empty_board() {
     cur_board = [];
     for (var i = 0; i < BOARD_HEIGHT; i++) {
         cur_board.push([]);
+        document.write("<nobr>");
         for (var j = 0; j < BOARD_WIDTH; j++) {
             cur_tile = get_tile_name(i, j);
             cur_board[i][j] = false;
             document.write("<div class=\"tile\" id=\"" + cur_tile + "\" onclick=\"clicked(\'" + cur_tile + "\')\"></div>");
         }
+        document.write("</nobr>");
         document.writeln("<br>");
     }
+}
+function build_empty_grid_board() {
+    cur_board = [];
+    document.write('<div class="grid-container">');
+    for (var i = 0; i < BOARD_HEIGHT; i++) {
+        cur_board.push([]);
+        for (var j = 0; j < BOARD_WIDTH; j++) {
+            cur_tile = get_tile_name(i, j);
+            cur_board[i][j] = false;
+            document.write('<div class="grid-item tile" id="' + cur_tile + '" onclick=\"clicked(\'' + cur_tile + '\')\"></div>');
+        }
+        // document.writeln("<br>");
+    }
+    /*
+    <div class="grid-container">
+      <div class="grid-item">1</div>
+      <div class="grid-item">2</div>
+      <div class="grid-item">3</div>
+      <div class="grid-item">4</div>
+      <div class="grid-item">5</div>
+      <div class="grid-item">6</div>
+      <div class="grid-item">7</div>
+      <div class="grid-item">8</div>
+      <div class="grid-item">9</div>
+    </div>
+    */
 }
 function toggle_tile(tile_name) {
     cur_element = document.getElementById(tile_name);
