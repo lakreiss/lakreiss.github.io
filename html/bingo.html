@@ -1,0 +1,36 @@
+<!doctype html>
+<!-- This is a comment -->
+<html class="no-js" lang="en-US">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <head>
+      <link rel="shortcut icon" href="../img/favicon/favicon_real.ico" />
+      <link rel="stylesheet" href="../css/bingo.css">
+      <script src="../js/bingo.js"></script>
+      <script language="JavaScript">
+        var is_mobile = !!navigator.userAgent.match(/iphone|android|blackberry/ig) || false;
+        if (is_mobile) {
+          remove_brs();
+        }
+      </script>
+
+      <h1 id="header" class="title">You are an Influencer</h1>
+    </head>
+
+    <body onload="set_bingo_tiles()">
+      <script language="JavaScript">
+        document.write("<div class=\"bingo_board\">")
+        for (var i=0; i < board_height; i++)
+        {
+          // document.write("<nobr>");
+          for (var j=0; j < board_width; j++)
+          {
+            var tile_name = get_tile_name(i, j);
+            document.write("<div class=\"bingo_tile\" id=\""+tile_name+"\"onclick=\"clicked(\'"+tile_name+"\')\" data-is_clicked=\'false\' title='"+tile_name+"' alt='"+tile_name+"'><span>" + blank_tile + "</span></div>");
+          }
+          // document.writeln("</nobr><br>");
+          document.writeln("<br>");
+        }
+        document.write("</div>")
+      </script>
+    </body>
+</html>

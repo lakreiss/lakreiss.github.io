@@ -1,8 +1,8 @@
 function build_header() {
-  document.write('<link rel="shortcut icon" href="img/favicon/favicon_real.ico"/>');
-  document.write('<link rel="stylesheet" href="css/style.css">');
-  document.write('<link rel="stylesheet" href="css/vincent_durand.css">');
-  document.write('<link rel="stylesheet" href="css/style_dark_mode.css">');
+  document.write('<link rel="shortcut icon" href="/../img/favicon/favicon_real.ico"/>');
+  document.write('<link rel="stylesheet" href="/../css/style.css">');
+  document.write('<link rel="stylesheet" href="/../css/vincent_durand.css">');
+  document.write('<link rel="stylesheet" href="/../css/style_dark_mode.css">');
   document.write('<script src="https://kit.fontawesome.com/fc40f0ea91.js" crossorigin="anonymous"></script>');
 
 }
@@ -20,23 +20,23 @@ function build_menu() {
   document.write('<ol>');
   document.write('<li class="menu-item"><a href="/index.html">Home</a></li>');
   document.write('<li class="menu-item">');
-  document.write('<a href="/portfolio.html">Portfolio</a>');
+  document.write('<a href="/html/portfolio.html">Portfolio</a>');
   document.write('<ol class="sub-menu">');
-  document.write('<li class="menu-item"><a href="/plus4.html">Plus4</a></li>');
-  document.write('<li class="menu-item"><a href="/quadris.html">Quadris</a></li>');
-  document.write('<li class="menu-item"><a href="/free_rice.html">Free Rice</a></li>');
-  document.write('<li class="menu-item"><a href="/iReverse.html">iReverse</a></li>');
-  document.write('<li class="menu-item"><a href="/grubsteak.html">Grubsteak</a></li>');
+  document.write('<li class="menu-item"><a href="/html/plus4.html">Plus4</a></li>');
+  document.write('<li class="menu-item"><a href="/html/quadris.html">Quadris</a></li>');
+  document.write('<li class="menu-item"><a href="/html/free_rice.html">Free Rice</a></li>');
+  document.write('<li class="menu-item"><a href="/html/iReverse.html">iReverse</a></li>');
+  document.write('<li class="menu-item"><a href="/html/grubsteak.html">Grubsteak</a></li>');
   document.write('</ol></li>');
   document.write('<li class="menu-item">');
   document.write('<a href="#0">Web Apps</a>');
   document.write('<ol class="sub-menu">');
-  document.write('<li class="menu-item"><a href="/letter_game.html">The Letter Game</a></li>');
-  document.write('<li class="menu-item"><a href="/bingo_builder.html">Bingo Builder</a></li>');
-  document.write('<li class="menu-item"><a href="/game_of_life.html">Game of Life</a></li>');
-  document.write('<li class="menu-item"><a href="/balanced_ternary.html">Balanced Ternary Calculator</a></li>');
-  document.write('<li class="menu-item"><a href="/assassin.html">Assassin</a></li>');
-  document.write('<li class="menu-item"><a href="/pong.html">Pong</a></li>');
+  document.write('<li class="menu-item"><a href="/html/letter_game.html">The Letter Game</a></li>');
+  document.write('<li class="menu-item"><a href="/html/bingo_builder.html">Bingo Builder</a></li>');
+  document.write('<li class="menu-item"><a href="/html/game_of_life.html">Game of Life</a></li>');
+  document.write('<li class="menu-item"><a href="/html/balanced_ternary.html">Balanced Ternary Calculator</a></li>');
+  document.write('<li class="menu-item"><a href="/html/assassin.html">Assassin</a></li>');
+  document.write('<li class="menu-item"><a href="/html/pong.html">Pong</a></li>');
   document.write('</ol></li>');
   document.write('<li class="menu-item">');
   document.write('<a href="#0">Look, I\'m on the Internet!</a>');
@@ -46,7 +46,7 @@ function build_menu() {
   document.write('<li class="menu-item"><a href="https://ultiworld.com/2019/06/05/best-worst-jerseys-2019-college-national-championships/usau_college_nats_dqt_20190525_081624-zf-2413-34991-1-003/" target="_blank">Ultimate Frisbee</a></li>');
   document.write('<li class="menu-item"><a href="https://www.instagram.com/p/B965GvEn-RP/?igshid=120htfiffh8yk" target="_blank">Celebration</a></li>');
   document.write('</ol></li>');
-  document.write('<li class="menu-item"><a href="/about.html">About</a></li>');
+  document.write('<li class="menu-item"><a href="/html/about.html">About</a></li>');
   document.write('</ol>');
   document.write('</nav>');
 }

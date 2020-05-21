@@ -1,0 +1,41 @@
+<!doctype html>
+<!-- This is a comment -->
+<html class="no-js" lang="en-US">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <head>
+      <script src="../js/menu_builder.js"></script>
+      <script>build_header();</script>
+    </head>
+
+    <body onload="check_and_set_dark_mode();">
+      <script>build_menu();</script>
+
+      <div class="text grubsteak_text">
+        <h1>Grubsteak</h1>
+        <p>Grubsteak is a python program that I made for my summer camp to automate the food preparing and distributing process.
+          <br>This isn't really worth downloading unless you work in Grubstake at Camp Sealth.</p>
+
+        <h4>How to run on Mac:</h4>
+        <ol>
+          <li><p>Download the code here: <a href="/files/grubsteak.zip" download="grubsteak.zip">
+              <button type="button">Download</button>
+            </a></p></li>
+          <li><p>Unzip the folder.</p></li>
+          <li><p>Right click on the folder, and click 'New Terminal at Folder'.</p></li>
+          <li><p>In the terminal shell, run <pre><code>python main.py</code></pre></p></li>
+        </ol>
+
+        <h4>How to change the options, cabins, and meals:</h4>
+        <ul>
+          <li><p>Everything you should need to change is in the 'camp_info' and 'meals' folders.</p></li>
+          <li><p>In the 'camp_info' folder, change the options and unit information in the text files, with one option or name per line.</p></li>
+          <li><p>In the 'meals' folder, change the all_meals text file to display the appropriate meals and change the meal ingredients according to any necessary updates.</p></li>
+        </ul>
+
+      </div>
+
+
+      <script>build_footer();</script>
+
+    </body>
+</html>

@@ -1,0 +1,56 @@
+<!doctype html>
+<!-- This is a comment -->
+<html class="no-js" lang="en-US">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <head>
+      <script src="../js/menu_builder.js"></script>
+      <link rel="stylesheet" href="../css/pong_game.css">
+      <script>build_header();</script>
+      <script src="../js/pong_game.js"></script>
+    </head>
+
+    <body onload="check_and_set_dark_mode();">
+      <script>build_menu();</script>
+
+      <div class="text">
+        <h1>Pong</h1>
+        <p>A simple pong application that can be played with one or two people. <br> With one player, you can use either up/down or w/s. <br>With two players, the up and down arrows control the right paddle and the 'w' and 's' keys control the left paddle.</p>
+      </div>
+
+
+      <div class="text game_options">
+        <form class="game_option_form">
+          <span>Opponent:</span><br>
+          <input type="radio" id="vs_CPU" name="opponent" value="cpu" onclick="show_difficulty()" checked="checked">
+          <label for="cpu">CPU</label>
+          <input type="radio" id="vs_Human" name="opponent" value="human" onclick="hide_difficulty()">
+          <label for="human">Human</label><br>
+
+          <div class="difficulty_section">
+            <span>Difficulty:</span><br>
+            <input type="radio" id="dif_easy" name="difficulty" value="easy">
+            <label for="easy">Easy</label><br>
+            <input type="radio" id="dif_medium" name="difficulty" value="medium">
+            <label for="medium">Medium</label><br>
+            <input type="radio" id="dif_hard" name="difficulty" value="hard" checked="checked">
+            <label for="hard">Hard</label><br>
+            <input type="radio" id="dif_impossible" name="difficulty" value="impossible">
+            <label for="impossible">Impossible</label><br>
+          </div>
+
+          <button class="button" type="button" onclick="startGame();return false;">Start Game</button>
+          <button id="play_again_button" class="button" type="button" onclick="startNewGame();return false;" hidden>Play Again</button>
+        </form>
+      </div>
+
+      <div id="pong_game">
+        <!-- <canvas id="canvasOne" width="500" height="300">
+        Your browser does not support HTML5 Canvas.
+        </canvas> -->
+      </div>
+
+
+      <script>build_footer();</script>
+
+    </body>
+</html>

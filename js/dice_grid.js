@@ -20,7 +20,7 @@ var all_letter_dice = [
 var num_dice=all_letter_dice.length, board_height=11, board_width=18;
 var auto_populate_start_col = 1;
 
-var tile_path_start="img/letter_pieces/";
+var tile_path_start="../img/letter_pieces/";
 var tile_path_end=".png";
 
 var blank_dice = "__";

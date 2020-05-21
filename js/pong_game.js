@@ -8,17 +8,19 @@ var BALL_SIZE = 8, BALL_MAX_SPEED = 40, BALL_START_SPEED = 5, SPEED_MULTIPLIER =
 var PADDLE_HEIGHT = 60, PADDLE_WIDTH = 16, PLAYER_PADDLE_SPEED = 5, CPU_PADDLE_SPEED;
 var BALL_COLOR = "#000000", PADDLE_COLOR = "#000000", TEXT_COLOR = "#000000";
 var TEXT_FONT_SIZE = 30;
+var CURVE_DIST_BEHIND_PADDLE = 25;
 var user_1 = 0, user_2 = 1;
 var score = new Array(0, 0);
 var game_is_over = false;
 
 var ball;
 var paddles = new Array(); //paddles[0] is the left paddle (player), paddles[1] is the right paddle (cpu) (for now)
-var cur_paddle, cur_paddle_speed;
+var cur_paddle, cur_paddle_speed, y_diff, x_diff;
 var score_text;
 
 var p2_is_computer = false;
 var curved_paddles = false; //TODO: fix the curved bouncing and add this as a game option
+var curved_bounce = true;
 var WINNING_SCORE = 7;
 
 function key_press(e) {
@@ -258,9 +260,11 @@ function testPaddleCollision() {
   cur_paddle = paddles[user_1];
   if (ball.next_x-ball.radius < paddle_right(cur_paddle) && ball.next_x+ball.radius > paddle_left(cur_paddle)) {
     if (ball.next_y-ball.radius < paddle_bottom(cur_paddle) && ball.next_y+ball.radius > paddle_top(cur_paddle)) {
-      if (curved_paddles) {
-        ball.angle = Math.PI - ball.angle; //TODO FIX THIS
-
+      if (curved_bounce) {
+        // ball.angle = Math.PI - ball.angle; //TODO FIX THIS
+        y_diff = ball.y - cur_paddle.y;
+        x_diff = CURVE_DIST_BEHIND_PADDLE;
+        ball.angle = Math.atan(y_diff / x_diff);
       } else {
         ball.angle = Math.PI - ball.angle;
       }
@@ -273,9 +277,12 @@ function testPaddleCollision() {
   cur_paddle = paddles[user_2];
   if (ball.next_x+ball.radius > paddle_left(cur_paddle) && ball.next_x-ball.radius < paddle_right(cur_paddle)) {
     if (ball.next_y-ball.radius < paddle_bottom(cur_paddle) && ball.next_y+ball.radius > paddle_top(cur_paddle)) {
-      if (curved_paddles) {
-        ball.angle = Math.PI - ball.angle; //TODO FIX THIS
-
+      if (curved_bounce) {
+        // ball.angle = Math.PI - ball.angle; //TODO FIX THIS
+        y_diff = ball.y - cur_paddle.y;
+        x_diff = CURVE_DIST_BEHIND_PADDLE;
+        ball.angle = Math.PI - Math.atan(y_diff / x_diff);
+        console.log(y_diff, x_diff, ball.angle);
       } else {
         ball.angle = Math.PI - ball.angle;
       }
