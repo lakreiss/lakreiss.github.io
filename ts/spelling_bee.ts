@@ -31,7 +31,8 @@ function key_press(e) {
 
 function initialize_dictionary() {
   //get json file from github with word list
-  let requestURL = 'https://raw.githubusercontent.com/dwyl/english-words/master/words_dictionary.json';
+  // let requestURL = 'https://raw.githubusercontent.com/dwyl/english-words/master/words_dictionary.json';
+  let requestURL = '../files/english_dictionary.json';
   let request = new XMLHttpRequest();
   request.open('GET', requestURL);
   request.responseType = 'json';
