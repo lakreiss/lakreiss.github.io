@@ -314,6 +314,41 @@ function display_all_answers() {
   }
 }
 
+function change_hex_sizes() {
+  for (var i = 0; i < NUM_LETTERS; i++) {
+    var hex_id = "hex" + (i + 1);
+    var cur_element = document.getElementById(hex_id);
+    cur_element.classList.toggle("hb-sm");
+    if (i == 0) {
+      cur_element.style.marginTop = "70px";
+      cur_element.style.marginLeft = "-65px";
+    } else if (i == 1) {
+      cur_element.style.marginTop = "70px";
+      cur_element.style.marginLeft = "5px";
+    } else if (i == 2) {
+      cur_element.style.marginTop = "130px";
+      cur_element.style.marginLeft = "-100px";
+    } else if (i == 3) {
+      cur_element.style.marginTop = "130px";
+      cur_element.style.marginLeft = "40px";
+    } else if (i == 4) {
+      cur_element.style.marginTop = "190px";
+      cur_element.style.marginLeft = "-65px";
+    } else if (i == 5) {
+      cur_element.style.marginTop = "190px";
+      cur_element.style.marginLeft = "5px";
+    } else if (i == 6) {
+      cur_element.style.marginTop = "130px";
+      cur_element.style.marginLeft = "-30px";
+    }
+  }
+
+  //this doesn't seem to be working
+  (<HTMLElement> document.getElementsByClassName("right_side")[0]).style.width = "48%";
+  (<HTMLElement> document.getElementsByClassName("left_side")[0]).style.width = "48%";
+
+}
+
 /* Randomize array in-place using Durstenfeld shuffle algorithm */
 //taken from https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
 function shuffleArray(array) {

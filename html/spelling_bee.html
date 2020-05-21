@@ -14,12 +14,6 @@
     </head>
 
     <body onload="check_and_set_dark_mode();">
-      <script language="JavaScript">
-        var is_mobile = !!navigator.userAgent.match(/iphone|android|blackberry/ig) || false;
-        if (is_mobile) {
-          alert("Sorry, this website doesn't work well on mobile. I suggest trying it on a laptop or desktop!")
-        }
-      </script>
       <script>build_menu();</script>
 
       <div class="left_side">
@@ -85,5 +79,12 @@
 
       <script>build_footer();</script>
 
+      <script language="JavaScript">
+        var is_mobile = !!navigator.userAgent.match(/iphone|android|blackberry/ig) || false;
+        if (is_mobile) {
+          change_hex_sizes();
+          alert("Sorry, this website doesn't work well on mobile. I suggest trying it on a laptop or desktop!")
+        }
+      </script>
     </body>
 </html>
