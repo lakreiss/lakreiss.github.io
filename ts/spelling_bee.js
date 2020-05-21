@@ -82,8 +82,8 @@ function build_letters() {
         //if they are, use those letters
         var letters = window.location.href.split(URL_DELIM)[1];
         if (letters.length == NUM_LETTERS) {
-            cur_outside_letters = letters.toUpperCase().substring(0, letters.length - 1).split("");
-            cur_center_letter = letters.toUpperCase().charAt(letters.length - 1);
+            cur_outside_letters = letters.toUpperCase().substring(1, letters.length).split("");
+            cur_center_letter = letters.toUpperCase().charAt(0);
             set_letters(cur_outside_letters, cur_center_letter);
         }
         else {
@@ -336,7 +336,7 @@ function change_hex_sizes() {
             cur_element.style.marginLeft = "-30px";
         }
     }
-    //this doesn't seem to be working
+    //reformat so everything fits
     document.getElementsByClassName("right_side")[0].style.width = "48%";
     document.getElementsByClassName("left_side")[0].style.width = "48%";
 }
