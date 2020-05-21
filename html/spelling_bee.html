@@ -1,0 +1,67 @@
+<!doctype html>
+<!-- This is a comment -->
+<html class="no-js" lang="en-US">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <head>
+      <script src="../js/menu_builder.js"></script>
+      <script>build_header();</script>
+      <link rel="stylesheet" href="../css/CSS3-Hexagon-Buttons-master/assets/css/hexagons.min.css">
+
+      <link rel="stylesheet" href="../css/spelling_bee.css">
+
+      <script src="../ts/spelling_bee.js"></script>
+
+    </head>
+
+    <body onload="check_and_set_dark_mode();">
+      <script language="JavaScript">
+        var is_mobile = !!navigator.userAgent.match(/iphone|android|blackberry/ig) || false;
+        if (is_mobile) {
+          alert("Sorry, this website doesn't work well on mobile. I suggest trying it on a laptop or desktop!")
+        }
+      </script>
+      <script>build_menu();</script>
+
+      <div class="left_side">
+
+        <div id="letter_section" class="text">
+          <div id="letters_entered"></div>
+          <div class="button" onclick="delete_letter()">DELETE</div>
+          <div class="button" onclick="scramble_letters()">SCRAMBLE</div>
+          <div class="button" onclick="enter_word()">ENTER</div>
+          <br>
+          <div class="button" onclick="clear_word()">CLEAR</div>
+          <div class="button" onclick="new_letters()">NEW LETTERS</div>
+
+          <div class="letter_container">
+            <div id="hex1" class="hex hb hb-md" onclick="add_letter('hex1')">_</div>
+            <div id="hex2" class="hex hb hb-md" onclick="add_letter('hex2')">_</div>
+            <div id="hex3" class="hex hb hb-md" onclick="add_letter('hex3')">_</div>
+            <div id="hex4" class="hex hb hb-md" onclick="add_letter('hex4')">_</div>
+            <div id="hex5" class="hex hb hb-md" onclick="add_letter('hex5')">_</div>
+            <div id="hex6" class="hex hb hb-md" onclick="add_letter('hex6')">_</div>
+            <div id="hex7" class="hex hb hb-md middle_hex" onclick="add_letter('hex7')">_</div>
+          </div>
+        </div>
+      </div>
+      <div class="right_side">
+        <div id="progress_bar" class="text"></div>
+        <div class="text">
+          <div id="word_tally"></div>
+          <div id="found_words"></div>
+        </div>
+        <form class="text">
+          <input id="letters_to_use" type="text" placeholder="Letters to Use">
+          <button class="button" onclick="use_letters();">Use Letters</button>
+        </form>
+      </div>
+
+      <script language="JavaScript">
+        initialize_dictionary();
+        build_letters();
+      </script>
+
+      <script>build_footer();</script>
+
+    </body>
+</html>

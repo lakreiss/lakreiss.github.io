@@ -1,0 +1,92 @@
+
+
+.left_side {
+  width: 50vw;
+}
+
+#letter_section {
+  min-height: 580px;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+#letters_entered {
+  font-size: 40px;
+  text-align: center;
+}
+
+.letter_container {
+  display: block;
+}
+
+.button {
+  margin-top: 1em;
+  margin-bottom: -1em;
+
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+  padding-left: 0.5em;
+  padding-right: 0.5em;
+  text-align: center;
+  display: inline-block;
+  border-radius: 0.5rem;
+  background-color: white;
+  border: solid 1px black;
+}
+
+.button:hover {
+  cursor: pointer;
+  background-color: gray;
+  color: white;
+}
+
+.middle_hex {
+  color: red;
+}
+
+.middle_hex:hover {
+  color: red;
+}
+
+.hex {
+  position: absolute;
+}
+
+.hex:hover {
+  cursor: pointer;
+}
+
+#hex1 {
+  margin-top: 70px;
+  margin-left: -130px;
+}
+
+#hex2 {
+  margin-top: 70px;
+  margin-left: 10px;
+}
+
+#hex3 {
+  margin-top: 190px;
+  margin-left: -200px;
+}
+
+#hex7 {
+  margin-top: 190px;
+  margin-left: -60px;
+}
+
+#hex4 {
+  margin-top: 190px;
+  margin-left: 80px;
+}
+
+#hex5 {
+  margin-top: 310px;
+  margin-left: -130px;
+}
+
+#hex6 {
+  margin-top: 310px;
+  margin-left: 10px;
+}
