@@ -179,7 +179,7 @@ section {
 .right_side {
   margin-left: 1vw;
   min-width: 49%;
-  max-width: 50%;
+  max-width: 49%;
   display: inline-block;
   vertical-align: top;
 }

@@ -45,15 +45,37 @@
         </div>
       </div>
       <div class="right_side">
-        <div id="progress_bar" class="text"></div>
+        <div class="text">
+          <div id="progress_bar"></div>
+          <div id="score_category"></div>
+        </div>
+
         <div class="text">
           <div id="word_tally"></div>
-          <div id="found_words"></div>
+          <div id="found_words">
+            <div id="found_words_col0" class="col_3"></div>
+            <div id="found_words_col1" class="col_3"></div>
+            <div id="found_words_col2" class="col_3"></div>
+          </div>
         </div>
+
         <form class="text">
+          <span>Enter your own letters:</span>
           <input id="letters_to_use" type="text" placeholder="Letters to Use">
           <button class="button" onclick="use_letters();">Use Letters</button>
         </form>
+
+        <div class="text">
+          <div class="center">
+            <div id="solve_button" class="button" onclick="display_all_answers()">SOLVE</div>
+          </div>
+          <br>
+          <div id="all_words_container" hidden>
+            <div id="all_words_col0" class="col_3"></div>
+            <div id="all_words_col1" class="col_3"></div>
+            <div id="all_words_col2" class="col_3"></div>
+          </div>
+        </div>
       </div>
 
       <script language="JavaScript">

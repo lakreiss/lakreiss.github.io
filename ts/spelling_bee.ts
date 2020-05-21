@@ -1,8 +1,9 @@
-var NUM_LETTERS: number = 7, EMPTY_STRING: string = "-", URL_DELIM = "#";
+var NUM_LETTERS: number = 7, EMPTY_STRING: string = "-", URL_DELIM: string = "#", NUM_WORDS_FOUND_COLS: number = 3;
 var score: number = 0, cur_word = ""; //TODO: add cookies that store scores for letter configs
 var all_letters: string[] = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
 var cur_outside_letters: string[], cur_center_letter: string, next_letter: string, cur_letter: string, cur_element_id: string;
-var english_words, words_found: string[] = [], point_value: number;
+var english_words, words_found: string[] = [], all_words: string[] = [], point_value: number;
+var max_score: number = 0, answers_displayed: boolean = false; //temp value
 
 window.addEventListener('keydown', function(e) { key_press(e); });
 
@@ -23,10 +24,13 @@ function key_press(e) {
     }
   } else if (e.keyCode == 13) { //enter button
     enter_word();
+  } else if (e.keyCode == 8) { //backspace
+    delete_letter();
   }
 }
 
 function initialize_dictionary() {
+  //get json file from github with word list
   let requestURL = 'https://raw.githubusercontent.com/dwyl/english-words/master/words_dictionary.json';
   let request = new XMLHttpRequest();
   request.open('GET', requestURL);
@@ -34,8 +38,44 @@ function initialize_dictionary() {
   request.send();
 
   request.onload = function() {
+    console.log("dictionary has loaded");
      english_words = request.response;
+     find_solutions();
   }
+}
+
+function find_solutions() {
+  console.log("searching for solutions");
+
+  //find all solutions to the letters, store them in hidden element
+  var real_letter_set = new Set(cur_outside_letters.map(v => v.toLowerCase()));
+  var cur_center_letter_lower_case = cur_center_letter.toLowerCase();
+  real_letter_set.add(cur_center_letter_lower_case);
+
+  var word: string;
+  Object.keys(english_words).forEach(function(word) {
+    if (word.length > 3 && real_letter_set.has(word.charAt(0))) { //optimization
+      if (word.includes(cur_center_letter_lower_case) && isSuperset(real_letter_set, word)) {
+        console.log("found solution:", word);
+        add_word_to_all_words(word);
+        max_score += get_point_value(word);
+      }
+    }
+  });
+  update_score()
+}
+
+function isSuperset(set, word) {
+  for (var i = 0; i < word.length; i++) {
+    // console.log(word.charAt(i));
+    if (!(set.has(word.charAt(i)))) {
+      // console.log("not in " + set);
+      return false;
+    }
+    // console.log("in " + set);
+
+  }
+  return true;
 }
 
 function build_letters() {
@@ -100,7 +140,29 @@ function set_letters(outside_letters: string[], center_letter: string, randomize
 }
 
 function update_score() {
+  var score_category;
+  if (score < max_score * 0.03) {
+    score_category = "Beginner";
+  } else if (score < max_score * 0.07) {
+    score_category = "Good Start";
+  } else if (score < max_score * 0.11) {
+    score_category = "Moving Up";
+  } else if (score < max_score * 0.20) {
+    score_category = "Good";
+  } else if (score < max_score * 0.34) {
+    score_category = "Solid";
+  } else if (score < max_score * 0.54) {
+    score_category = "Nice";
+  } else if (score < max_score * 0.67) {
+    score_category = "Great";
+  } else if (score < max_score * 0.94) {
+    score_category = "Amazing";
+  } else {
+    score_category = "Genius";
+  }
+
   document.getElementById("progress_bar").innerHTML = "Score: " + score;
+  document.getElementById("score_category").innerHTML = score_category;
 }
 
 function update_found_words() {
@@ -152,13 +214,25 @@ function new_letters() {
   set_cur_letters_randomly();
   clear_words_found();
   score = 0;
+  update_score();
   update_cur_word(EMPTY_STRING);
+  clear_all_words();
+  find_solutions();
 }
 
 function clear_words_found() {
   words_found = [];
-  document.getElementById("found_words").innerHTML = "";
+  for (var i = 0; i < NUM_WORDS_FOUND_COLS; i++) {
+    document.getElementById("found_words_col" + i).innerHTML = "";
+  }
   update_found_words();
+}
+
+function clear_all_words() {
+  all_words = [];
+  for (var i = 0; i < NUM_WORDS_FOUND_COLS; i++) {
+    document.getElementById("all_words_col" + i).innerHTML = "";
+  }
 }
 
 function enter_word() {
@@ -172,7 +246,9 @@ function enter_word() {
   }
 
   else {
-    if (english_words[cur_word.toLowerCase()]) {
+    if (english_words == null) {
+      alert("website is still loading, wait a few seconds and try again");
+    } else if (english_words[cur_word.toLowerCase()]) {
       point_value = get_point_value(cur_word);
       window.alert(cur_word + " is a valid word, and is worth " + point_value + " points");
       score += point_value;
@@ -197,9 +273,15 @@ function get_point_value(word): number {
 
 function found_word(new_word) {
   words_found.push(new_word);
-  document.getElementById("found_words").innerHTML += "<br>" + new_word;
+
+  document.getElementById("found_words_col" + ((words_found.length + 2) % NUM_WORDS_FOUND_COLS)).innerHTML += "<br>" + new_word;
   update_found_words();
   update_score();
+}
+
+function add_word_to_all_words(new_word) {
+  all_words.push(new_word);
+  document.getElementById("all_words_col" + ((all_words.length + 2) % NUM_WORDS_FOUND_COLS)).innerHTML += "<br>" + new_word;
 }
 
 function use_letters() {
@@ -212,6 +294,22 @@ function use_letters() {
     } else {
       window.location.assign(window.location.href + "#" + next_letters);
     }
+  }
+}
+
+function display_all_answers() {
+  if (answers_displayed) {
+    //hide answers
+    document.getElementById("all_words_container").setAttribute("hidden", "true");
+    document.getElementById("solve_button").innerHTML = "SOLVE";
+
+    answers_displayed = false;
+  } else {
+    //display answers
+    document.getElementById("all_words_container").removeAttribute("hidden");
+    document.getElementById("solve_button").innerHTML = "HIDE";
+
+    answers_displayed = true;
   }
 }
 
