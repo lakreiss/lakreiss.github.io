@@ -620,7 +620,40 @@ function next_word() {
 }
 
 function failed_check(illegal_word, similar_words) {
-  alert("Sorry, it looks like your word '" + illegal_word + "' is not a valid word. Here are some similar words that might help you:\n" + similar_words);
+  similar_valid_words = get_similar_valid_words(similar_words);
+  alert("Sorry, it looks like your word '" + illegal_word + "' is not a valid word. Here are some similar words that might help you:\n" + similar_valid_words);
+}
+
+function get_similar_valid_words(similar_words) {
+  all_words = similar_words.replace(/","/g, ',').replace(/"]/g, '').replace(/\["/g, '').split(",");
+  console.log(all_words);
+
+  valid_letters = new Set();
+  for (var i=0; i < num_dice; i++) {
+    valid_letters.add(document.getElementById("dice"+i).innerHTML.toLowerCase());
+  }
+
+  valid_words = [];
+  for (var i = 0; i < all_words.length; i++) {
+    var cur_word = all_words[i];
+    if (isSuperset(valid_letters, cur_word)) {
+      valid_words.push(cur_word);
+    }
+  }
+
+  return valid_words;
+}
+
+function isSuperset(set, word) {
+  for (var i = 0; i < word.length; i++) {
+    // console.log(word.charAt(i));
+    if (!(set.has(word.charAt(i)))) { //purposefully not making this lower case, as words with upper case are proper nouns, and therefore illegal
+      // console.log("not in " + set);
+      return false;
+    }
+    // console.log("in " + set);
+  }
+  return true;
 }
 
 function is_in_dictionary(word) {

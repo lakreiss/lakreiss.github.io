@@ -124,6 +124,10 @@ img {
   display: inline-block;
 }
 
+#word_check {
+  width: 110px;
+}
+
 @media (max-width: 50rem) {
   .dice {
     margin: 1rem;
