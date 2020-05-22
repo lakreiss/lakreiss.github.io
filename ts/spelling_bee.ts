@@ -39,15 +39,12 @@ function initialize_dictionary() {
   request.send();
 
   request.onload = function() {
-    console.log("dictionary has loaded");
      english_words = request.response;
      find_solutions();
   }
 }
 
 function find_solutions() {
-  console.log("searching for solutions");
-
   //find all solutions to the letters, store them in hidden element
   var real_letter_set = new Set(cur_outside_letters.map(v => v.toLowerCase()));
   var cur_center_letter_lower_case = cur_center_letter.toLowerCase();
@@ -57,7 +54,7 @@ function find_solutions() {
   Object.keys(english_words).forEach(function(word) {
     if (word.length > 3 && real_letter_set.has(word.charAt(0))) { //optimization
       if (word.includes(cur_center_letter_lower_case) && isSuperset(real_letter_set, word)) {
-        console.log("found solution:", word);
+        // console.log("found solution:", word);
         add_word_to_all_words(word);
         max_score += get_point_value(word);
       }
