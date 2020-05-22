@@ -117,3 +117,9 @@
   margin-top: 310px;
   margin-left: 10px;
 }
+
+.dark-mode-text .button {
+  background-color: black;
+  border: solid 1px white;
+  color: white;
+}

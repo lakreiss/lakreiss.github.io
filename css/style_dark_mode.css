@@ -92,12 +92,6 @@
   outline: 1px solid #FFFFFF;
 }
 
-.dark-mode-text .button {
-  background-color: black;
-  border: solid 1px white;
-  color: white;
-}
-
 .dark-mode-text .right_side {
   color: #000000;
   background-color: #FFFFFF;

@@ -350,3 +350,11 @@ function shuffleArray(array) {
         array[j] = temp;
     }
 }
+//TODO LIST:
+/*
+-alphabetize words found
+-make correct popup disappear automatically (maybe for all popups)
+-make the all_word cols disappear when new_letters is clicked
+-show % of words found (optional for user)
+
+*/
