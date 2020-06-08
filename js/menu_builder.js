@@ -29,15 +29,13 @@ function build_menu() {
   document.write('<li class="menu-item"><a href="/html/grubsteak.html">Grubsteak</a></li>');
   document.write('</ol></li>');
   document.write('<li class="menu-item">');
-  document.write('<a href="#0">Web Apps</a>');
+  document.write('<a href="/html/web_apps.html">Web Apps</a>');
   document.write('<ol class="sub-menu">');
   document.write('<li class="menu-item"><a href="/html/letter_game.html">The Letter Game</a></li>');
   document.write('<li class="menu-item"><a href="/html/bingo_builder.html">Bingo Builder</a></li>');
   document.write('<li class="menu-item"><a href="/html/spelling_bee.html">Spelling Bee</a></li>');
   document.write('<li class="menu-item"><a href="/html/game_of_life.html">Game of Life</a></li>');
-  document.write('<li class="menu-item"><a href="/html/balanced_ternary.html">Balanced Ternary Calculator</a></li>');
-  document.write('<li class="menu-item"><a href="/html/assassin.html">Assassin</a></li>');
-  document.write('<li class="menu-item"><a href="/html/pong.html">Pong</a></li>');
+  document.write('<li class="menu-item"><a href="/html/web_apps.html">More</a></li>');
   document.write('</ol></li>');
   document.write('<li class="menu-item">');
   document.write('<a href="#0">Look, I\'m on the Internet!</a>');

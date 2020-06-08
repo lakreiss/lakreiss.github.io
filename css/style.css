@@ -44,11 +44,6 @@ body {
     margin-top: 4px;
 }
 
-img {
-  width: 20%;
-  height: 20%;
-}
-
 #footer {
   position: fixed;
   text-align: center;
@@ -182,6 +177,20 @@ section {
   max-width: 49%;
   display: inline-block;
   vertical-align: top;
+}
+
+.application_section {
+  width: 23%;
+  margin: 0.5%;
+  display: inline-block;
+  vertical-align: top;
+  /* background-color: rgba(20, 20, 20, .5); */
+  padding: 0.5%;
+  text-align: center;
+}
+
+.application_title {
+  font-size: 1.5em;
 }
 
 /* If the screen size is 600px wide or less, hide the element */
