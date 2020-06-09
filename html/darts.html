@@ -1,16 +1,11 @@
 <!doctype html>
-<!-- This is a comment -->
 <html class="no-js" lang="en-US">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <head>
       <script src="../js/menu_builder.js"></script>
       <script>build_header();</script>
-      <link rel="stylesheet" href="../css/CSS3-Hexagon-Buttons-master/assets/css/hexagons.min.css">
-
-      <link rel="stylesheet" href="../css/spelling_bee.css">
-
-      <script src="../ts/spelling_bee.js"></script>
-
+      <link rel="stylesheet" href="../css/darts.css">
+      <script src="../ts/darts.js"></script>
     </head>
 
     <body onload="check_and_set_dark_mode();">
@@ -21,43 +16,39 @@
 
       <div class="left_side">
 
-        <div id="letter_section" class="text">
-          <div id="letters_entered"></div>
-          <div class="button" onclick="delete_letter()">DELETE</div>
-          <div class="button" onclick="scramble_letters()">SCRAMBLE</div>
-          <div class="button" onclick="enter_word()">ENTER</div>
-          <br>
-          <div class="button" onclick="clear_word()">CLEAR</div>
-          <div class="button" onclick="new_letters()">NEW LETTERS</div>
-
-          <div class="letter_container">
-            <div id="hex1" class="hex hb hb-md" onclick="add_letter('hex1')">_</div>
-            <div id="hex2" class="hex hb hb-md" onclick="add_letter('hex2')">_</div>
-            <div id="hex3" class="hex hb hb-md" onclick="add_letter('hex3')">_</div>
-            <div id="hex4" class="hex hb hb-md" onclick="add_letter('hex4')">_</div>
-            <div id="hex5" class="hex hb hb-md" onclick="add_letter('hex5')">_</div>
-            <div id="hex6" class="hex hb hb-md" onclick="add_letter('hex6')">_</div>
-            <div id="hex7" class="hex hb hb-md middle_hex" onclick="add_letter('hex7')">_</div>
-          </div>
+        <div id="description" class="text">
+          <h1>Smart Dart</h1>
+          <span>Dart Scoreboard and Tracker that analyzes your throwing statistics and helps you to understand and improve your game.</span>
         </div>
       </div>
+
       <div class="right_side">
-        <div class="text">
-          <div id="progress_bar"></div>
-          <div id="score_category"></div>
-        </div>
 
-        <div class="text">
-          <div id="word_tally"></div>
-          <div id="found_words">
-            <div id="found_words_col0" class="col_3"></div>
-            <div id="found_words_col1" class="col_3"></div>
-            <div id="found_words_col2" class="col_3"></div>
-          </div>
-        </div>
+        <form class="text center" id="start_form">
+            <h2>BEGIN A NEW GAME</h2>
 
-        <form class="text">
-          <span>Enter your own letters:</span>
+						<div class="input" id="game_type">
+							<label>Starting Point Total</label>
+							<div class="game_number" id="game_amount">
+								<input type="radio" id="game_number_1" name="game_number" class="game_number" value="101" />
+								<label for="game_number_1">101</label>
+
+								<input type="radio" id="game_number_2" name="game_number" class="game_number" value="301" />
+								<label for="game_number_2">301</label>
+
+								<input type="radio" id="game_number_3" name="game_number" class="game_number" value="501" checked/>
+								<label for="game_number_3">501</label>
+
+								<input type="radio" id="game_number_4" name="game_number" class="game_number" value="701" />
+								<label for="game_number_4">701</label>
+
+								<input type="radio" id="game_number_5" name="game_number" class="game_number" value="1001" />
+								<label for="game_number_5">1001</label>
+							</div>
+						</div>
+
+            
+
           <input id="letters_to_use" type="text" placeholder="Letters to Use">
           <button class="button" onclick="use_letters();">Use Letters</button>
         </form>
