@@ -167,6 +167,7 @@ section {
 }
 
 .left_side {
+  min-width: 49%;
   max-width: 49%;
   display: inline-block;
 }

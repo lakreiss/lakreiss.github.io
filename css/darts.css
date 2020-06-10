@@ -4,6 +4,22 @@
   text-align: center;
 }
 
+#game_text_container {
+  box-sizing: border-box;
+}
+
+.half_width {
+  min-width: 49%;
+  max-width: 49%;
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+}
+
+.player_score {
+  font-size: 3em;
+}
+
 #start_form input[type="radio"] {
   display: none;
 }
@@ -50,4 +66,62 @@
 #start_form .game_select_container {
   margin-bottom: 1em;
   /* size: 2em; */
+}
+
+/* DART BOARD CSS */
+.dartboard,.dartboard *{
+  cursor:default
+}
+
+.dartboard .out{
+  fill:#2e343a
+}
+
+.dartboard .out:hover {
+  fill:#657381
+}
+
+.dartboard .number{
+  fill:#fff;
+  font-family:"Open Sans",sans-serif;
+  font-size:24px;
+  font-weight:400;
+  text-anchor:middle
+}
+
+.dartboard .double,.dartboard .double-bull,.dartboard .single,.dartboard .single-bull,.dartboard .triple{
+  stroke:#2e343a;
+  stroke-width:.5
+}
+
+.dartboard .double-bull,.dartboard .double.even,.dartboard .triple.even{
+  fill:#d95652
+}
+
+.dartboard .double-bull:hover,.dartboard .double.even:hover,.dartboard .triple.even:hover{
+  fill:#803330
+}
+
+.dartboard .double.odd,.dartboard .single-bull,.dartboard .triple.odd{
+  fill:#528b6e
+}
+
+.dartboard .double.odd:hover,.dartboard .single-bull:hover,.dartboard .triple.odd:hover{
+  fill:#426e57
+}
+
+.dartboard .single.even{
+  fill:#2e343a
+}
+
+.dartboard .single.even:hover {
+  fill:#657381
+}
+
+.dartboard .single.odd{
+  fill:#fde1d0
+}
+
+.dartboard .single.odd:hover{
+  fill:#a79488
 }

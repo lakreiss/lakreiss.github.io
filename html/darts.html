@@ -6,6 +6,7 @@
       <script>build_header();</script>
       <link rel="stylesheet" href="../css/darts.css">
       <script src="../js/darts.js"></script>
+
     </head>
 
     <body onload="check_and_set_dark_mode();">
@@ -17,43 +18,60 @@
       <div class="left_side">
 
         <div id="description" class="text">
-          <h1>Smart Dart **IN PROGRESS**</h1>
-          <span>Dart Scoreboard and Tracker that analyzes your throwing statistics and helps you to understand and improve your game.</span>
+          <h1>Smart Dart</h1>
+          <span id="description_info">Dart Scoreboard and Tracker that analyzes your throwing statistics and helps you to understand and improve your game.</span>
+        </div>
+
+        <div id="dart_board" hidden>
+          <!-- code is written in darts.js file -->
         </div>
       </div>
 
       <div class="right_side">
 
+        <div class="text center" id="game_text_container" hidden>
+          <!-- code is written in darts.js file when the game is created -->
+          <div class="half_width">
+            <div class="player_name" id="player_1_name"></div>
+            <div class="player_score" id="player_1_score"></div>
+          </div>
+          <div class="half_width">
+            <div class="player_name" id="player_2_name"></div>
+            <div class="player_score" id="player_2_score"></div>
+          </div>
+        </div>
+
         <form class="text center" id="start_form">
-            <h2>BEGIN A NEW GAME</h2>
+          <h2>BEGIN A NEW GAME</h2>
 
-            <!-- TODO: add CSS to make it look nice -->
-            <div class="game_select_container" onchange="set_game_type_element()">
-              <select id="game_select">
-                <option value="0">Classic Darts</option>
-                <option value="1">Cricket</option>
-              </select>
+          <!-- TODO: add CSS to make it look nice -->
+          <div class="game_select_container" onchange="set_game_type_element()">
+            <select id="game_select">
+              <option value="0">Classic Darts</option>
+              <option value="1">Cricket</option>
+            </select>
+          </div>
+
+          <div class="input" id="game_type">
+            <div class="game_option" id="game_option_container">
+              <!-- code is written in darts.js file -->
             </div>
+          </div>
 
-						<div class="input" id="game_type">
-							<div class="game_option" id="game_option_container">
-                <!-- code is written in darts.js file -->
-              </div>
-						</div>
+          <input id="player_1_name_input" type="text" placeholder="Player 1 Name" /><br>
+          <input id="player_2_name_input" type="text" placeholder="Player 2 Name" /><br>
+          <!-- TODO: add player removal, addition options -->
 
-            <input id="player_1_name" type="text" placeholder="Player 1 Name" /><br>
-            <input id="player_2_name" type="text" placeholder="Player 2 Name" /><br>
-            <!-- TODO: add player removal, addition options -->
-
-          <button class="button" onclick="start_game();">Begin</button>
+          <button type="button" onclick="start_game();">Begin</button>
         </form>
 
       </div>
 
-      <script>
-      build_footer();
-      set_game_type_element();
-      </script>
 
+      <script>
+        build_footer();
+        set_game_type_element();
+        build_dart_board();
+      </script>
     </body>
 </html>

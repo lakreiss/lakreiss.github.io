@@ -90,7 +90,7 @@ function build_menu() {
 function dark_mode() {
   if (document.cookie.includes("theme=")) {
     document.cookie = 'theme=' + (document.cookie.split("theme=")[1].includes('light') ? 'dark' : 'light');
-    console.log('Cookies are now: ' + document.cookie.split("theme=")[1]);
+    // console.log('Cookies are now: ' + document.cookie.split("theme=")[1]);
   } else {
     document.cookie = 'theme=dark';
   }
