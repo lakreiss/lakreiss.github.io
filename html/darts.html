@@ -36,25 +36,9 @@
             </div>
 
 						<div class="input" id="game_type">
-							<div class="game_option" id="game_amount">
-                <span>Starting Point Total</span><br>
-
-								<input type="radio" id="game_option_number_1" name="game_option_item" class="game_option_item" value="101" />
-								<label for="game_option_number_1">101</label>
-
-								<input type="radio" id="game_option_number_2" name="game_option_item" class="game_option_item" value="301" />
-								<label for="game_option_number_2">301</label>
-
-								<input type="radio" id="game_option_number_3" name="game_option_item" class="game_option_item" value="501" checked/>
-								<label for="game_option_number_3">501</label>
-
-								<input type="radio" id="game_option_number_4" name="game_option_item" class="game_option_item" value="701" />
-								<label for="game_option_number_4">701</label>
-
-								<input type="radio" id="game_option_number_5" name="game_option_item" class="game_option_item" value="1001" />
-								<label for="game_option_number_5">1001</label>
+							<div class="game_option" id="game_option_container">
+                <!-- code is written in darts.js file -->
               </div>
-              
 						</div>
 
             <input id="player_1_name" type="text" placeholder="Player 1 Name" /><br>
@@ -66,7 +50,10 @@
 
       </div>
 
-      <script>build_footer();</script>
+      <script>
+      build_footer();
+      set_game_type_element();
+      </script>
 
     </body>
 </html>
