@@ -13,7 +13,7 @@
   width: 80%;
 }
 
-#start_form .game_number {
+#start_form .game_option {
   display: inline-block;
   border-radius: 20px;
   width: 100%;
@@ -21,14 +21,14 @@
   /* border: 1px solid #e0e0e0 !important; */
 }
 
-#start_form .game_number input:checked + label {
+#start_form .game_option input:checked + label {
   background-color: #ec8c69;
   color: white;
   border-radius: 30px;
   border: 0;
 }
 
-#start_form .game_number label {
+#start_form .game_option label {
   display: inline-block;
   width: 16% !important;
   font-size: 14px;
