@@ -14,6 +14,13 @@ var num_players = 2; //keeping this lowercase because it might not be FINAL at s
 // DATA TO KEEP TRACK OF DURING THE GAME
 var cur_throw = 0; //increment each throw, mod by NUM_THROWS_PER_TURN - 1
 var cur_turn = 0; //0 means it's the first players turn. increment and mod by num_players each throw
+var cur_starting_score;
+var player_names = [];
+var player_scores = [];
+var player_all_throws = [];
+var player_wins = [];
+var player_cur_throws = [];
+const BLACK_DOT = "\u25CF";
 
 // FRONT PAGE CODE
 
@@ -61,13 +68,13 @@ function write_cricket_game_options_html() {
 function build_dart_board() {
     //BUILD THE RINGS
     var dart_board_container:Element = document.getElementById("dart_board");
-    var innerHTML_text = '<svg id="dart_board_svg" viewBox="0 0 420 420" class="dartboard" onclick="alert(\'' + 0 + '\')">';
+    var innerHTML_text = '<svg id="dart_board_svg" viewBox="0 0 420 420" class="dartboard" onclick="dart_hit(\'' + 0 + '\')">';
     innerHTML_text += '<g transform="translate(210, 210) scale(1, -1)">';
     innerHTML_text += '<circle class="out" cx="0" cy="0" r="9999"></circle>';
     
     //TODO: add onclick to bullseye parts and maybe outer wall too
-    innerHTML_text += '<circle class="single-bull" cx="0" cy="0" r="41" onclick="alert(\'' + 25 + '\')"></circle>';
-    innerHTML_text += '<circle class="double-bull" cx="0" cy="0" r="16" onclick="alert(\'' + 50 + '\')"></circle>';
+    innerHTML_text += '<circle class="single-bull" cx="0" cy="0" r="41" onclick="dart_hit(\'' + 25 + '\')"></circle>';
+    innerHTML_text += '<circle class="double-bull" cx="0" cy="0" r="16" onclick="dart_hit(\'' + 50 + '\')"></circle>';
 
     for (var i = 0; i < 20; i++) {
         for (var j = 0; j < 4; j++) {
@@ -79,7 +86,7 @@ function build_dart_board() {
             }
             var cur_html = dart_board_data[4 * i + j];
             var split_html = cur_html.split("><");
-            var onclick = 'onclick="alert(\'' + multiplier_text + dart_board_numbers[i] + '\');"';
+            var onclick = 'onclick="dart_hit(\'' + multiplier_text + dart_board_numbers[i] + '\');"';
             innerHTML_text += split_html[0] + onclick + "><" + split_html[1];
         }
     }
@@ -112,7 +119,8 @@ make right side into player names,
 
 */
 
-function start_game() {
+function set_up_and_start_game() {
+    // CHANGE LAYOUT
     document.getElementById('description').setAttribute('hidden', "true");
     document.getElementById('dart_board').removeAttribute('hidden');
     document.getElementById('start_form').setAttribute('hidden', "true");
@@ -126,18 +134,21 @@ function start_game() {
     not really urgent or important, but might be good if i add more customizable options for games
     */
 
-    //get info from form
-    //set names
+    // GET INFO FROM FORM 
+    // SET NAMES
     for (var i = 0; i < num_players; i++) {
         var cur_player_name = (<HTMLInputElement> document.getElementById('player_' + (i + 1) + '_name_input')).value;
         // console.log("player", i + 1, "has name", cur_player_name);
         if (cur_player_name.trim() == "") {
             cur_player_name = "Player " + (i + 1);
         }
+        player_names.push(cur_player_name);
         document.getElementById('player_' + (i + 1) + '_name').innerHTML = cur_player_name;
     }
 
-    //set scores, which are dependent on the game type
+    console.log(player_names);
+
+    // SET SCORES, WHICH ARE DEPENDANT ON TYPE
     var game_type = get_game_type();
     if (game_type === "0") { //classic game
         var radios = document.getElementsByTagName('input');
@@ -148,14 +159,98 @@ function start_game() {
                 starting_score = radios[i].value;       
             }
         }
-        console.log(starting_score);
+        // console.log(starting_score);
 
         for (var i = 0; i < num_players; i++) {
-            var cur_player_score = (<HTMLInputElement> document.getElementById('player_' + (i + 1) + '_name_input')).value;
-            document.getElementById('player_' + (i + 1) + '_score').innerHTML = starting_score;
+            player_scores.push(starting_score);
         }
+        display_updated_scores();
+        
+
+        
+        // console.log(player_scores);
 
     } else if (game_type === "1") { //cricket game
         //TODO: make the cricket game score system
+    }
+
+    // SET UP PLAYER DATA
+    
+
+    begin_turn(0);
+}
+
+function begin_turn(player_id) {
+    var cur_throws_element = document.getElementById('player_' + (player_id + 1) + '_throws_cur_turn');
+    var cur_html = BLACK_DOT;
+    for (var i = 1; i < NUM_THROWS_PER_TURN; i++) {
+        cur_html += " " + BLACK_DOT;
+    }
+    cur_throws_element.innerHTML = cur_html;
+    cur_starting_score = player_scores[player_id];
+}
+
+var scored = false;
+function dart_hit(board_location: string) {
+    console.log("dart hit", board_location);
+    if (board_location != "0") { //hit the target somewhere, not the outside area
+        scored = true; 
+        //process hit location
+        process_hit(board_location);
+    } else if (scored) { //the outside hit gets called even if the main board is also hit, so this ignores those calls and resets
+        scored = false;
+    } else { //count it as a 0
+        //process hit location
+        process_hit(board_location);
+    }
+}
+
+function process_hit(board_location: string) {
+    player_cur_throws.push(board_location);
+    console.log("board location", board_location)
+
+    cur_starting_score -= get_score_of_hit_at(board_location);
+    display_updated_scores(cur_starting_score);
+
+
+    if (player_cur_throws.length >= NUM_THROWS_PER_TURN) {
+        //TURN IS OVER, PROCESS TURN
+        // PROCESS THROWS, SUBTRACT FROM TRUE SCORE IF VALID, ADD TO THROWS LIST
+
+        // CHANGE CUR_TURN, RESET CUR DATA
+        cur_turn = (cur_turn + 1) % num_players;
+        player_cur_throws = [];
+    }
+}
+
+function display_updated_scores(cur_score_of_cur_player=null) {
+    var cur_player_score;
+    if (cur_score_of_cur_player) { //game is happening, use passed in parameter for cur players score
+        for (var i = 0; i < num_players; i++) {
+            if (i === cur_turn) {
+                cur_player_score = cur_score_of_cur_player;
+            } else {
+                cur_player_score = player_scores[cur_turn];
+            }
+            document.getElementById('player_' + (i + 1) + '_score').innerHTML = cur_player_score;
+        }
+
+    } else { //game is being set up, use both players cur scores
+        for (var i = 0; i < num_players; i++) {
+            cur_player_score = player_scores[cur_turn];
+            document.getElementById('player_' + (i + 1) + '_score').innerHTML = cur_player_score;
+        }
+    }
+}
+
+function get_score_of_hit_at(board_location) {
+    if (board_location === "0") {
+        return 0;
+    } else if (board_location.charAt(0) === "D") {
+        return parseInt(board_location.substring(1)) * 2;
+    } else if (board_location.charAt(0) === "T") {
+        return parseInt(board_location.substring(1)) * 3;
+    } else {
+        return parseInt(board_location);
     }
 }
