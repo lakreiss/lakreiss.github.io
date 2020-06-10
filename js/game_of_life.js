@@ -383,3 +383,4 @@ var Shape = /** @class */ (function () {
     ]);
     return Shape;
 }());
+//# sourceMappingURL=game_of_life.js.map

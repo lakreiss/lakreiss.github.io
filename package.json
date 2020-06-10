@@ -1,0 +1,20 @@
+{
+  "name": "my_website",
+  "version": "1.0.0",
+  "description": "my website",
+  "main": "sigma.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lakreiss/lakreiss.github.io.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lakreiss/lakreiss.github.io/issues"
+  },
+  "homepage": "https://github.com/lakreiss/lakreiss.github.io#readme"
+}

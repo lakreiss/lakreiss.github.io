@@ -38,6 +38,10 @@
   color: white;
 }
 
+.dark-mode-text label{
+  color: white;
+}
+
 .dark-mode-text h1 a:link {
   color: white;
 }

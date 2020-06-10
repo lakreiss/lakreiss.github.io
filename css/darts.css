@@ -1,3 +1,54 @@
+/* Inspired by https://darts-scoring.com */
+
 .center {
   text-align: center;
+}
+
+#start_form input[type="radio"] {
+  display: none;
+}
+
+#start_form .game_type {
+  text-align: center;
+  width: 80%;
+}
+
+#start_form .game_number {
+  display: inline-block;
+  border-radius: 20px;
+  width: 100%;
+  padding: 5px 10px !important;
+  /* border: 1px solid #e0e0e0 !important; */
+}
+
+#start_form .game_number input:checked + label {
+  background-color: #ec8c69;
+  color: white;
+  border-radius: 30px;
+  border: 0;
+}
+
+#start_form .game_number label {
+  display: inline-block;
+  width: 16% !important;
+  font-size: 14px;
+  font-weight: normal;
+  text-align: center;
+  text-shadow: none;
+  padding: 8px 0px !important;
+  transition: all 0.1s ease-in-out;
+  font-weight: bold;
+  font-size: 14px !important;
+  text-transform: uppercase;
+  margin-top: 0.5em;
+  /* margin-bottom: 0.5em; */
+}
+
+#start_form input {
+  margin-bottom: 0.5em;
+}
+
+#start_form .game_select_container {
+  margin-bottom: 1em;
+  /* size: 2em; */
 }

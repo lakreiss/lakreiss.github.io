@@ -5,7 +5,7 @@
       <script src="../js/menu_builder.js"></script>
       <script>build_header();</script>
       <link rel="stylesheet" href="../css/darts.css">
-      <script src="../ts/darts.js"></script>
+      <script src="../js/darts.js"></script>
     </head>
 
     <body onload="check_and_set_dark_mode();">
@@ -27,6 +27,14 @@
         <form class="text center" id="start_form">
             <h2>BEGIN A NEW GAME</h2>
 
+            <!-- TODO: add CSS to make it look nice -->
+            <div class="game_select_container" onchange="set_game_type_element()">
+              <select id="game_select">
+                <option value="0">Classic Darts</option>
+                <option value="1">Cricket</option>
+              </select>
+            </div>
+
 						<div class="input" id="game_type">
 							<label>Starting Point Total</label>
 							<div class="game_number" id="game_amount">
@@ -47,38 +55,16 @@
 							</div>
 						</div>
 
-            
+            <input id="player_1_name" type="text" placeholder="Player 1 Name" /><br>
+            <input id="player_2_name" type="text" placeholder="Player 2 Name" /><br>
+            <!-- TODO: add player removal, addition options -->
 
-          <input id="letters_to_use" type="text" placeholder="Letters to Use">
-          <button class="button" onclick="use_letters();">Use Letters</button>
+          <button class="button" onclick="start_game();">Begin</button>
         </form>
 
-        <div class="text">
-          <div class="center">
-            <div id="solve_button" class="button" onclick="display_all_answers()" style="margin-right: 25px;">SOLVE</div>
-          </div>
-          <br>
-          <div id="all_words_container" hidden>
-            <div id="all_words_col0" class="col_3"></div>
-            <div id="all_words_col1" class="col_3"></div>
-            <div id="all_words_col2" class="col_3"></div>
-          </div>
-        </div>
       </div>
-
-      <script language="JavaScript">
-        initialize_dictionary();
-        build_letters();
-      </script>
 
       <script>build_footer();</script>
 
-      <script language="JavaScript">
-        var is_mobile = !!navigator.userAgent.match(/iphone|android|blackberry/ig) || false;
-        if (is_mobile) {
-          change_hex_sizes();
-          alert("Sorry, this website doesn't work well on mobile. I suggest trying it on a laptop or desktop!")
-        }
-      </script>
     </body>
 </html>
