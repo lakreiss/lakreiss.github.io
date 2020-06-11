@@ -62,6 +62,10 @@
   border: 1px solid white;
 }
 
+.dark-mode-text #score_list_table th, .dark-mode-text #score_list_table td, .dark-mode-text #score_list_table {
+  border: none;
+}
+
 .dark-mode-text .calc_display {
   background-color: black;
   border: solid 1px white;

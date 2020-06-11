@@ -29,6 +29,15 @@
 
       <div class="right_side">
 
+        <div class="text center" id="victory_text_container" hidden>
+          <div id="victory_text">
+            <!-- code is written in darts.js file when the game is created -->
+          </div>
+          <form>
+            <button type="button" onclick="play_again();">Play Again?</button>
+          </form>
+        </div>
+
         <div class="text center" id="game_text_container" hidden>
           <!-- code is written in darts.js file when the game is created -->
           <div class="half_width">
@@ -41,6 +50,21 @@
             <div class="player_score" id="player_2_score"></div>
             <div class="player_throws_cur_turn" id="player_2_throws_cur_turn"></div>
           </div>
+        </div>
+
+        <div class="text center" id="game_data_table" hidden>
+          <div class="half_width">
+            <div class="player_average_score" id="player_1_average_score_this_game"></div>
+            <div class="player_average_score" id="player_1_average_score"></div>
+          </div>
+          <div class="half_width">            
+            <div class="player_average_score" id="player_2_average_score_this_game"></div>
+            <div class="player_average_score" id="player_2_average_score"></div>
+          </div>
+          <br>
+          <table id="score_list_table">
+            <!-- code is written in darts.js file when the game is created -->
+          </table>
         </div>
 
         <form class="text center" id="start_form">

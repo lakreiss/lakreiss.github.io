@@ -11,13 +11,15 @@ var num_players = 2; //keeping this lowercase because it might not be FINAL at s
 // DATA TO KEEP TRACK OF DURING THE GAME
 var cur_throw = 0; //increment each throw, mod by NUM_THROWS_PER_TURN - 1
 var cur_turn = 0; //0 means it's the first players turn. increment and mod by num_players each throw
-var cur_starting_score;
+var cur_starting_score, cur_temp_score;
 var player_names = [];
-var player_scores = [];
+var player_scores = [], game_starting_score;
 var player_all_throws = [];
-var player_wins = [];
+var player_all_throws_this_game = [];
+var player_wins = [0, 0];
 var player_cur_throws = [];
 var BLACK_DOT = "\u25CF";
+var game_is_active = false;
 // FRONT PAGE CODE
 function set_game_type_element() {
     var game_select_value = get_game_type();
@@ -107,6 +109,7 @@ function set_up_and_start_game() {
     document.getElementById('dart_board').removeAttribute('hidden');
     document.getElementById('start_form').setAttribute('hidden', "true");
     document.getElementById('game_text_container').removeAttribute('hidden');
+    document.getElementById('game_data_table').removeAttribute('hidden');
     //TODO:
     /*
     make submit button check to see if everything has been filled out
@@ -124,34 +127,62 @@ function set_up_and_start_game() {
         player_names.push(cur_player_name);
         document.getElementById('player_' + (i + 1) + '_name').innerHTML = cur_player_name;
     }
-    console.log(player_names);
     // SET SCORES, WHICH ARE DEPENDANT ON TYPE
     var game_type = get_game_type();
     if (game_type === "0") { //classic game
         var radios = document.getElementsByTagName('input');
-        var starting_score;
         for (var i = 0; i < radios.length; i++) {
             if (radios[i].type === 'radio' && radios[i].checked) {
                 // get value, set checked flag or do whatever you need to
-                starting_score = radios[i].value;
+                game_starting_score = radios[i].value;
             }
         }
-        // console.log(starting_score);
+        // console.log(game_starting_score);
         for (var i = 0; i < num_players; i++) {
-            player_scores.push(starting_score);
+            player_scores.push(game_starting_score);
         }
         display_updated_scores();
+        display_updated_score_list(cur_turn, game_starting_score);
         // console.log(player_scores);
     }
     else if (game_type === "1") { //cricket game
         //TODO: make the cricket game score system
     }
     // SET UP PLAYER DATA
+    for (var i = 0; i < num_players; i++) {
+        player_all_throws.push([]);
+        player_all_throws_this_game.push([]);
+        display_average_throw(i);
+    }
+    game_is_active = true;
+    begin_turn(0);
+}
+function play_again() {
+    //clear all the displays
+    document.getElementById('victory_text_container').setAttribute("hidden", "true");
+    clear_score_list();
+    //reset all the values
+    player_all_throws_this_game = [];
+    for (var i = 0; i < num_players; i++) {
+        player_scores[i] = game_starting_score;
+        clear_cur_throws(i);
+        player_all_throws_this_game.push([]);
+        display_average_throw(i);
+    }
+    player_cur_throws = [];
+    //display the proper thigns
+    display_updated_scores();
+    display_updated_score_list(cur_turn, game_starting_score);
+    //start the game
+    game_is_active = true;
     begin_turn(0);
 }
 function begin_turn(player_id) {
+    cur_turn = player_id;
     display_cur_throws(player_id);
+    display_average_throw(player_id);
     cur_starting_score = player_scores[player_id];
+    cur_temp_score = cur_starting_score;
 }
 function display_cur_throws(player_id) {
     var cur_throws_element = document.getElementById('player_' + (player_id + 1) + '_throws_cur_turn');
@@ -170,56 +201,137 @@ function display_cur_throws(player_id) {
             cur_html += " " + BLACK_DOT;
         }
     }
-    cur_throws_element.innerText = cur_html;
+    cur_throws_element.innerHTML = cur_html;
+}
+function clear_cur_throws(player_id) {
+    document.getElementById('player_' + (player_id + 1) + '_throws_cur_turn').innerHTML = "";
+}
+function display_average_throw(player_id) {
+    var sum_of_throws = player_all_throws[player_id].map(get_score_of_hit_at).reduce(function (a, b) { return a + b; }, 0);
+    var total_num_throws = player_all_throws[player_id].length;
+    var average_throw = total_num_throws === 0 ? 0 : sum_of_throws / total_num_throws;
+    document.getElementById('player_' + (player_id + 1) + '_average_score').innerHTML = "Overall Average: " + average_throw.toFixed(2);
+    sum_of_throws = player_all_throws_this_game[player_id].map(get_score_of_hit_at).reduce(function (a, b) { return a + b; }, 0);
+    total_num_throws = player_all_throws_this_game[player_id].length;
+    average_throw = total_num_throws === 0 ? 0 : sum_of_throws / total_num_throws;
+    document.getElementById('player_' + (player_id + 1) + '_average_score_this_game').innerHTML = "Game Average: " + average_throw.toFixed(2);
+}
+function display_updated_score_list(player_id, first_display) {
+    if (first_display === void 0) { first_display = false; }
+    var table = document.getElementById("score_list_table");
+    if (first_display) {
+        var row = table.insertRow();
+        var headerCell1 = document.createElement("th");
+        headerCell1.innerHTML = player_scores[0];
+        headerCell1.style.borderRight = "2px dotted";
+        var headerCell2 = document.createElement("th");
+        headerCell2.innerHTML = player_scores[1];
+        row.appendChild(document.createElement("td"));
+        row.appendChild(headerCell1);
+        row.appendChild(headerCell2);
+        row.appendChild(document.createElement("td"));
+    }
+    else {
+        var row = player_id === 0 ? table.insertRow() : table.rows[table.rows.length - 1];
+        var dataCell, headerCell;
+        if (player_id == 0) { //add td, th, blank, blank
+            dataCell = document.createElement("td");
+            dataCell.innerHTML = cur_starting_score - player_scores[player_id];
+            headerCell = document.createElement("th");
+            headerCell.innerHTML = player_scores[player_id];
+            headerCell.style.borderRight = "2px dotted";
+            row.appendChild(dataCell);
+            row.appendChild(headerCell);
+        }
+        else if (player_id == 1) { //add blank, blank, th, td
+            dataCell = document.createElement("td");
+            dataCell.innerHTML = cur_starting_score - player_scores[player_id];
+            headerCell = document.createElement("th");
+            headerCell.innerHTML = player_scores[player_id];
+            row.appendChild(headerCell);
+            row.appendChild(dataCell);
+        }
+    }
+}
+function clear_score_list() {
+    document.getElementById("score_list_table").innerHTML = "";
 }
 var scored = false;
 function dart_hit(board_location) {
-    console.log("dart hit", board_location);
-    if (board_location != "0") { //hit the target somewhere, not the outside area
-        scored = true;
-        //process hit location
-        process_hit(board_location);
+    if (game_is_active) {
+        console.log("dart hit", board_location);
+        if (board_location != "0") { //hit the target somewhere, not the outside area
+            scored = true;
+            //process hit location
+            process_hit(board_location);
+        }
+        else if (scored) { //the outside hit gets called even if the main board is also hit, so this ignores those calls and resets
+            scored = false;
+        }
+        else { //count it as a 0
+            //process hit location
+            process_hit(board_location);
+        }
     }
-    else if (scored) { //the outside hit gets called even if the main board is also hit, so this ignores those calls and resets
-        scored = false;
-    }
-    else { //count it as a 0
-        //process hit location
-        process_hit(board_location);
+    else {
+        console.log("game is paused");
     }
 }
 function process_hit(board_location) {
     player_cur_throws.push(board_location);
+    player_all_throws[cur_turn].push(board_location);
+    player_all_throws_this_game[cur_turn].push(board_location);
+    console.log(player_all_throws);
     display_cur_throws(cur_turn);
+    display_average_throw(cur_turn);
     console.log("board location", board_location);
-    cur_starting_score -= get_score_of_hit_at(board_location);
-    display_updated_scores(cur_starting_score);
-    if (player_cur_throws.length >= NUM_THROWS_PER_TURN) {
+    cur_temp_score -= get_score_of_hit_at(board_location);
+    display_updated_scores(cur_temp_score);
+    if (player_cur_throws.length >= NUM_THROWS_PER_TURN || cur_temp_score <= 0) {
         //TURN IS OVER, PROCESS TURN
         // PROCESS THROWS, SUBTRACT FROM TRUE SCORE IF VALID, ADD TO THROWS LIST
+        if (cur_temp_score < 0) {
+            //don't set the score to be the cur_temp_score
+        }
+        else if (cur_temp_score === 0) {
+            //player [cur_turn] wins!
+            //display something nice, increment win counter, show a 'start new game' button
+            return game_over_player_wins(cur_turn);
+        }
+        else {
+            player_scores[cur_turn] = cur_temp_score;
+        }
+        display_updated_scores();
+        display_updated_score_list(cur_turn);
         // CHANGE CUR_TURN, RESET CUR DATA
         cur_turn = (cur_turn + 1) % num_players;
         player_cur_throws = [];
         begin_turn(cur_turn);
     }
 }
+function game_over_player_wins(player_id) {
+    document.getElementById('victory_text_container').removeAttribute("hidden");
+    document.getElementById('victory_text').innerHTML = "Congratulations " + player_names[player_id] + ", you win!";
+    player_wins[player_id] += 1;
+    game_is_active = false;
+}
 function display_updated_scores(cur_score_of_cur_player) {
     if (cur_score_of_cur_player === void 0) { cur_score_of_cur_player = null; }
     var cur_player_score;
-    if (cur_score_of_cur_player) { //game is happening, use passed in parameter for cur players score
+    if (cur_score_of_cur_player) { //middle of a turn, use passed in parameter for cur players score
         for (var i = 0; i < num_players; i++) {
             if (i === cur_turn) {
                 cur_player_score = cur_score_of_cur_player;
             }
             else {
-                cur_player_score = player_scores[cur_turn];
+                cur_player_score = player_scores[i];
             }
             document.getElementById('player_' + (i + 1) + '_score').innerHTML = cur_player_score;
         }
     }
-    else { //game is being set up, use both players cur scores
+    else { //game is being set up or end of a turn, use both players cur scores
         for (var i = 0; i < num_players; i++) {
-            cur_player_score = player_scores[cur_turn];
+            cur_player_score = player_scores[i];
             document.getElementById('player_' + (i + 1) + '_score').innerHTML = cur_player_score;
         }
     }
@@ -238,4 +350,15 @@ function get_score_of_hit_at(board_location) {
         return parseInt(board_location);
     }
 }
+/*
+TODO LIST
+add a heat map for the board
+    maybe a dropdown menu type thing, similar to the example in letter_game
+add option for win-on-double, win-on-anything
+add cricket
+add wins display
+add advanced stats
+make everything look nicer
+add an undo button
+*/ 
 //# sourceMappingURL=darts.js.map

@@ -4,6 +4,27 @@
   text-align: center;
 }
 
+.right {
+  text-align: right;
+}
+
+.left {
+  text-align: left;
+}
+
+table {
+  margin-left:auto;
+  margin-right:auto;
+}
+
+tr {
+  width: 100%;
+}
+
+th, td {
+  width: 25%;
+}
+
 #game_text_container {
   box-sizing: border-box;
 }
