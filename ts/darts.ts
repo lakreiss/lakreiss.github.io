@@ -181,13 +181,27 @@ function set_up_and_start_game() {
 }
 
 function begin_turn(player_id) {
-    var cur_throws_element = document.getElementById('player_' + (player_id + 1) + '_throws_cur_turn');
-    var cur_html = BLACK_DOT;
-    for (var i = 1; i < NUM_THROWS_PER_TURN; i++) {
-        cur_html += " " + BLACK_DOT;
-    }
-    cur_throws_element.innerHTML = cur_html;
+    display_cur_throws(player_id);
     cur_starting_score = player_scores[player_id];
+}
+
+function display_cur_throws(player_id) {
+    var cur_throws_element = document.getElementById('player_' + (player_id + 1) + '_throws_cur_turn');
+    var cur_html;
+    if (player_cur_throws.length == 0) {
+        cur_html = BLACK_DOT;
+    } else {
+        cur_html = player_cur_throws[0];
+    }
+
+    for (var i = 1; i < NUM_THROWS_PER_TURN; i++) {
+        if (i < player_cur_throws.length) {
+            cur_html += " " + player_cur_throws[i];
+        } else {
+            cur_html += " " + BLACK_DOT;
+        }
+    }
+    cur_throws_element.innerText = cur_html;
 }
 
 var scored = false;
@@ -207,6 +221,7 @@ function dart_hit(board_location: string) {
 
 function process_hit(board_location: string) {
     player_cur_throws.push(board_location);
+    display_cur_throws(cur_turn);
     console.log("board location", board_location)
 
     cur_starting_score -= get_score_of_hit_at(board_location);
@@ -220,6 +235,7 @@ function process_hit(board_location: string) {
         // CHANGE CUR_TURN, RESET CUR DATA
         cur_turn = (cur_turn + 1) % num_players;
         player_cur_throws = [];
+        begin_turn(cur_turn);
     }
 }
 
