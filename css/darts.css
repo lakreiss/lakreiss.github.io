@@ -94,6 +94,11 @@ th, td {
   /* size: 2em; */
 }
 
+.button {
+  margin-left: 1em;
+  margin-right: 1em;
+}
+
 /* DART BOARD CSS */
 .dartboard,.dartboard *{
   cursor:default
@@ -150,4 +155,8 @@ th, td {
 
 .dartboard .single.odd:hover{
   fill:#a79488
+}
+
+.dartboard .odd.heat_map_1, .dartboard .even.heat_map_1  {
+  fill-rule: #8FFF00;
 }

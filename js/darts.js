@@ -119,7 +119,7 @@ make right side into player names,
 function set_up_and_start_game() {
     // CHANGE LAYOUT
     document.getElementById('description').setAttribute('hidden', "true");
-    document.getElementById('dart_board').removeAttribute('hidden');
+    document.getElementById('dart_board_display_container').removeAttribute('hidden');
     document.getElementById('start_form').setAttribute('hidden', "true");
     document.getElementById('game_text_container').removeAttribute('hidden');
     document.getElementById('game_data_table').removeAttribute('hidden');
@@ -176,6 +176,14 @@ function set_up_and_start_game() {
         player_all_throws_this_game.push([]);
         display_average_throw(i);
     }
+    // SET UP HEAT MAP SECTION
+    var heat_map_button_section = document.getElementById('board_display_options_container');
+    var innerHTML_text = '<form>';
+    for (var i = 0; i < num_players; i++) {
+        innerHTML_text += '<button class="button" type="button" onclick="display_heat_map(' + i + ');">Heat Map for ' + player_names[i] + '</button>';
+    }
+    innerHTML_text += '</form>';
+    heat_map_button_section.innerHTML = innerHTML_text;
     game_is_active = true;
     begin_turn(0);
 }
