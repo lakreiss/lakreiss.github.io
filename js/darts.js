@@ -20,14 +20,22 @@ var player_wins = [0, 0];
 var player_cur_throws = [];
 var BLACK_DOT = "\u25CF";
 var game_is_active = false;
+var must_win_on_double; //ONLY IMPORTANT IN CLASSIC GAMES
+var game_type;
+var GAME_TYPE;
+(function (GAME_TYPE) {
+    GAME_TYPE["CLASSIC"] = "0";
+    GAME_TYPE["CRICKET"] = "1";
+})(GAME_TYPE || (GAME_TYPE = {}));
 // FRONT PAGE CODE
 function set_game_type_element() {
     var game_select_value = get_game_type();
-    ;
-    if (game_select_value === "0") { //classic game
+    if (game_select_value === GAME_TYPE.CLASSIC) { //classic game
+        game_type = GAME_TYPE.CLASSIC;
         write_classic_game_options_html();
     }
-    else if (game_select_value === "1") { //cricket
+    else if (game_select_value === GAME_TYPE.CRICKET) { //cricket
+        game_type = GAME_TYPE.CRICKET;
         write_cricket_game_options_html();
     }
 }
@@ -36,6 +44,7 @@ function get_game_type() {
 }
 function write_classic_game_options_html() {
     var game_option_container = document.getElementById('game_option_container');
+    // STARTNG POINT TOTAL SECTION
     var innerHTML_text = '<span>Starting Point Total</span><br>';
     for (var i = 1; i <= 5; i++) {
         var cur_total = -100 + (200 * i) + 1;
@@ -47,6 +56,10 @@ function write_classic_game_options_html() {
         }
         innerHTML_text += ('<label for="game_option_number_' + i + '" style="width: 16%;">' + cur_total + '</label>');
     }
+    // MUST WIN ON DOUBLE SECTION
+    innerHTML_text += '<br>';
+    innerHTML_text += '<input class="game_option_item" type="checkbox" id="must_win_on_double" name="must_win_on_double" value="must_win_on_double" checked>';
+    innerHTML_text += '<label for="must_win_on_double">Must Win On Double</label><br>';
     game_option_container.innerHTML = innerHTML_text;
 }
 function write_cricket_game_options_html() {
@@ -129,15 +142,24 @@ function set_up_and_start_game() {
     }
     // SET SCORES, WHICH ARE DEPENDANT ON TYPE
     var game_type = get_game_type();
-    if (game_type === "0") { //classic game
-        var radios = document.getElementsByTagName('input');
-        for (var i = 0; i < radios.length; i++) {
-            if (radios[i].type === 'radio' && radios[i].checked) {
+    if (game_type === "0") { // CLASSIC GAME
+        var inputs = document.getElementsByTagName('input');
+        for (var i = 0; i < inputs.length; i++) {
+            if (inputs[i].type === 'radio' && inputs[i].checked) {
                 // get value, set checked flag or do whatever you need to
-                game_starting_score = radios[i].value;
+                game_starting_score = inputs[i].value;
+            }
+            else if (inputs[i].type === 'checkbox') {
+                if (inputs[i].value === "must_win_on_double") {
+                    if (inputs[i].checked) {
+                        must_win_on_double = true;
+                    }
+                    else {
+                        must_win_on_double = false;
+                    }
+                }
             }
         }
-        // console.log(game_starting_score);
         for (var i = 0; i < num_players; i++) {
             player_scores.push(game_starting_score);
         }
@@ -145,7 +167,7 @@ function set_up_and_start_game() {
         display_updated_score_list(cur_turn, game_starting_score);
         // console.log(player_scores);
     }
-    else if (game_type === "1") { //cricket game
+    else if (game_type === "1") { // CRICKET GAME
         //TODO: make the cricket game score system
     }
     // SET UP PLAYER DATA
@@ -287,6 +309,22 @@ function process_hit(board_location) {
     console.log("board location", board_location);
     cur_temp_score -= get_score_of_hit_at(board_location);
     display_updated_scores(cur_temp_score);
+    if (must_win_on_double && cur_temp_score <= 1) {
+        if (cur_temp_score === 1) {
+            //busted
+            cur_temp_score = -1; //this will simulate busting
+        }
+        else if (cur_temp_score === 0) {
+            var most_recent_throw = player_cur_throws[player_cur_throws.length - 1];
+            if (most_recent_throw.charAt(0) === "D" || most_recent_throw === "50") {
+                cur_temp_score = 0; //simulates winning
+            }
+            else {
+                cur_temp_score = -1; //simulates busting
+            }
+        }
+    }
+    console.log(must_win_on_double, cur_temp_score);
     if (player_cur_throws.length >= NUM_THROWS_PER_TURN || cur_temp_score <= 0) {
         //TURN IS OVER, PROCESS TURN
         // PROCESS THROWS, SUBTRACT FROM TRUE SCORE IF VALID, ADD TO THROWS LIST
@@ -310,6 +348,9 @@ function process_hit(board_location) {
     }
 }
 function game_over_player_wins(player_id) {
+    player_scores[cur_turn] = cur_temp_score;
+    display_updated_scores();
+    display_updated_score_list(cur_turn);
     document.getElementById('victory_text_container').removeAttribute("hidden");
     document.getElementById('victory_text').innerHTML = "Congratulations " + player_names[player_id] + ", you win!";
     player_wins[player_id] += 1;
@@ -354,11 +395,13 @@ function get_score_of_hit_at(board_location) {
 TODO LIST
 add a heat map for the board
     maybe a dropdown menu type thing, similar to the example in letter_game
-add option for win-on-double, win-on-anything
 add cricket
 add wins display
 add advanced stats
 make everything look nicer
 add an undo button
+
+DONE LIST
+add option for win-on-double, win-on-anything √
 */ 
 //# sourceMappingURL=darts.js.map

@@ -46,6 +46,10 @@ th, td {
   display: none;
 }
 
+#start_form input[type="checkbox"] {
+  display: none;
+}
+
 #start_form .game_type {
   text-align: center;
   width: 80%;
@@ -72,7 +76,7 @@ th, td {
   font-weight: normal;
   text-align: center;
   text-shadow: none;
-  padding: 8px 0px !important;
+  padding: 8px 8px !important;
   transition: all 0.1s ease-in-out;
   font-weight: bold;
   font-size: 14px !important;
