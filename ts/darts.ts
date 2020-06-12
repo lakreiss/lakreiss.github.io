@@ -23,6 +23,8 @@ var player_wins = [0, 0];
 var player_cur_throws = [];
 const BLACK_DOT = "\u25CF";
 var game_is_active = false;
+var heat_map_is_displayed = false;
+var heat_map_player_id;
 var must_win_on_double; //ONLY IMPORTANT IN CLASSIC GAMES
 var game_type: GAME_TYPE;
 
@@ -92,9 +94,9 @@ function build_dart_board() {
     innerHTML_text += '<g transform="translate(210, 210) scale(1, -1)">';
     innerHTML_text += '<circle class="out" cx="0" cy="0" r="9999"></circle>';
     
-    //TODO: add onclick to bullseye parts and maybe outer wall too
-    innerHTML_text += '<circle class="single-bull" cx="0" cy="0" r="41" onclick="dart_hit(\'' + 25 + '\')"></circle>';
-    innerHTML_text += '<circle class="double-bull" cx="0" cy="0" r="16" onclick="dart_hit(\'' + 50 + '\')"></circle>';
+    //bullseye parts
+    innerHTML_text += '<circle id="sb" class="single-bull" cx="0" cy="0" r="41" onclick="dart_hit(\'' + 25 + '\')"></circle>';
+    innerHTML_text += '<circle id="db" class="double-bull" cx="0" cy="0" r="16" onclick="dart_hit(\'' + 50 + '\')"></circle>';
 
     for (var i = 0; i < 20; i++) {
         for (var j = 0; j < 4; j++) {
@@ -105,9 +107,12 @@ function build_dart_board() {
                 multiplier_text = "D";
             }
             var cur_html = dart_board_data[4 * i + j];
-            var split_html = cur_html.split("><");
-            var onclick = 'onclick="dart_hit(\'' + multiplier_text + dart_board_numbers[i] + '\');"';
-            innerHTML_text += split_html[0] + onclick + "><" + split_html[1];
+            var split_html = cur_html.split("\"><");
+            var id = " id=\'" + i + "_" + j + "\'";
+            var onclick = 'onclick=\'dart_hit(\'' + multiplier_text + dart_board_numbers[i] + '\');\'';
+            var title = " title=\'" + i + "_" + j +"\'";
+            var popup = '<text class="tooltiptext" id="popup_' + i + '_' + j + '">Label 1</text>';
+            innerHTML_text += '<g>' + split_html[0] + "\"" + id + onclick + title + '><' + split_html[1] + popup + '</g>';
         }
     }
     innerHTML_text += "</g>"
@@ -211,7 +216,7 @@ function set_up_and_start_game() {
     var heat_map_button_section = document.getElementById('board_display_options_container');
     var innerHTML_text = '<form>';
     for (var i = 0; i < num_players; i++) {
-        innerHTML_text += '<button class="button" type="button" onclick="display_heat_map(' + i + ');">Heat Map for ' + player_names[i] + '</button>';
+        innerHTML_text += '<button class="button" type="button" id="heat_map_button_' + i + '" onclick="display_heat_map(' + i + ');">Heat Map for ' + player_names[i] + '</button>';
     }
     innerHTML_text += '</form>';
     heat_map_button_section.innerHTML = innerHTML_text;
@@ -351,10 +356,10 @@ function process_hit(board_location: string) {
     player_cur_throws.push(board_location);
     player_all_throws[cur_turn].push(board_location);
     player_all_throws_this_game[cur_turn].push(board_location);
-    console.log(player_all_throws);
+    // console.log(player_all_throws);
     display_cur_throws(cur_turn);
     display_average_throw(cur_turn);
-    console.log("board location", board_location)
+    // console.log("board location", board_location)
 
     cur_temp_score -= get_score_of_hit_at(board_location);
     display_updated_scores(cur_temp_score);
@@ -373,7 +378,6 @@ function process_hit(board_location: string) {
         }
     }
 
-    console.log(must_win_on_double, cur_temp_score);
     if (player_cur_throws.length >= NUM_THROWS_PER_TURN || cur_temp_score <= 0) {
         //TURN IS OVER, PROCESS TURN
         // PROCESS THROWS, SUBTRACT FROM TRUE SCORE IF VALID, ADD TO THROWS LIST
@@ -427,6 +431,155 @@ function display_updated_scores(cur_score_of_cur_player=null) {
     }
 }
 
+function display_heat_map(player_id) {
+    // console.log("heat map", player_id);
+    if (heat_map_is_displayed) {
+        if (heat_map_player_id === player_id) {
+            //close the heat map:
+            //revert colors
+            reset_board_colors();
+
+            //change the color of the heat map button for player_id back to normal
+            document.getElementById("heat_map_button_" + player_id).classList.toggle("highlighted_button");
+
+            //set heat_map_is_displayed to be false
+            heat_map_is_displayed = false;
+
+            //clear heat_map_player_id
+            heat_map_player_id = null;
+
+            //unpause the game
+            game_is_active = true;
+
+        } else {
+            //change the color of the heat map button for heat_map_player_id back to normal
+            document.getElementById("heat_map_button_" + heat_map_player_id).classList.toggle("highlighted_button");
+
+            //change the color of the heat map button for player_id to highlighted
+            document.getElementById("heat_map_button_" + player_id).classList.toggle("highlighted_button");
+
+            //change heat_map_player_id
+            heat_map_player_id = player_id;
+
+            //change the heat map to be the other players throws
+            set_board_colors_to_heat_map(heat_map_player_id);
+
+            //keep the game paused
+            //keep heat_map_is_displayed true
+        }
+    } else {
+        //change the color of the heat map button for player_id to highlighted
+        document.getElementById("heat_map_button_" + player_id).classList.toggle("highlighted_button");
+
+        //set heat_map_player_id
+        heat_map_player_id = player_id;
+
+        //set the heat map to be player_id's throws
+        set_board_colors_to_heat_map(player_id); //this passes in all throws; could have another button just for throws this game
+
+        //pause the game
+        game_is_active = false;
+
+        //set heat_map_is_displayed to be true
+        heat_map_is_displayed = true;
+    }
+}
+
+function reset_board_colors() {
+    var cur_element;
+
+    //spokes
+    var paths = document.getElementsByTagName('path');
+    for (var i = 0; i < paths.length; i++) {
+        cur_element = paths[i];
+        if (cur_element.classList.contains("even")) {
+            if (cur_element.classList.contains("single")) {
+                cur_element.style.fill = '#2e343a';
+            } else if (cur_element.classList.contains("double") || cur_element.classList.contains("triple")) {
+                cur_element.style.fill = '#d95652';
+            }
+        } else if (cur_element.classList.contains("odd")) {
+            if (cur_element.classList.contains("single")) {
+                cur_element.style.fill = '#fde1d0';
+            } else if (cur_element.classList.contains("double") || cur_element.classList.contains("triple")) {
+                cur_element.style.fill = '#528b6e';
+            }
+        }
+    }
+
+    //bullseys
+    var circles = document.getElementsByTagName('circle');
+    for (var i = 0; i < circles.length; i++) {
+        cur_element = circles[i];
+        if (cur_element.classList.contains("single-bull")) {
+            cur_element.style.fill = "#528b6e";
+        } else if (cur_element.classList.contains("double-bull")) {
+            cur_element.style.fill = "#d95652";
+        }
+    }
+}
+
+function set_board_colors_to_heat_map(player_id) {
+    var cur_element, multiplier_text, board_location;
+    var frequency_dict = get_frequencies_as_dict(player_all_throws[player_id]);
+    var max_value_in_frequency_dict = get_max_value_in_dict(frequency_dict);
+
+    //set spokes
+    for (var i = 0; i < 20; i++) {
+        for (var j = 0; j < 4; j++) {
+            cur_element = document.getElementById(i + "_" + j);
+            multiplier_text = (j === 1) ? "T" : (j === 3) ? "D" : "";
+            board_location = multiplier_text + dart_board_numbers[i];
+            // console.log(board_location);
+            set_color_to_element(cur_element, board_location, frequency_dict, max_value_in_frequency_dict);
+        }
+    }
+    //set bullseys
+    set_color_to_element(document.getElementById("sb"), "25", frequency_dict, max_value_in_frequency_dict);
+    set_color_to_element(document.getElementById("db"), "50", frequency_dict, max_value_in_frequency_dict);
+
+}
+
+function set_color_to_element(cur_element, board_location, frequency_dict, max_value_in_frequency_dict) {
+    cur_element.addEventListener('mouseover', display_hit_count);
+    if (board_location in frequency_dict) {
+        cur_element.style.fill = heatMapColorforValue(frequency_dict[board_location] / max_value_in_frequency_dict);
+    } else {
+        cur_element.style.fill = heatMapColorforValue(0);
+    }
+}
+
+function display_hit_count() {
+    console.log(this.id);
+}
+
+function get_frequencies_as_dict(list_in) {
+    var dict = {};
+    for (var i = 0; i < list_in.length; i++) {
+        if (list_in[i] in dict) {
+            dict[list_in[i]] += 1;
+        } else {
+            dict[list_in[i]] = 1;
+        }
+    }
+    return dict
+}
+
+function get_max_value_in_dict(dict_in): number {
+    if (dict_in.length === 0) {
+        return 1; //because we don't want to divide by 0
+    }
+
+    var max_value = Number.MIN_VALUE;
+    for(var key in dict_in) {
+        var value = dict_in[key];
+        if (value > max_value) {
+            max_value = value;
+        }
+    }
+    return max_value;
+}
+
 function get_score_of_hit_at(board_location) {
     if (board_location === "0") {
         return 0;
@@ -437,6 +590,12 @@ function get_score_of_hit_at(board_location) {
     } else {
         return parseInt(board_location);
     }
+}
+
+// CODE FROM https://stackoverflow.com/questions/12875486/what-is-the-algorithm-to-create-colors-for-a-heatmap
+function heatMapColorforValue(value) {
+    var h = (1.0 - value) * 240
+    return "hsl(" + h + ", 100%, 50%)";
 }
 
 

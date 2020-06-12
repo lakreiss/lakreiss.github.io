@@ -97,6 +97,41 @@ th, td {
 .button {
   margin-left: 1em;
   margin-right: 1em;
+  margin-top: 0.25em;
+  margin-bottom: 0.25em;
+  background-color: white;
+  border: 1px black solid;
+}
+
+.highlighted_button {
+  background-color: yellow;
+}
+
+svg text {display: none;}
+/* svg g:hover text {display: block;} */
+
+svg g {
+  position: relative;
+  display: inline-block;
+  border-bottom: 1px dotted black;
+}
+
+svg g .tooltiptext {
+  visibility: hidden;
+  visibility: visible;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+
+  /* Position the tooltip */
+  position: absolute;
+  z-index: 10;
+}
+
+svg g:hover .tooltiptext {
+  visibility: visible;
 }
 
 /* DART BOARD CSS */
