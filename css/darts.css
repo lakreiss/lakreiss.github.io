@@ -169,7 +169,7 @@ th, td {
   fill-rule: #8FFF00;
 }
 
-@media (max-width: 50rem) {
+@media (max-width: 650px) {
 
   .left_side {
     min-width: 100%;

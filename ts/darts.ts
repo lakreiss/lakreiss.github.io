@@ -194,6 +194,7 @@ function set_up_and_start_game() {
     for (var i = 0; i < num_players; i++) {
         innerHTML_text += '<button class="button" type="button" id="heat_map_button_' + i + '" onclick="display_heat_map(' + i + ');">Heat Map for ' + player_names[i] + '</button>';
     }
+    innerHTML_text += '<button class="button" type="button" id="undo_button" onclick="undo_last_throw();">Undo Throw</button>';
     innerHTML_text += '</form>';
     heat_map_button_section.innerHTML = innerHTML_text;
 
