@@ -130,13 +130,21 @@ function build_dart_board() {
 //GAME CODE
 
 function set_up_and_start_game() {
+    var game_type = get_game_type();
+
     // CHANGE LAYOUT
     document.getElementById('description').setAttribute('hidden', "true");
     document.getElementById('dart_board_display_container').removeAttribute('hidden');
     document.getElementById('start_form').setAttribute('hidden', "true");
     document.getElementById('game_text_container').removeAttribute('hidden');
     document.getElementById('game_data_table').removeAttribute('hidden');
-
+    
+    if (game_type === GAME_TYPE.CRICKET) {
+        for (var i = 0; i < num_players; i++) {
+            document.getElementById('player_' + (i + 1) + '_average_score_this_game').setAttribute('hidden', 'true');
+            document.getElementById('player_' + (i + 1) + '_average_score').setAttribute('hidden', 'true');
+        }
+    } 
 
     // GET INFO FROM FORM 
     // SET NAMES
@@ -149,9 +157,8 @@ function set_up_and_start_game() {
         document.getElementById('player_' + (i + 1) + '_name').innerHTML = cur_player_name;
     }
 
-    // SET SCORES, WHICH ARE DEPENDANT ON TYPE
-    var game_type = get_game_type();
-    if (game_type === "0") { // CLASSIC GAME
+    // SET SCORES, WHICH ARE DEPENDANT ON GAME_TYPE
+    if (game_type === GAME_TYPE.CLASSIC) {
         var inputs = document.getElementsByTagName('input');
         for (var i = 0; i < inputs.length; i++) {
             if (inputs[i].type === 'radio' && inputs[i].checked) {
@@ -178,6 +185,7 @@ function set_up_and_start_game() {
 
     } else if (game_type === "1") { // CRICKET GAME
         //TODO: make the cricket game score system
+        set_up_cricket_table();
     }
 
     // SET UP PLAYER DATA
@@ -245,9 +253,16 @@ function play_again() {
 function begin_turn(player_id) {
     cur_turn = player_id;
     display_cur_throws(player_id);
-    display_average_throw(player_id);
-    cur_starting_score = player_scores[player_id];
-    cur_temp_score = cur_starting_score;
+
+    if (game_type === GAME_TYPE.CLASSIC) {
+        display_average_throw(player_id);
+        cur_starting_score = player_scores[player_id];
+        cur_temp_score = cur_starting_score;
+    } else if (game_type === GAME_TYPE.CRICKET) {
+        //TODO: this will be important for UNDO
+    } else {
+        console.log("ERROR: invalid game type")
+    }
 }
 
 function display_cur_throws(player_id) {
@@ -321,6 +336,35 @@ function display_updated_score_list(player_id, first_display=false) {
     }
 }
 
+function set_up_cricket_table() {
+    var table: HTMLTableElement = <HTMLTableElement> document.getElementById("score_list_table");
+    
+    var name_row = table.insertRow();
+    var name_1_cell = document.createElement("th");
+    name_1_cell.innerHTML = player_names[0];
+    var name_2_cell = document.createElement("th");
+    name_2_cell.innerHTML = player_names[1];
+    name_row.appendChild(name_1_cell);
+    name_row.appendChild(document.createElement("td"));
+    name_row.appendChild(name_2_cell);
+
+    var bullseye_row = table.insertRow();
+    bullseye_row.appendChild(document.createElement("td"));
+    var bullseye_name_cell = document.createElement("th");
+    bullseye_name_cell.innerHTML = "BE";
+    bullseye_row.appendChild(bullseye_name_cell);
+    bullseye_row.appendChild(document.createElement("td"));
+
+    for (var i = 20; i >= 15; i--) {
+        var next_row = table.insertRow();
+        next_row.appendChild(document.createElement("td"));
+        var next_row_cell = document.createElement("th");
+        next_row_cell.innerHTML = "" + i;
+        next_row.appendChild(next_row_cell);
+        next_row.appendChild(document.createElement("td"));
+    } 
+}
+
 function clear_score_list() {
     document.getElementById("score_list_table").innerHTML = "";
 }
@@ -374,46 +418,51 @@ function process_hit(raw_board_location: string) {
     player_all_throws[cur_turn].push(raw_board_location);
     player_all_throws_this_game[cur_turn].push(raw_board_location);
     display_cur_throws(cur_turn);
-    display_average_throw(cur_turn);
 
-    cur_temp_score -= get_score_of_hit_at(cleaned_board_location);
-    display_updated_scores(cur_temp_score);
+    if (game_type === GAME_TYPE.CLASSIC) {
+        display_average_throw(cur_turn);
+        cur_temp_score -= get_score_of_hit_at(cleaned_board_location);
+        display_updated_scores(cur_temp_score);
 
-    if (must_win_on_double && cur_temp_score <= 1) {
-        if (cur_temp_score === 1) {
-            //busted
-            cur_temp_score = -1; //this will simulate busting
-        } else if (cur_temp_score === 0) {
-            var most_recent_throw = player_cur_throws[player_cur_throws.length - 1];
-            if (most_recent_throw.charAt(0) === "D" || most_recent_throw === "50") {
-                cur_temp_score = 0; //simulates winning
-            } else {
-                cur_temp_score = -1; //simulates busting
+        if (must_win_on_double && cur_temp_score <= 1) {
+            if (cur_temp_score === 1) {
+                //busted
+                cur_temp_score = -1; //this will simulate busting
+            } else if (cur_temp_score === 0) {
+                var most_recent_throw = player_cur_throws[player_cur_throws.length - 1];
+                if (most_recent_throw.charAt(0) === "D" || most_recent_throw === "50") {
+                    cur_temp_score = 0; //simulates winning
+                } else {
+                    cur_temp_score = -1; //simulates busting
+                }
             }
         }
-    }
 
-    if (player_cur_throws.length >= NUM_THROWS_PER_TURN || cur_temp_score <= 0) {
-        //TURN IS OVER, PROCESS TURN
-        // PROCESS THROWS, SUBTRACT FROM TRUE SCORE IF VALID, ADD TO THROWS LIST
-        if (cur_temp_score < 0) {
-            //don't set the score to be the cur_temp_score
-        } else if (cur_temp_score === 0 ) {
-            //player [cur_turn] wins!
-            //display something nice, increment win counter, show a 'start new game' button
-
-            return game_over_player_wins(cur_turn);
-        } else {
-            player_scores[cur_turn] = cur_temp_score;
+        if (player_cur_throws.length >= NUM_THROWS_PER_TURN || cur_temp_score <= 0) {
+            //TURN IS OVER, PROCESS TURN
+            // PROCESS THROWS, SUBTRACT FROM TRUE SCORE IF VALID, ADD TO THROWS LIST
+            if (cur_temp_score < 0) {
+                //don't set the score to be the cur_temp_score
+            } else if (cur_temp_score === 0 ) {
+                //player [cur_turn] wins!
+                //display something nice, increment win counter, show a 'start new game' button
+    
+                return game_over_player_wins(cur_turn);
+            } else {
+                player_scores[cur_turn] = cur_temp_score;
+            }
+            display_updated_scores();
+            display_updated_score_list(cur_turn);
+    
+            // CHANGE CUR_TURN, RESET CUR DATA
+            cur_turn = (cur_turn + 1) % num_players;
+            player_cur_throws = [];
+            begin_turn(cur_turn);
         }
-        display_updated_scores();
-        display_updated_score_list(cur_turn);
-
-        // CHANGE CUR_TURN, RESET CUR DATA
-        cur_turn = (cur_turn + 1) % num_players;
-        player_cur_throws = [];
-        begin_turn(cur_turn);
+    } else if (game_type === GAME_TYPE.CRICKET) {
+        //TODO: handle cricket throw
     }
+
 }
 
 function game_over_player_wins(player_id) {
@@ -423,6 +472,7 @@ function game_over_player_wins(player_id) {
     document.getElementById('victory_text_container').removeAttribute("hidden");
     document.getElementById('victory_text').innerHTML = "Congratulations " + player_names[player_id] + ", you win!";
     player_wins[player_id] += 1;
+    document.getElementById('player_' + (player_id + 1) + '_name').innerHTML = player_names[player_id] + " " + BLACK_DOT + " " + player_wins[player_id];
     game_is_active = false;
 }
 
@@ -644,38 +694,41 @@ function undo_last_throw() {
         //do nothing, maybe add an alert or something in the future
         alert("Error: game has not started yet");
     } else { //if game has started:
+        if (game_type === GAME_TYPE.CLASSIC) {
+            //if cur_throws is empty: 
+            if (player_cur_throws.length === 0) {
+                //cur_turn -= 1 (don't let it be negative)
+                cur_turn = (cur_turn - 1 + num_players) % num_players;
 
-        //if cur_throws is empty: 
-        if (player_cur_throws.length === 0) {
-            //cur_turn -= 1 (don't let it be negative)
-            cur_turn = (cur_turn - 1 + num_players) % num_players;
+                //remove the last table entry (might be complicated, changes if its player one or two)
+                remove_last_table_entry(cur_turn); //TODO
 
-            //remove the last table entry (might be complicated, changes if its player one or two)
-            remove_last_table_entry(cur_turn); //TODO
+                //get the last three throws made by the new cur_turn player
+                //remove them from all_throws and all_game_throws
+                var last_three_throws_raw = player_all_throws[cur_turn].splice(-3, 3);
+                player_all_throws_this_game[cur_turn].splice(-3, 3);
 
-            //get the last three throws made by the new cur_turn player
-            //remove them from all_throws and all_game_throws
-            var last_three_throws_raw = player_all_throws[cur_turn].splice(-3, 3);
-            player_all_throws_this_game[cur_turn].splice(-3, 3);
+                //get prev_score, subtract the previous score from the score_total 
+                var prev_score: number = last_three_throws_raw.map(get_score_of_hit_at).reduce((a, b) => a + b, 0);
+                player_scores[cur_turn] += prev_score;
 
-            //get prev_score, subtract the previous score from the score_total 
-            var prev_score: number = last_three_throws_raw.map(get_score_of_hit_at).reduce((a, b) => a + b, 0);
-            player_scores[cur_turn] += prev_score;
+                //simulate the first two throws happening again
+                begin_turn(cur_turn);
+                dart_hit(last_three_throws_raw[0]);
+                dart_hit(last_three_throws_raw[1]);
 
-            //simulate the first two throws happening again
-            begin_turn(cur_turn);
-            dart_hit(last_three_throws_raw[0]);
-            dart_hit(last_three_throws_raw[1]);
-
-        } else { //else (cur_throws is not empty):
-            //remove last throw from all_throws, all_game_throws, cur_throws
-            var last_throw_raw = player_all_throws[cur_turn].pop();
-            player_all_throws_this_game[cur_turn].pop();
-            player_cur_throws.pop();
-            cur_temp_score += get_score_of_hit_at(last_throw_raw);
-            
-            //display everything
-            display_everything(cur_turn, cur_temp_score); 
+            } else { //else (cur_throws is not empty):
+                //remove last throw from all_throws, all_game_throws, cur_throws
+                var last_throw_raw = player_all_throws[cur_turn].pop();
+                player_all_throws_this_game[cur_turn].pop();
+                player_cur_throws.pop();
+                cur_temp_score += get_score_of_hit_at(last_throw_raw);
+                
+                //display everything
+                display_everything(cur_turn, cur_temp_score); 
+            }
+        } else if (game_type === GAME_TYPE.CRICKET) {
+            //TODO: cricket undo
         }
         
     }
@@ -688,7 +741,6 @@ function display_everything(player_id, cur_score_of_cur_player=null) {
 }
 
 function remove_last_table_entry(player_id) {
-    //TODO
     var table: HTMLTableElement = <HTMLTableElement> document.getElementById("score_list_table");
     var row = table.rows[table.rows.length - 1];
     if (player_id === 0) {
@@ -702,56 +754,15 @@ function remove_last_table_entry(player_id) {
     } else {
         console.log("Error, invalid player_id");
     }
-
-    /*
-    var table: HTMLTableElement = <HTMLTableElement> document.getElementById("score_list_table");
-
-    if (first_display) {
-        var row = table.insertRow();
-        var headerCell1 = document.createElement("th");
-        headerCell1.innerHTML = player_scores[0];
-        headerCell1.style.borderRight = "2px dotted";
-        var headerCell2 = document.createElement("th");
-        headerCell2.innerHTML = player_scores[1];
-        row.appendChild(document.createElement("td"));
-        row.appendChild(headerCell1);
-        row.appendChild(headerCell2);
-        row.appendChild(document.createElement("td"));
-    } else {
-        var row = player_id === 0 ? table.insertRow() : table.rows[table.rows.length - 1];
-        var dataCell, headerCell;
-        if (player_id == 0) { //add td, th, blank, blank
-            dataCell = document.createElement("td");
-            dataCell.innerHTML = cur_starting_score - player_scores[player_id];
-            headerCell = document.createElement("th");
-            headerCell.innerHTML = player_scores[player_id];
-            headerCell.style.borderRight = "2px dotted";
-            row.appendChild(dataCell);
-            row.appendChild(headerCell);
-        } else if (player_id == 1) { //add blank, blank, th, td
-            dataCell = document.createElement("td");
-            dataCell.innerHTML = cur_starting_score - player_scores[player_id];
-            headerCell = document.createElement("th");
-            headerCell.innerHTML = player_scores[player_id];
-            row.appendChild(headerCell);
-            row.appendChild(dataCell);
-        }
-    }
-
-
-    */
 }
 
 
 /*
 TODO LIST
-add a heat map for the board
-    maybe a dropdown menu type thing, similar to the example in letter_game
 add cricket
 add wins display
 add advanced stats
 make everything look nicer
-add an undo button
 make submit button check to see if everything has been filled out
     maybe use "required" tag on form elements
     not really urgent or important, but might be good if i add more customizable options for games
@@ -760,4 +771,7 @@ DONE LIST
 make left side into a dart board √
 make right side into player names √
 add option for win-on-double, win-on-anything √
+add an undo button √
+add a heat map for the board √
+    maybe a dropdown menu type thing, similar to the example in letter_game [didn't do]
 */
