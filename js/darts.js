@@ -80,23 +80,16 @@ function build_dart_board() {
     innerHTML_text += '<g transform="translate(210, 210) scale(1, -1)">';
     innerHTML_text += '<circle class="out" cx="0" cy="0" r="9999"></circle>';
     //bullseye parts
-    innerHTML_text += '<circle id="sb" class="tooltip single-bull" cx="0" cy="0" r="41" onclick="dart_hit(\'' + 25 + '\')"></circle>';
-    innerHTML_text += '<circle id="db" class="tooltip double-bull" cx="0" cy="0" r="16" onclick="dart_hit(\'' + 50 + '\')"></circle>';
+    innerHTML_text += '<circle id="sb" class="tooltip single-bull" cx="0" cy="0" r="41" onclick="dart_hit(\'sb\')"></circle>';
+    innerHTML_text += '<circle id="db" class="tooltip double-bull" cx="0" cy="0" r="16" onclick="dart_hit(\'db\')"></circle>';
     for (var i = 0; i < 20; i++) {
         for (var j = 0; j < 4; j++) {
-            var multiplier_text = "";
-            if (j == 1) {
-                multiplier_text = "T";
-            }
-            else if (j == 3) {
-                multiplier_text = "D";
-            }
             var cur_html = dart_board_data[4 * i + j];
             var split_html = cur_html.split("><");
             var id = "id=\'" + i + "_" + j + "\'";
-            var onclick = 'onclick="dart_hit(\'' + multiplier_text + dart_board_numbers[i] + '\');"';
+            var onclick = 'onclick="dart_hit(\'' + j + "_" + dart_board_numbers[i] + '\');"';
             var title = "title=\'" + i + "_" + j + "\'";
-            innerHTML_text += '<g>' + split_html[0] + id + onclick + title + '><' + split_html[1] + '</g>';
+            innerHTML_text += split_html[0] + id + onclick + title + '><' + split_html[1];
         }
     }
     innerHTML_text += "</g>";
@@ -113,13 +106,6 @@ function build_dart_board() {
     dart_board_container.innerHTML = innerHTML_text;
 }
 //GAME CODE
-//TODO:
-/*
-make left side into a dart board √
-make right side into player names,
-
-
-*/
 function set_up_and_start_game() {
     // CHANGE LAYOUT
     document.getElementById('description').setAttribute('hidden', "true");
@@ -127,12 +113,6 @@ function set_up_and_start_game() {
     document.getElementById('start_form').setAttribute('hidden', "true");
     document.getElementById('game_text_container').removeAttribute('hidden');
     document.getElementById('game_data_table').removeAttribute('hidden');
-    //TODO:
-    /*
-    make submit button check to see if everything has been filled out
-    maybe use "required" tag on form elements
-    not really urgent or important, but might be good if i add more customizable options for games
-    */
     // GET INFO FROM FORM 
     // SET NAMES
     for (var i = 0; i < num_players; i++) {
@@ -302,37 +282,60 @@ function clear_score_list() {
     document.getElementById("score_list_table").innerHTML = "";
 }
 var scored = false;
-function dart_hit(board_location) {
+function dart_hit(raw_board_location) {
+    console.log(raw_board_location);
     if (game_is_active) {
-        console.log("dart hit", board_location);
-        if (board_location != "0") { //hit the target somewhere, not the outside area
+        console.log("dart hit", raw_board_location);
+        if (raw_board_location != "0") { //hit the target somewhere, not the outside area
             scored = true;
             //process hit location
-            process_hit(board_location);
+            process_hit(raw_board_location);
         }
         else if (scored) { //the outside hit gets called even if the main board is also hit, so this ignores those calls and resets
             scored = false;
         }
         else { //count it as a 0
             //process hit location
-            process_hit(board_location);
+            process_hit(raw_board_location);
         }
     }
     else {
         console.log("game is paused");
     }
 }
-// function get_cleaned_board_location(raw_board_location) {
-//     var location_list = raw_board_location.split("_");
-//     if (location_list)
-// }
-function process_hit(board_location) {
-    player_cur_throws.push(board_location);
-    player_all_throws[cur_turn].push(board_location);
-    player_all_throws_this_game[cur_turn].push(board_location);
+function get_cleaned_board_location(raw_board_location) {
+    if (raw_board_location === "sb") {
+        return "25";
+    }
+    else if (raw_board_location === "db") {
+        return "50";
+    }
+    else if (raw_board_location === "0") {
+        return "0";
+    }
+    var location_list = raw_board_location.split("_");
+    if (location_list[0] == "0" || location_list[0] == "2") {
+        return location_list[1];
+    }
+    else if (location_list[0] === "1") {
+        return "T" + location_list[1];
+    }
+    else if (location_list[0] === "3") {
+        return "D" + location_list[1];
+    }
+    else {
+        console.log("ERROR: INVALID BOARD LOCATION");
+        return "-1";
+    }
+}
+function process_hit(raw_board_location) {
+    var cleaned_board_location = get_cleaned_board_location(raw_board_location);
+    player_cur_throws.push(cleaned_board_location);
+    player_all_throws[cur_turn].push(raw_board_location);
+    player_all_throws_this_game[cur_turn].push(raw_board_location);
     display_cur_throws(cur_turn);
     display_average_throw(cur_turn);
-    cur_temp_score -= get_score_of_hit_at(board_location);
+    cur_temp_score -= get_score_of_hit_at(cleaned_board_location);
     display_updated_scores(cur_temp_score);
     if (must_win_on_double && cur_temp_score <= 1) {
         if (cur_temp_score === 1) {
@@ -485,14 +488,13 @@ function set_board_colors_to_heat_map(player_id) {
     for (var i = 0; i < 20; i++) {
         for (var j = 0; j < 4; j++) {
             cur_element = document.getElementById(i + "_" + j);
-            multiplier_text = (j === 1) ? "T" : (j === 3) ? "D" : "";
-            board_location = multiplier_text + dart_board_numbers[i];
+            board_location = j + "_" + dart_board_numbers[i];
             set_color_to_element(cur_element, board_location, frequency_dict, max_value_in_frequency_dict);
         }
     }
     //set bullseys
-    set_color_to_element(document.getElementById("sb"), "25", frequency_dict, max_value_in_frequency_dict);
-    set_color_to_element(document.getElementById("db"), "50", frequency_dict, max_value_in_frequency_dict);
+    set_color_to_element(document.getElementById("sb"), "sb", frequency_dict, max_value_in_frequency_dict);
+    set_color_to_element(document.getElementById("db"), "db", frequency_dict, max_value_in_frequency_dict);
 }
 function set_color_to_element(cur_element, board_location, frequency_dict, max_value_in_frequency_dict) {
     cur_element.addEventListener('mouseover', function_to_display_hit_count(board_location in frequency_dict ? frequency_dict[board_location] : "0"));
@@ -555,6 +557,15 @@ function get_score_of_hit_at(board_location) {
     if (board_location === "0") {
         return 0;
     }
+    else if (board_location === "sb") {
+        return 25;
+    }
+    else if (board_location === "db") {
+        return 50;
+    }
+    else if (board_location.includes("_")) { //clean the location first
+        return get_score_of_hit_at(get_cleaned_board_location(board_location));
+    }
     else if (board_location.charAt(0) === "D") {
         return parseInt(board_location.substring(1)) * 2;
     }
@@ -579,8 +590,13 @@ add wins display
 add advanced stats
 make everything look nicer
 add an undo button
+make submit button check to see if everything has been filled out
+    maybe use "required" tag on form elements
+    not really urgent or important, but might be good if i add more customizable options for games
 
 DONE LIST
+make left side into a dart board √
+make right side into player names √
 add option for win-on-double, win-on-anything √
 */ 
 //# sourceMappingURL=darts.js.map
