@@ -284,9 +284,9 @@ function clear_score_list() {
 }
 var scored = false;
 function dart_hit(raw_board_location) {
-    console.log(raw_board_location);
+    // console.log(raw_board_location);
     if (game_is_active) {
-        console.log("dart hit", raw_board_location);
+        // console.log("dart hit", raw_board_location);
         if (raw_board_location != "0") { //hit the target somewhere, not the outside area
             scored = true;
             //process hit location
@@ -581,6 +581,103 @@ function get_score_of_hit_at(board_location) {
 function heatMapColorforValue(value) {
     var h = (1.0 - value) * 240;
     return "hsl(" + h + ", 100%, 50%)";
+}
+function undo_last_throw() {
+    //if game hasn't started yet, do nothing
+    if (cur_turn === 0 && player_all_throws_this_game[cur_turn].length === 0) {
+        //do nothing, maybe add an alert or something in the future
+        alert("Error: game has not started yet");
+    }
+    else { //if game has started:
+        //if cur_throws is empty: 
+        if (player_cur_throws.length === 0) {
+            //cur_turn -= 1 (don't let it be negative)
+            cur_turn = (cur_turn - 1 + num_players) % num_players;
+            //remove the last table entry (might be complicated, changes if its player one or two)
+            remove_last_table_entry(cur_turn); //TODO
+            //get the last three throws made by the new cur_turn player
+            //remove them from all_throws and all_game_throws
+            var last_three_throws_raw = player_all_throws[cur_turn].splice(-3, 3);
+            player_all_throws_this_game[cur_turn].splice(-3, 3);
+            //get prev_score, subtract the previous score from the score_total 
+            var prev_score = last_three_throws_raw.map(get_score_of_hit_at).reduce(function (a, b) { return a + b; }, 0);
+            player_scores[cur_turn] += prev_score;
+            //simulate the first two throws happening again
+            begin_turn(cur_turn);
+            dart_hit(last_three_throws_raw[0]);
+            dart_hit(last_three_throws_raw[1]);
+        }
+        else { //else (cur_throws is not empty):
+            //remove last throw from all_throws, all_game_throws, cur_throws
+            var last_throw_raw = player_all_throws[cur_turn].pop();
+            player_all_throws_this_game[cur_turn].pop();
+            player_cur_throws.pop();
+            cur_temp_score += get_score_of_hit_at(last_throw_raw);
+            //display everything
+            display_everything(cur_turn, cur_temp_score);
+        }
+    }
+}
+function display_everything(player_id, cur_score_of_cur_player) {
+    if (cur_score_of_cur_player === void 0) { cur_score_of_cur_player = null; }
+    display_cur_throws(player_id);
+    display_average_throw(player_id);
+    display_updated_scores(cur_score_of_cur_player);
+}
+function remove_last_table_entry(player_id) {
+    //TODO
+    var table = document.getElementById("score_list_table");
+    var row = table.rows[table.rows.length - 1];
+    if (player_id === 0) {
+        //remove the entire row
+        table.tBodies[0].removeChild(row);
+    }
+    else if (player_id === 1) {
+        //remove the last two cells
+        //one for the TH, one for the TD
+        row.removeChild(row.childNodes[row.childNodes.length - 1]);
+        row.removeChild(row.childNodes[row.childNodes.length - 1]);
+    }
+    else {
+        console.log("Error, invalid player_id");
+    }
+    /*
+    var table: HTMLTableElement = <HTMLTableElement> document.getElementById("score_list_table");
+
+    if (first_display) {
+        var row = table.insertRow();
+        var headerCell1 = document.createElement("th");
+        headerCell1.innerHTML = player_scores[0];
+        headerCell1.style.borderRight = "2px dotted";
+        var headerCell2 = document.createElement("th");
+        headerCell2.innerHTML = player_scores[1];
+        row.appendChild(document.createElement("td"));
+        row.appendChild(headerCell1);
+        row.appendChild(headerCell2);
+        row.appendChild(document.createElement("td"));
+    } else {
+        var row = player_id === 0 ? table.insertRow() : table.rows[table.rows.length - 1];
+        var dataCell, headerCell;
+        if (player_id == 0) { //add td, th, blank, blank
+            dataCell = document.createElement("td");
+            dataCell.innerHTML = cur_starting_score - player_scores[player_id];
+            headerCell = document.createElement("th");
+            headerCell.innerHTML = player_scores[player_id];
+            headerCell.style.borderRight = "2px dotted";
+            row.appendChild(dataCell);
+            row.appendChild(headerCell);
+        } else if (player_id == 1) { //add blank, blank, th, td
+            dataCell = document.createElement("td");
+            dataCell.innerHTML = cur_starting_score - player_scores[player_id];
+            headerCell = document.createElement("th");
+            headerCell.innerHTML = player_scores[player_id];
+            row.appendChild(headerCell);
+            row.appendChild(dataCell);
+        }
+    }
+
+
+    */
 }
 /*
 TODO LIST
