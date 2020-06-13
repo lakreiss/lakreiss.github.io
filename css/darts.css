@@ -168,3 +168,21 @@ th, td {
 .dartboard .odd.heat_map_1, .dartboard .even.heat_map_1  {
   fill-rule: #8FFF00;
 }
+
+@media (max-width: 50rem) {
+  /* .half_width {
+    min-width: 100%;
+    margin: 0em;
+  } */
+
+  .left_side {
+    min-width: 100%;
+    margin: 0em;
+  }
+
+  .right_side {
+    min-width: 100%;
+    margin: 0em;
+  }
+
+}
