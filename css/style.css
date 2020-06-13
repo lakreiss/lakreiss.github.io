@@ -202,6 +202,10 @@ section {
     margin-right: -5rem;
   }
 
+  .application_section {
+    width: 48%;
+  }
+
   .quadris_text {
     float: none;
     width: 100%;

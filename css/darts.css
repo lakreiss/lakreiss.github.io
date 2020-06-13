@@ -170,19 +170,15 @@ th, td {
 }
 
 @media (max-width: 50rem) {
-  /* .half_width {
-    min-width: 100%;
-    margin: 0em;
-  } */
 
   .left_side {
     min-width: 100%;
-    margin: 0em;
+    margin: 1em;
   }
 
   .right_side {
     min-width: 100%;
-    margin: 0em;
+    margin: 1em;
   }
 
 }
