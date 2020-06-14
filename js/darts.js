@@ -5,6 +5,9 @@ var dart_board_data = [
     '<path d="M -75.73555455601127,-38.58919247786147 A 85 85 0 0 0 -83.95350895058671,-13.296929528419613 L -40.49522196440065,-6.41381306664946 A 41 41 0 0 1 -36.531267491723085,-18.613610489321413 Z" class="tooltip even single"></path>', '<path d="M -95.33769808815536,-48.576983472131495 A 107 107 0 0 0 -105.68265244367974,-16.73848775930469 L -83.95350895058671,-13.296929528419613 A 85 85 0 0 1 -75.73555455601127,-38.58919247786147 Z" class="tooltip even triple"></path>', '<path d="M -133.6509786282552,-68.098574960932 A 150 150 0 0 0 -148.15325108927067,-23.46516975603461 L -105.68265244367974,-16.73848775930469 A 107 107 0 0 1 -95.33769808815536,-48.576983472131495 Z" class="tooltip even single"></path>', '<path d="M -151.47110911202253,-77.17838495572293 A 170 170 0 0 0 -167.90701790117342,-26.593859056839225 L -148.15325108927067,-23.46516975603461 A 150 150 0 0 1 -133.6509786282552,-68.098574960932 Z" class="tooltip even double"></path>', '<path d="M -60.104076400856556,-60.104076400856535 A 85 85 0 0 0 -75.73555455601127,-38.58919247786147 L -36.531267491723085,-18.613610489321413 A 41 41 0 0 1 -28.991378028648455,-28.991378028648445 Z" class="tooltip odd single"></path>', '<path d="M -75.6604255869606,-75.66042558696059 A 107 107 0 0 0 -95.33769808815536,-48.576983472131495 L -75.73555455601127,-38.58919247786147 A 85 85 0 0 1 -60.104076400856556,-60.104076400856535 Z" class="tooltip odd triple"></path>', '<path d="M -106.06601717798215,-106.06601717798212 A 150 150 0 0 0 -133.6509786282552,-68.098574960932 L -95.33769808815536,-48.576983472131495 A 107 107 0 0 1 -75.6604255869606,-75.66042558696059 Z" class="tooltip odd single"></path>', '<path d="M -120.20815280171311,-120.20815280171307 A 170 170 0 0 0 -151.47110911202253,-77.17838495572293 L -133.6509786282552,-68.098574960932 A 150 150 0 0 1 -106.06601717798215,-106.06601717798212 Z" class="tooltip odd double"></path>', '<path d="M -38.58919247786149,-75.73555455601127 A 85 85 0 0 0 -60.104076400856556,-60.104076400856535 L -28.991378028648455,-28.991378028648445 A 41 41 0 0 1 -18.613610489321424,-36.53126749172308 Z" class="tooltip even single"></path>', '<path d="M -48.57698347213152,-95.33769808815535 A 107 107 0 0 0 -75.6604255869606,-75.66042558696059 L -60.104076400856556,-60.104076400856535 A 85 85 0 0 1 -38.58919247786149,-75.73555455601127 Z" class="tooltip even triple"></path>', '<path d="M -68.09857496093204,-133.65097862825516 A 150 150 0 0 0 -106.06601717798215,-106.06601717798212 L -75.6604255869606,-75.66042558696059 A 107 107 0 0 1 -48.57698347213152,-95.33769808815535 Z" class="tooltip even single"></path>', '<path d="M -77.17838495572298,-151.47110911202253 A 170 170 0 0 0 -120.20815280171311,-120.20815280171307 L -106.06601717798215,-106.06601717798212 A 150 150 0 0 1 -68.09857496093204,-133.65097862825516 Z" class="tooltip even double"></path>', '<path d="M -13.296929528419637,-83.9535089505867 A 85 85 0 0 0 -38.58919247786149,-75.73555455601127 L -18.613610489321424,-36.53126749172308 A 41 41 0 0 1 -6.413813066649473,-40.49522196440064 Z" class="tooltip odd single"></path>', '<path d="M -16.73848775930472,-105.68265244367973 A 107 107 0 0 0 -48.57698347213152,-95.33769808815535 L -38.58919247786149,-75.73555455601127 A 85 85 0 0 1 -13.296929528419637,-83.9535089505867 Z" class="tooltip odd triple"></path>', '<path d="M -23.465169756034655,-148.15325108927064 A 150 150 0 0 0 -68.09857496093204,-133.65097862825516 L -48.57698347213152,-95.33769808815535 A 107 107 0 0 1 -16.73848775930472,-105.68265244367973 Z" class="tooltip odd single"></path>', '<path d="M -26.593859056839275,-167.9070179011734 A 170 170 0 0 0 -77.17838495572298,-151.47110911202253 L -68.09857496093204,-133.65097862825516 A 150 150 0 0 1 -23.465169756034655,-148.15325108927064 Z" class="tooltip odd double"></path>', '<path d="M 13.296929528419607,-83.95350895058671 A 85 85 0 0 0 -13.296929528419637,-83.9535089505867 L -6.413813066649473,-40.49522196440064 A 41 41 0 0 1 6.413813066649458,-40.49522196440065 Z" class="tooltip even single"></path>', '<path d="M 16.738487759304682,-105.68265244367974 A 107 107 0 0 0 -16.73848775930472,-105.68265244367973 L -13.296929528419637,-83.9535089505867 A 85 85 0 0 1 13.296929528419607,-83.95350895058671 Z" class="tooltip even triple"></path>', '<path d="M 23.4651697560346,-148.15325108927067 A 150 150 0 0 0 -23.465169756034655,-148.15325108927064 L -16.73848775930472,-105.68265244367973 A 107 107 0 0 1 16.738487759304682,-105.68265244367974 Z" class="tooltip even single"></path>', '<path d="M 26.593859056839214,-167.90701790117342 A 170 170 0 0 0 -26.593859056839275,-167.9070179011734 L -23.465169756034655,-148.15325108927064 A 150 150 0 0 1 23.4651697560346,-148.15325108927067 Z" class="tooltip even double"></path>', '<path d="M 38.58919247786147,-75.73555455601128 A 85 85 0 0 0 13.296929528419607,-83.95350895058671 L 6.413813066649458,-40.49522196440065 A 41 41 0 0 1 18.613610489321413,-36.531267491723085 Z" class="tooltip odd single"></path>', '<path d="M 48.57698347213149,-95.33769808815538 A 107 107 0 0 0 16.738487759304682,-105.68265244367974 L 13.296929528419607,-83.95350895058671 A 85 85 0 0 1 38.58919247786147,-75.73555455601128 Z" class="tooltip odd triple"></path>', '<path d="M 68.098574960932,-133.6509786282552 A 150 150 0 0 0 23.4651697560346,-148.15325108927067 L 16.738487759304682,-105.68265244367974 A 107 107 0 0 1 48.57698347213149,-95.33769808815538 Z" class="tooltip odd single"></path>', '<path d="M 77.17838495572293,-151.47110911202256 A 170 170 0 0 0 26.593859056839214,-167.90701790117342 L 23.4651697560346,-148.15325108927067 A 150 150 0 0 1 68.098574960932,-133.6509786282552 Z" class="tooltip odd double"></path>', '<path d="M 60.10407640085653,-60.104076400856556 A 85 85 0 0 0 38.58919247786147,-75.73555455601128 L 18.613610489321413,-36.531267491723085 A 41 41 0 0 1 28.99137802864844,-28.991378028648455 Z" class="tooltip even single"></path>', '<path d="M 75.66042558696057,-75.6604255869606 A 107 107 0 0 0 48.57698347213149,-95.33769808815538 L 38.58919247786147,-75.73555455601128 A 85 85 0 0 1 60.10407640085653,-60.104076400856556 Z" class="tooltip even triple"></path>', '<path d="M 106.0660171779821,-106.06601717798215 A 150 150 0 0 0 68.098574960932,-133.6509786282552 L 48.57698347213149,-95.33769808815538 A 107 107 0 0 1 75.66042558696057,-75.6604255869606 Z" class="tooltip even single"></path>', '<path d="M 120.20815280171306,-120.20815280171311 A 170 170 0 0 0 77.17838495572293,-151.47110911202256 L 68.098574960932,-133.6509786282552 A 150 150 0 0 1 106.0660171779821,-106.06601717798215 Z" class="tooltip even double"></path>', '<path d="M 75.73555455601127,-38.589192477861495 A 85 85 0 0 0 60.10407640085653,-60.104076400856556 L 28.99137802864844,-28.991378028648455 A 41 41 0 0 1 36.53126749172308,-18.613610489321427 Z" class="tooltip odd single"></path>', '<path d="M 95.33769808815535,-48.57698347213152 A 107 107 0 0 0 75.66042558696057,-75.6604255869606 L 60.10407640085653,-60.104076400856556 A 85 85 0 0 1 75.73555455601127,-38.589192477861495 Z" class="tooltip odd triple"></path>', '<path d="M 133.65097862825516,-68.09857496093204 A 150 150 0 0 0 106.0660171779821,-106.06601717798215 L 75.66042558696057,-75.6604255869606 A 107 107 0 0 1 95.33769808815535,-48.57698347213152 Z" class="tooltip odd single"></path>', '<path d="M 151.47110911202253,-77.17838495572299 A 170 170 0 0 0 120.20815280171306,-120.20815280171311 L 106.0660171779821,-106.06601717798215 A 150 150 0 0 1 133.65097862825516,-68.09857496093204 Z" class="tooltip odd double"></path>', '<path d="M 83.9535089505867,-13.296929528419644 A 85 85 0 0 0 75.73555455601127,-38.589192477861495 L 36.53126749172308,-18.613610489321427 A 41 41 0 0 1 40.49522196440064,-6.4138130666494755 Z" class="tooltip even single"></path>', '<path d="M 105.68265244367973,-16.73848775930473 A 107 107 0 0 0 95.33769808815535,-48.57698347213152 L 75.73555455601127,-38.589192477861495 A 85 85 0 0 1 83.9535089505867,-13.296929528419644 Z" class="tooltip even triple"></path>', '<path d="M 148.15325108927064,-23.46516975603467 A 150 150 0 0 0 133.65097862825516,-68.09857496093204 L 95.33769808815535,-48.57698347213152 A 107 107 0 0 1 105.68265244367973,-16.73848775930473 Z" class="tooltip even single"></path>', '<path d="M 167.9070179011734,-26.59385905683929 A 170 170 0 0 0 151.47110911202253,-77.17838495572299 L 133.65097862825516,-68.09857496093204 A 150 150 0 0 1 148.15325108927064,-23.46516975603467 Z" class="tooltip even double"></path>'
 ];
 var dart_board_numbers = [6, 13, 4, 18, 1, 20, 5, 12, 9, 14, 11, 8, 16, 7, 19, 3, 17, 2, 15, 10];
+//CRICKET INFO
+var VALID_CRICKET_SHOTS = ["15", "16", "17", "18", "19", "20", "sb", "db"];
+var player_cricket_hits_counter = [{}, {}];
 // STANDARD DART INFO
 var NUM_THROWS_PER_TURN = 3;
 var num_players = 2; //keeping this lowercase because it might not be FINAL at some point //TODO this will be dynamic when users can add/subtract players
@@ -23,12 +26,17 @@ var game_is_active = false;
 var heat_map_is_displayed = false;
 var heat_map_player_id;
 var must_win_on_double; //ONLY IMPORTANT IN CLASSIC GAMES
-var game_type;
+var game_type, cricket_mode;
 var GAME_TYPE;
 (function (GAME_TYPE) {
     GAME_TYPE["CLASSIC"] = "0";
     GAME_TYPE["CRICKET"] = "1";
 })(GAME_TYPE || (GAME_TYPE = {}));
+var CRICKET_GAME_MODE;
+(function (CRICKET_GAME_MODE) {
+    CRICKET_GAME_MODE["HOUSE"] = "0";
+    CRICKET_GAME_MODE["STANDARD"] = "1";
+})(CRICKET_GAME_MODE || (CRICKET_GAME_MODE = {}));
 // FRONT PAGE CODE
 function set_game_type_element() {
     var game_select_value = get_game_type();
@@ -108,6 +116,9 @@ function build_dart_board() {
 //GAME CODE
 function set_up_and_start_game() {
     var game_type = get_game_type();
+    if (game_type === GAME_TYPE.CRICKET) {
+        cricket_mode = CRICKET_GAME_MODE.HOUSE; //TODO: CHANGE TO ADD OTHER CRICKET MODE OPTION
+    }
     // CHANGE LAYOUT
     document.getElementById('description').setAttribute('hidden', "true");
     document.getElementById('dart_board_display_container').removeAttribute('hidden');
@@ -193,22 +204,48 @@ function set_up_and_start_game() {
 function play_again() {
     //clear all the displays
     document.getElementById('victory_text_container').setAttribute("hidden", "true");
-    clear_score_list();
-    //reset all the values
-    player_all_throws_this_game = [];
-    for (var i = 0; i < num_players; i++) {
-        player_scores[i] = game_starting_score;
-        clear_cur_throws(i);
-        player_all_throws_this_game.push([]);
-        display_average_throw(i);
+    if (game_type == GAME_TYPE.CLASSIC) {
+        clear_score_list();
+        //reset all the values
+        player_all_throws_this_game = [];
+        for (var i = 0; i < num_players; i++) {
+            player_scores[i] = game_starting_score;
+            clear_cur_throws(i);
+            player_all_throws_this_game.push([]);
+            display_average_throw(i);
+        }
+        player_cur_throws = [];
+        //display the proper thigns
+        display_updated_scores();
+        display_updated_score_list(cur_turn, game_starting_score);
     }
-    player_cur_throws = [];
-    //display the proper thigns
-    display_updated_scores();
-    display_updated_score_list(cur_turn, game_starting_score);
+    else if (game_type === GAME_TYPE.CRICKET) {
+        //TODO
+        clear_cricket_scores();
+        //reset all the values
+        player_all_throws_this_game = [];
+        player_cricket_hits_counter = [];
+        for (var i = 0; i < num_players; i++) {
+            clear_cur_throws(i);
+            player_all_throws_this_game.push([]);
+            player_cricket_hits_counter.push({});
+        }
+        set_up_player_cricket_hits_counter();
+        player_cur_throws = [];
+    }
     //start the game
     game_is_active = true;
     begin_turn(0);
+}
+function clear_cricket_scores() {
+    var table = document.getElementById("score_list_table");
+    for (var i = 0; i < table.rows.length; i++) {
+        var innerHTML_text = (table.rows[i].childNodes[1]).innerHTML; //second value is the middle of the table
+        if (innerHTML_text === "BE" || VALID_CRICKET_SHOTS.includes(innerHTML_text)) {
+            (table.rows[i].childNodes[0]).innerHTML = "";
+            (table.rows[i].childNodes[2]).innerHTML = "";
+        }
+    }
 }
 function begin_turn(player_id) {
     cur_turn = player_id;
@@ -318,6 +355,16 @@ function set_up_cricket_table() {
         next_row.appendChild(next_row_cell);
         next_row.appendChild(document.createElement("td"));
     }
+    //set up player_cricket_hits_counter
+    set_up_player_cricket_hits_counter();
+}
+function set_up_player_cricket_hits_counter() {
+    for (var i = 0; i < num_players; i++) {
+        for (var j = 20; j >= 15; j--) {
+            player_cricket_hits_counter[i]["" + j] = 0;
+        }
+        player_cricket_hits_counter[i]["BE"] = 0;
+    }
 }
 function clear_score_list() {
     document.getElementById("score_list_table").innerHTML = "";
@@ -418,12 +465,70 @@ function process_hit(raw_board_location) {
     }
     else if (game_type === GAME_TYPE.CRICKET) {
         //TODO: handle cricket throw
+        if (cricket_mode === CRICKET_GAME_MODE.HOUSE) {
+            if (raw_board_location === "sb") {
+                player_cricket_hits_counter[cur_turn]["BE"] += 1;
+            }
+            else if (raw_board_location === "db") {
+                player_cricket_hits_counter[cur_turn]["BE"] += 2;
+            }
+            else if (raw_board_location.includes("_")) {
+                var raw_split = raw_board_location.split("_");
+                player_cricket_hits_counter[cur_turn][raw_split[1]] += (raw_split[0] === "0" || raw_split[0] === "2") ? 1 : (raw_split[0] === "1" ? 3 : (raw_split[0] === "3" ? 2 : 0));
+            }
+            //update display
+            update_cricket_display(cur_turn);
+            if (check_cricket_win(cur_turn)) {
+                //display victory
+                //ask to play a new game
+                return game_over_player_wins(cur_turn);
+            }
+            else if (player_cur_throws.length >= NUM_THROWS_PER_TURN) {
+                // CHANGE CUR_TURN, RESET CUR DATA
+                cur_turn = (cur_turn + 1) % num_players;
+                player_cur_throws = [];
+                begin_turn(cur_turn);
+            }
+        }
     }
 }
+function update_cricket_display(player_id) {
+    var table = document.getElementById("score_list_table");
+    for (var i = 0; i < table.rows.length; i++) {
+        var innerHTML_text = (table.rows[i].childNodes[1]).innerHTML; //second value is the middle of the table
+        if (innerHTML_text === "BE" || VALID_CRICKET_SHOTS.includes(innerHTML_text)) {
+            var row_display;
+            var num_hits = player_cricket_hits_counter[player_id][innerHTML_text];
+            if (num_hits === 0) {
+                row_display = "";
+            }
+            else if (num_hits === 1) {
+                row_display = "\\";
+            }
+            else if (num_hits === 2) {
+                row_display = "X";
+            }
+            else if (num_hits >= 3) {
+                row_display = "0";
+            }
+            (table.rows[i].childNodes[player_id * 2]).innerHTML = row_display;
+        }
+    }
+}
+function check_cricket_win(player_id) {
+    for (var key in player_cricket_hits_counter[player_id]) {
+        if (player_cricket_hits_counter[player_id][key] < 3) {
+            return false;
+        }
+    }
+    return true;
+}
 function game_over_player_wins(player_id) {
-    player_scores[cur_turn] = cur_temp_score;
-    display_updated_scores();
-    display_updated_score_list(cur_turn);
+    if (game_type === GAME_TYPE.CLASSIC) {
+        player_scores[cur_turn] = cur_temp_score;
+        display_updated_scores();
+        display_updated_score_list(cur_turn);
+    }
     document.getElementById('victory_text_container').removeAttribute("hidden");
     document.getElementById('victory_text').innerHTML = "Congratulations " + player_names[player_id] + ", you win!";
     player_wins[player_id] += 1;

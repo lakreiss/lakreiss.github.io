@@ -7,6 +7,10 @@ var dart_board_data = [
 ]
 var dart_board_numbers = [6, 13, 4, 18, 1, 20, 5, 12, 9, 14, 11, 8, 16, 7, 19, 3, 17, 2, 15, 10];
 
+//CRICKET INFO
+var VALID_CRICKET_SHOTS = ["15", "16", "17", "18", "19", "20", "sb", "db"];
+var player_cricket_hits_counter = [{}, {}];
+
 // STANDARD DART INFO
 var NUM_THROWS_PER_TURN = 3;
 var num_players = 2; //keeping this lowercase because it might not be FINAL at some point //TODO this will be dynamic when users can add/subtract players
@@ -26,11 +30,16 @@ var game_is_active = false;
 var heat_map_is_displayed = false;
 var heat_map_player_id;
 var must_win_on_double; //ONLY IMPORTANT IN CLASSIC GAMES
-var game_type: GAME_TYPE;
+var game_type: GAME_TYPE, cricket_mode: CRICKET_GAME_MODE;
 
 enum GAME_TYPE {
     CLASSIC = "0", 
     CRICKET = "1"
+}
+
+enum CRICKET_GAME_MODE {
+    HOUSE = "0",
+    STANDARD = "1"
 }
 
 // FRONT PAGE CODE
@@ -131,6 +140,9 @@ function build_dart_board() {
 
 function set_up_and_start_game() {
     var game_type = get_game_type();
+    if (game_type === GAME_TYPE.CRICKET) {
+        cricket_mode = CRICKET_GAME_MODE.HOUSE; //TODO: CHANGE TO ADD OTHER CRICKET MODE OPTION
+    }
 
     // CHANGE LAYOUT
     document.getElementById('description').setAttribute('hidden', "true");
@@ -229,25 +241,54 @@ function set_up_and_start_game() {
 function play_again() {
     //clear all the displays
     document.getElementById('victory_text_container').setAttribute("hidden", "true");
-    clear_score_list();
+    if (game_type == GAME_TYPE.CLASSIC) {
+        clear_score_list();
 
-    //reset all the values
-    player_all_throws_this_game = [];
-    for (var i = 0; i < num_players; i++) {
-        player_scores[i] = game_starting_score;
-        clear_cur_throws(i);
-        player_all_throws_this_game.push([]);
-        display_average_throw(i);
+        //reset all the values
+        player_all_throws_this_game = [];
+        for (var i = 0; i < num_players; i++) {
+            player_scores[i] = game_starting_score;
+            clear_cur_throws(i);
+            player_all_throws_this_game.push([]);
+            display_average_throw(i);
+        }
+        player_cur_throws = [];
+    
+        //display the proper thigns
+        display_updated_scores();
+        display_updated_score_list(cur_turn, game_starting_score);
+    } else if (game_type === GAME_TYPE.CRICKET) {
+        //TODO
+        clear_cricket_scores();
+
+        //reset all the values
+        player_all_throws_this_game = [];
+        player_cricket_hits_counter = [];
+        for (var i = 0; i < num_players; i++) {
+            clear_cur_throws(i);
+            player_all_throws_this_game.push([]);
+            player_cricket_hits_counter.push({});
+        }
+        set_up_player_cricket_hits_counter();
+        player_cur_throws = [];
     }
-    player_cur_throws = [];
-
-    //display the proper thigns
-    display_updated_scores();
-    display_updated_score_list(cur_turn, game_starting_score);
 
     //start the game
     game_is_active = true;
     begin_turn(0);
+}
+
+function clear_cricket_scores() {
+    var table: HTMLTableElement = <HTMLTableElement> document.getElementById("score_list_table");
+
+    for (var i = 0; i < table.rows.length; i++) {
+        var innerHTML_text = (<HTMLElement> (table.rows[i].childNodes[1])).innerHTML; //second value is the middle of the table
+
+        if (innerHTML_text === "BE" || VALID_CRICKET_SHOTS.includes(innerHTML_text)) { 
+            (<HTMLElement> (table.rows[i].childNodes[0])).innerHTML = "";
+            (<HTMLElement> (table.rows[i].childNodes[2])).innerHTML = "";
+        } 
+    }
 }
 
 function begin_turn(player_id) {
@@ -363,6 +404,19 @@ function set_up_cricket_table() {
         next_row.appendChild(next_row_cell);
         next_row.appendChild(document.createElement("td"));
     } 
+
+    //set up player_cricket_hits_counter
+    set_up_player_cricket_hits_counter();
+    
+}
+
+function set_up_player_cricket_hits_counter() {
+    for (var i = 0; i < num_players; i++) {
+        for (var j = 20; j >= 15; j--) {
+            player_cricket_hits_counter[i]["" + j] = 0;
+        }
+        player_cricket_hits_counter[i]["BE"] = 0;
+    }
 }
 
 function clear_score_list() {
@@ -461,14 +515,71 @@ function process_hit(raw_board_location: string) {
         }
     } else if (game_type === GAME_TYPE.CRICKET) {
         //TODO: handle cricket throw
-    }
+        if (cricket_mode === CRICKET_GAME_MODE.HOUSE) {
+            if (raw_board_location === "sb") {
+                player_cricket_hits_counter[cur_turn]["BE"] += 1;
+            } else if (raw_board_location === "db") {
+                player_cricket_hits_counter[cur_turn]["BE"] += 2;
+            } else if (raw_board_location.includes("_")) {
+                var raw_split = raw_board_location.split("_");
+                player_cricket_hits_counter[cur_turn][raw_split[1]] += (raw_split[0] === "0" || raw_split[0] === "2") ? 1 : (raw_split[0] === "1" ? 3 : (raw_split[0] === "3" ? 2 : 0));
+            }
+            //update display
+            update_cricket_display(cur_turn);
 
+            if (check_cricket_win(cur_turn)) {
+                //display victory
+                //ask to play a new game
+                return game_over_player_wins(cur_turn);
+
+            } else if (player_cur_throws.length >= NUM_THROWS_PER_TURN) {        
+                // CHANGE CUR_TURN, RESET CUR DATA
+                cur_turn = (cur_turn + 1) % num_players;
+                player_cur_throws = [];
+                begin_turn(cur_turn);
+            }
+        }
+    }
+}
+
+function update_cricket_display(player_id) {
+    var table: HTMLTableElement = <HTMLTableElement> document.getElementById("score_list_table");
+
+    for (var i = 0; i < table.rows.length; i++) {
+        var innerHTML_text = (<HTMLElement> (table.rows[i].childNodes[1])).innerHTML; //second value is the middle of the table
+
+        if (innerHTML_text === "BE" || VALID_CRICKET_SHOTS.includes(innerHTML_text)) { 
+            var row_display;
+            var num_hits = player_cricket_hits_counter[player_id][innerHTML_text];
+            if (num_hits === 0) {
+                row_display = "";
+            } else if (num_hits === 1) {
+                row_display = "\\";
+            } else if (num_hits === 2) {
+                row_display = "X";
+            } else if (num_hits >= 3) {
+                row_display = "0";
+            }
+            (<HTMLElement> (table.rows[i].childNodes[player_id * 2])).innerHTML = row_display;
+        } 
+    }
+}
+
+function check_cricket_win(player_id) {
+    for (var key in player_cricket_hits_counter[player_id]) {
+        if (player_cricket_hits_counter[player_id][key] < 3) {
+            return false;
+        }
+    }
+    return true;
 }
 
 function game_over_player_wins(player_id) {
-    player_scores[cur_turn] = cur_temp_score;
-    display_updated_scores();
-    display_updated_score_list(cur_turn);
+    if (game_type === GAME_TYPE.CLASSIC) {
+        player_scores[cur_turn] = cur_temp_score;
+        display_updated_scores();
+        display_updated_score_list(cur_turn);
+    }
     document.getElementById('victory_text_container').removeAttribute("hidden");
     document.getElementById('victory_text').innerHTML = "Congratulations " + player_names[player_id] + ", you win!";
     player_wins[player_id] += 1;
