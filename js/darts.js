@@ -255,7 +255,8 @@ function begin_turn(player_id) {
         cur_temp_score = cur_starting_score;
     }
     else if (game_type === GAME_TYPE.CRICKET) {
-        //TODO: this might be important for UNDO
+        //TODO: this might be important for UNDO 
+        //update: don't think it is, since you can't bust in cricket?
     }
     else {
         console.log("ERROR: invalid game type");
@@ -794,7 +795,6 @@ function undo_last_throw() {
             }
         }
         else if (game_type === GAME_TYPE.CRICKET) {
-            //TODO: cricket undo
             if (player_cur_throws.length === 0) {
                 //cur_turn -= 1 (don't let it be negative)
                 cur_turn = (cur_turn - 1 + num_players) % num_players;
@@ -843,8 +843,6 @@ function remove_last_table_entry(player_id) {
 }
 /*
 TODO LIST
-add cricket
-add wins display
 add advanced stats
 make everything look nicer
 make submit button check to see if everything has been filled out
@@ -858,5 +856,7 @@ add option for win-on-double, win-on-anything √
 add an undo button √
 add a heat map for the board √
     maybe a dropdown menu type thing, similar to the example in letter_game [didn't do]
+add cricket √
+add wins display √
 */ 
 //# sourceMappingURL=darts.js.map
