@@ -196,7 +196,7 @@ function set_up_and_start_game() {
         
 
     } else if (game_type === "1") { // CRICKET GAME
-        //TODO: make the cricket game score system
+        //make the cricket game score system
         set_up_cricket_table();
     }
 
@@ -258,7 +258,6 @@ function play_again() {
         display_updated_scores();
         display_updated_score_list(cur_turn, game_starting_score);
     } else if (game_type === GAME_TYPE.CRICKET) {
-        //TODO
         clear_cricket_scores();
 
         //reset all the values
@@ -300,7 +299,7 @@ function begin_turn(player_id) {
         cur_starting_score = player_scores[player_id];
         cur_temp_score = cur_starting_score;
     } else if (game_type === GAME_TYPE.CRICKET) {
-        //TODO: this will be important for UNDO
+        //TODO: this might be important for UNDO
     } else {
         console.log("ERROR: invalid game type")
     }
@@ -514,16 +513,18 @@ function process_hit(raw_board_location: string) {
             begin_turn(cur_turn);
         }
     } else if (game_type === GAME_TYPE.CRICKET) {
-        //TODO: handle cricket throw
+        //handle cricket throw
         if (cricket_mode === CRICKET_GAME_MODE.HOUSE) {
-            if (raw_board_location === "sb") {
-                player_cricket_hits_counter[cur_turn]["BE"] += 1;
-            } else if (raw_board_location === "db") {
-                player_cricket_hits_counter[cur_turn]["BE"] += 2;
-            } else if (raw_board_location.includes("_")) {
-                var raw_split = raw_board_location.split("_");
-                player_cricket_hits_counter[cur_turn][raw_split[1]] += (raw_split[0] === "0" || raw_split[0] === "2") ? 1 : (raw_split[0] === "1" ? 3 : (raw_split[0] === "3" ? 2 : 0));
+            var cricket_points = get_cricket_points(raw_board_location);
+            var cricket_bucket = get_cricket_bucket(raw_board_location);
+            player_cricket_hits_counter[cur_turn][cricket_bucket] += cricket_points;
+            // if (raw_board_location === "sb" || raw_board_location === "db") {
+            //     player_cricket_hits_counter[cur_turn]["BE"] += cricket_points;
+            // } else if (raw_board_location.includes("_")) {
+            //     var raw_split = raw_board_location.split("_");
+            //     player_cricket_hits_counter[cur_turn][raw_split[1]] += cricket_points;
             }
+
             //update display
             update_cricket_display(cur_turn);
 
@@ -540,6 +541,29 @@ function process_hit(raw_board_location: string) {
             }
         }
     }
+}
+
+function get_cricket_bucket(raw_board_location) {
+    if (raw_board_location === "sb" || raw_board_location === "db") {
+        return "BE";
+    } else if (raw_board_location.includes("_")) {
+        return raw_board_location.split("_")[1];
+    }
+}
+
+function get_cricket_points(raw_board_location) {
+    if (raw_board_location === "sb") {
+        return 1;
+    } else if (raw_board_location === "db") {
+        return 2;
+    } else if (raw_board_location === "0") {
+        return 0;
+    } else if (raw_board_location.includes("_")) {
+        var raw_split = raw_board_location.split("_");
+        return (raw_split[0] === "0" || raw_split[0] === "2") ? 1 : (raw_split[0] === "1" ? 3 : (raw_split[0] === "3" ? 2 : 0));
+    }
+    console.log("ERROR: invalid board location");
+    return -1;
 }
 
 function update_cricket_display(player_id) {
@@ -566,8 +590,8 @@ function update_cricket_display(player_id) {
 }
 
 function check_cricket_win(player_id) {
-    for (var key in player_cricket_hits_counter[player_id]) {
-        if (player_cricket_hits_counter[player_id][key] < 3) {
+    for (var i = 0; i < VALID_CRICKET_SHOTS.length; i++) {
+        if (player_cricket_hits_counter[player_id][VALID_CRICKET_SHOTS[i]] < 3) {
             return false;
         }
     }
@@ -812,7 +836,7 @@ function undo_last_throw() {
                 cur_turn = (cur_turn - 1 + num_players) % num_players;
 
                 //remove the last table entry (might be complicated, changes if its player one or two)
-                remove_last_table_entry(cur_turn); //TODO
+                remove_last_table_entry(cur_turn);
 
                 //get the last three throws made by the new cur_turn player
                 //remove them from all_throws and all_game_throws
@@ -836,19 +860,46 @@ function undo_last_throw() {
                 cur_temp_score += get_score_of_hit_at(last_throw_raw);
                 
                 //display everything
-                display_everything(cur_turn, cur_temp_score); 
+                display_cur_throws(cur_turn);
+                display_average_throw(cur_turn);
+                display_updated_scores(cur_temp_score);
             }
         } else if (game_type === GAME_TYPE.CRICKET) {
             //TODO: cricket undo
+
+            if (player_cur_throws.length === 0) {
+                //cur_turn -= 1 (don't let it be negative)
+                cur_turn = (cur_turn - 1 + num_players) % num_players;
+
+                //remove last three throws, simulate the first two:
+                //remove from player_all, player_game, and player_cricket dictionary
+                var last_three_throws_raw = player_all_throws[cur_turn].splice(-3, 3);
+                player_all_throws_this_game[cur_turn].splice(-3, 3);
+                for (var i = 0; i < last_three_throws_raw.length; i++) {
+                    player_cricket_hits_counter[cur_turn][get_cricket_bucket(last_three_throws_raw[i])] -= get_cricket_points(last_three_throws_raw[i]);
+                }
+
+                //simulate the first two throws
+                begin_turn(cur_turn);
+                dart_hit(last_three_throws_raw[0]);
+                dart_hit(last_three_throws_raw[1]);
+
+            } else {
+                //remove last throw
+                var last_throw_raw = player_all_throws[cur_turn].pop();
+                player_all_throws_this_game[cur_turn].pop();
+                player_cur_throws.pop();
+
+                //subtract from player_cricket dictionary
+                player_cricket_hits_counter[cur_turn][get_cricket_bucket(last_throw_raw)] -= get_cricket_points(last_throw_raw);
+                update_cricket_display(cur_turn);
+
+                //update cur_throws
+                display_cur_throws(cur_turn);
+            }
         }
         
     }
-}
-
-function display_everything(player_id, cur_score_of_cur_player=null) {
-    display_cur_throws(player_id);
-    display_average_throw(player_id);
-    display_updated_scores(cur_score_of_cur_player);
 }
 
 function remove_last_table_entry(player_id) {
