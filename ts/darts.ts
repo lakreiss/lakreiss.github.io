@@ -8,7 +8,8 @@ var dart_board_data = [
 var dart_board_numbers = [6, 13, 4, 18, 1, 20, 5, 12, 9, 14, 11, 8, 16, 7, 19, 3, 17, 2, 15, 10];
 
 //CRICKET INFO
-var VALID_CRICKET_SHOTS = ["15", "16", "17", "18", "19", "20", "sb", "db"];
+var BULLSEYE = "BE";
+var CRICKET_ROWS = ["15", "16", "17", "18", "19", "20", BULLSEYE];
 var player_cricket_hits_counter = [{}, {}];
 
 // STANDARD DART INFO
@@ -283,7 +284,7 @@ function clear_cricket_scores() {
     for (var i = 0; i < table.rows.length; i++) {
         var innerHTML_text = (<HTMLElement> (table.rows[i].childNodes[1])).innerHTML; //second value is the middle of the table
 
-        if (innerHTML_text === "BE" || VALID_CRICKET_SHOTS.includes(innerHTML_text)) { 
+        if (CRICKET_ROWS.includes(innerHTML_text)) { 
             (<HTMLElement> (table.rows[i].childNodes[0])).innerHTML = "";
             (<HTMLElement> (table.rows[i].childNodes[2])).innerHTML = "";
         } 
@@ -392,7 +393,7 @@ function set_up_cricket_table() {
     var bullseye_row = table.insertRow();
     bullseye_row.appendChild(document.createElement("td"));
     var bullseye_name_cell = document.createElement("th");
-    bullseye_name_cell.innerHTML = "BE";
+    bullseye_name_cell.innerHTML = BULLSEYE;
     bullseye_row.appendChild(bullseye_name_cell);
     bullseye_row.appendChild(document.createElement("td"));
 
@@ -415,7 +416,7 @@ function set_up_player_cricket_hits_counter() {
         for (var j = 20; j >= 15; j--) {
             player_cricket_hits_counter[i]["" + j] = 0;
         }
-        player_cricket_hits_counter[i]["BE"] = 0;
+        player_cricket_hits_counter[i][BULLSEYE] = 0;
     }
 }
 
@@ -520,7 +521,7 @@ function process_hit(raw_board_location: string) {
             var cricket_bucket = get_cricket_bucket(raw_board_location);
             player_cricket_hits_counter[cur_turn][cricket_bucket] += cricket_points;
             // if (raw_board_location === "sb" || raw_board_location === "db") {
-            //     player_cricket_hits_counter[cur_turn]["BE"] += cricket_points;
+            //     player_cricket_hits_counter[cur_turn][BULLSEYE] += cricket_points;
             // } else if (raw_board_location.includes("_")) {
             //     var raw_split = raw_board_location.split("_");
             //     player_cricket_hits_counter[cur_turn][raw_split[1]] += cricket_points;
@@ -546,7 +547,7 @@ function process_hit(raw_board_location: string) {
 
 function get_cricket_bucket(raw_board_location) {
     if (raw_board_location === "sb" || raw_board_location === "db") {
-        return "BE";
+        return BULLSEYE;
     } else if (raw_board_location.includes("_")) {
         return raw_board_location.split("_")[1];
     }
@@ -573,7 +574,7 @@ function update_cricket_display(player_id) {
     for (var i = 0; i < table.rows.length; i++) {
         var innerHTML_text = (<HTMLElement> (table.rows[i].childNodes[1])).innerHTML; //second value is the middle of the table
 
-        if (innerHTML_text === "BE" || VALID_CRICKET_SHOTS.includes(innerHTML_text)) { 
+        if (CRICKET_ROWS.includes(innerHTML_text)) { 
             var row_display;
             var num_hits = player_cricket_hits_counter[player_id][innerHTML_text];
             if (num_hits === 0) {
@@ -591,8 +592,9 @@ function update_cricket_display(player_id) {
 }
 
 function check_cricket_win(player_id) {
-    for (var i = 0; i < VALID_CRICKET_SHOTS.length; i++) {
-        if (player_cricket_hits_counter[player_id][VALID_CRICKET_SHOTS[i]] < 3) {
+    for (var i = 0; i < CRICKET_ROWS.length; i++) {
+        console.log(CRICKET_ROWS);
+        if (player_cricket_hits_counter[player_id][CRICKET_ROWS[i]] < 3) {
             return false;
         }
     }
