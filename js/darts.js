@@ -710,9 +710,11 @@ function get_max_value_in_dict(dict_in) {
     }
     var max_value = Number.MIN_VALUE;
     for (var key in dict_in) {
-        var value = dict_in[key];
-        if (value > max_value) {
-            max_value = value;
+        if (key != "0") {
+            var value = dict_in[key];
+            if (value > max_value) {
+                max_value = value;
+            }
         }
     }
     return max_value;
