@@ -625,34 +625,12 @@ function reset_board_colors() {
     //spokes
     var paths = document.getElementsByTagName('path');
     for (var i = 0; i < paths.length; i++) {
-        cur_element = paths[i];
-        if (cur_element.classList.contains("even")) {
-            if (cur_element.classList.contains("single")) {
-                cur_element.style.fill = '#2e343a';
-            }
-            else if (cur_element.classList.contains("double") || cur_element.classList.contains("triple")) {
-                cur_element.style.fill = '#d95652';
-            }
-        }
-        else if (cur_element.classList.contains("odd")) {
-            if (cur_element.classList.contains("single")) {
-                cur_element.style.fill = '#fde1d0';
-            }
-            else if (cur_element.classList.contains("double") || cur_element.classList.contains("triple")) {
-                cur_element.style.fill = '#528b6e';
-            }
-        }
+        paths[i].style.fill = "";
     }
     //bullseys
     var circles = document.getElementsByTagName('circle');
     for (var i = 0; i < circles.length; i++) {
-        cur_element = circles[i];
-        if (cur_element.classList.contains("single-bull")) {
-            cur_element.style.fill = "#528b6e";
-        }
-        else if (cur_element.classList.contains("double-bull")) {
-            cur_element.style.fill = "#d95652";
-        }
+        circles[i].style.fill = "";
     }
 }
 function set_board_colors_to_heat_map(player_id) {
