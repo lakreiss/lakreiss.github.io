@@ -483,6 +483,12 @@ function process_hit(raw_board_location: string) {
             if (cur_temp_score === 1) {
                 //busted
                 cur_temp_score = -1; //this will simulate busting
+
+                // TODO: //add 0 throws so that the turn finished and can be undone
+                // if (player_cur_throws.length < 3) {
+                //     dart_hit("0");
+                // }
+
             } else if (cur_temp_score === 0) {
                 var most_recent_throw = player_cur_throws[player_cur_throws.length - 1];
                 if (most_recent_throw.charAt(0) === "D" || most_recent_throw === "50") {
@@ -497,7 +503,14 @@ function process_hit(raw_board_location: string) {
             //TURN IS OVER, PROCESS TURN
             // PROCESS THROWS, SUBTRACT FROM TRUE SCORE IF VALID, ADD TO THROWS LIST
             if (cur_temp_score < 0) {
+                //BUSTED
                 //don't set the score to be the cur_temp_score
+
+                //TODO: add something like this to fix the bug
+                // if (player_cur_throws.length < 3) {
+                //     dart_hit("0");
+                // }
+
             } else if (cur_temp_score === 0 ) {
                 //player [cur_turn] wins!
                 //display something nice, increment win counter, show a 'start new game' button
@@ -905,6 +918,9 @@ function remove_last_table_entry(player_id) {
 
 /*
 TODO LIST
+fix the undo bug that happens when you bust before your third turn and then try to undo
+    solution idea is to add zeros to your throw history for each missing throw
+    won't work to simulate dart hit because the zero catcher thing is difficult, maybe just add straight to the arrays
 add advanced stats
 make everything look nicer
 make submit button check to see if everything has been filled out
