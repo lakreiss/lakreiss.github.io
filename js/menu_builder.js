@@ -97,6 +97,20 @@ function dark_mode() {
   toggle_dark_mode();
 }
 
+function color_mode() {
+  if (document.cookie.includes("color=")) {
+    document.cookie = 'color=' + (document.cookie.split("color=")[1].includes('none') ? 'colored' : 'none');
+  } else {
+    document.cookie = 'color=lightsteelblue';
+  }
+  toggle_color_mode();
+}
+
+function toggle_color_mode() {
+  var body = document.body;
+  body.classList.toggle("color-mode-body");
+}
+
 function toggle_dark_mode() {
   var body = document.body;
   body.classList.toggle("dark-mode-body");
@@ -135,9 +149,22 @@ function is_dark_mode() {
   return cur_theme.includes("dark");
 }
 
+function is_color_mode() {
+  var cur_theme = document.cookie.split("color=")[1];
+  // alert("is dark? " + cur_theme.includes("dark"));
+  if (!cur_theme) {
+    return false;
+  }
+  return cur_theme.includes("colored");
+}
+
 function check_and_set_dark_mode() {
   if (is_dark_mode()) {
     toggle_dark_mode();
+  }
+
+  if (is_color_mode()) {
+    toggle_color_mode();
   }
 }
 
@@ -149,6 +176,7 @@ function build_footer() {
   document.write('<a class="icon" title="My LinkedIn" href="https://www.linkedin.com/in/lakreiss/" target="_blank"><i class="fab fa-linkedin"></i></a>');
   document.write('<a class="icon" title="My Github" href="https://github.com/lakreiss" target="_blank"><i class="fab fa-github"></i></a>');
   document.write('<a class="icon" id="dark_mode_button" title="Dark Mode" onclick="dark_mode()"><i class="fas fa-moon"></i></a>');
+  document.write('<a class="icon" id="color_mode_button" title="Color Mode" onclick="color_mode()"><i class="fas fa-paint-brush"></i></a>');
   document.write('</div>');
   document.write('</div>');
 }

@@ -322,7 +322,7 @@ function display_updated_score_list(player_id, first_display) {
             row.appendChild(dataCell);
             row.appendChild(headerCell);
         }
-        else if (player_id == 1) { //add blank, blank, th, td
+        else if (player_id == 1) { //add th, td
             dataCell = document.createElement("td");
             dataCell.innerHTML = cur_starting_score - player_scores[player_id];
             headerCell = document.createElement("th");
@@ -452,10 +452,12 @@ function process_hit(raw_board_location) {
             if (cur_temp_score < 0) {
                 //BUSTED
                 //don't set the score to be the cur_temp_score
-                //TODO: add something like this to fix the bug
-                // if (player_cur_throws.length < 3) {
-                //     dart_hit("0");
-                // }
+                //add extra throws to fix the undo bug
+                while (player_cur_throws.length < 3) {
+                    player_all_throws[cur_turn].push("0");
+                    player_all_throws_this_game[cur_turn].push("0");
+                    player_cur_throws.push("0");
+                }
             }
             else if (cur_temp_score === 0) {
                 //player [cur_turn] wins!
@@ -484,19 +486,20 @@ function process_hit(raw_board_location) {
             // } else if (raw_board_location.includes("_")) {
             //     var raw_split = raw_board_location.split("_");
             //     player_cricket_hits_counter[cur_turn][raw_split[1]] += cricket_points;
-        }
-        //update display
-        update_cricket_display(cur_turn);
-        if (check_cricket_win(cur_turn)) {
-            //display victory
-            //ask to play a new game
-            return game_over_player_wins(cur_turn);
-        }
-        else if (player_cur_throws.length >= NUM_THROWS_PER_TURN) {
-            // CHANGE CUR_TURN, RESET CUR DATA
-            cur_turn = (cur_turn + 1) % num_players;
-            player_cur_throws = [];
-            begin_turn(cur_turn);
+            // }
+            //update display
+            update_cricket_display(cur_turn);
+            if (check_cricket_win(cur_turn)) {
+                //display victory
+                //ask to play a new game
+                return game_over_player_wins(cur_turn);
+            }
+            else if (player_cur_throws.length >= NUM_THROWS_PER_TURN) {
+                // CHANGE CUR_TURN, RESET CUR DATA
+                cur_turn = (cur_turn + 1) % num_players;
+                player_cur_throws = [];
+                begin_turn(cur_turn);
+            }
         }
     }
 }

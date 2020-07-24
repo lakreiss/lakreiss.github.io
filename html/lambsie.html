@@ -1,0 +1,33 @@
+<!doctype html>
+<!-- This is a comment -->
+<html class="no-js" lang="en-US">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <script src="../js/menu_builder.js"></script>
+    <script>build_header();</script>
+
+    <link rel="stylesheet" href="../css/lambsie.css">
+    <script src="../js/lambsie.js"></script>
+  </head>
+
+  <body onload="check_and_set_dark_mode();">
+    <script>build_menu();</script>
+
+    <div class="clearfix">
+      <div class="text">
+        <h1>Lambsie</h1>
+        <p>The best web-app to use for your Lambsie scorecard.</p>
+      </div>
+      <div class="text">
+        <div class="center">
+          <script>
+              build_lamsbie_scorecard()
+          </script>
+        </div>
+      </div>
+    </div>
+
+    <script>build_footer();</script>
+
+  </body>
+</html>

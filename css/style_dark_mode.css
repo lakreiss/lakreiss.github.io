@@ -2,6 +2,11 @@
   background-image: url('../img/sunset_inverted.jpeg');
 }
 
+.color-mode-body { 
+  background-color: lightsteelblue;
+  background-image: none;
+}
+
 .dark-mode-menu {
   background-image: linear-gradient(to right, #137396 0%, #12915f 100%);
   color: rgba(0, 0, 0, 0.7);
