@@ -48,7 +48,8 @@ body {
   position: fixed;
   text-align: center;
   bottom: 0;
-  width: 100%;
+  left: 46vw; /* might need to change? guesstimated by hand */
+  /* width: 100%; */
   z-index: 0;
   height: 2em;
   margin: 0 -5rem;
@@ -231,12 +232,4 @@ section {
     float: none;
     width: 100%;
   }
-
-  #footer {
-    margin: 0;
-  }
-
-  /* .icons {
-    display: none;
-  } */
 }
