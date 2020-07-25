@@ -18,7 +18,7 @@ function build_lamsbie_scorecard() {
     //create the player row
     document.write('<tr><th>Players</th>');
     for (var i = 0; i < num_players; i++) {
-        document.write('<td><input class="player_name_input" type="text" id="player_' + i + '_name_input" size="6" placeholder="Name"></input><span id="player_' + i + '_name" hidden></span></td>');
+        document.write('<td><input class="player_name_input" type="text" id="player_' + i + '_name_input" size="8" placeholder="Name"></input><span id="player_' + i + '_name" hidden></span></td>');
     }
     document.write('</tr>');
     // create the number rows
@@ -49,7 +49,7 @@ function add_column() {
     for (var i = 0; i < table_rows.length; i++) {
         new_table_square = document.createElement("td");
         if (i == 0) { //player name
-            new_table_square.innerHTML = '<input type="text" class="player_name_input" id="player_' + player_num + '_name_input" size="6" placeholder="Name"></input><span id="player_' + player_num + '_name" hidden></span>';
+            new_table_square.innerHTML = '<input type="text" class="player_name_input" id="player_' + player_num + '_name_input" size="8" placeholder="Name"></input><span id="player_' + player_num + '_name" hidden></span>';
         }
         else if (i == 14) { //total
             new_table_square.innerHTML = '<span class="player_total_score">0</span>';
@@ -61,8 +61,9 @@ function add_column() {
     }
     num_players += 1;
 }
-function remove_column() {
-    if (num_players > 1) {
+function remove_column(full_clear) {
+    if (full_clear === void 0) { full_clear = false; }
+    if (num_players > 1 || (full_clear && num_players > 0)) {
         var table_rows = document.getElementById("lambsie_table").getElementsByTagName("tr");
         for (var i = 0; i < table_rows.length; i++) {
             var row = table_rows[i];
@@ -188,7 +189,29 @@ function get_score_from_score_list(score_list) {
     return total;
 }
 function play_again() {
-    document.getElementById('lambsie_scoreboard_form').remove();
-    build_lamsbie_scorecard();
+    // hide play again button and game over text
+    document.getElementById('play_again_button').setAttribute('hidden', 'true');
+    document.getElementById('game_over_text').setAttribute('hidden', 'true');
+    // show buttons for the start of the game
+    document.getElementById('start_button').removeAttribute('hidden');
+    document.getElementById('add_column_button').removeAttribute('hidden');
+    document.getElementById('remove_column_button').removeAttribute('hidden');
+    // clear columns and then re-create them
+    var initial_num_players = num_players;
+    for (var i = 0; i < initial_num_players; i++) {
+        remove_column(true);
+    }
+    for (var i = 0; i < initial_num_players; i++) {
+        add_column();
+    }
+    // fill in the player names with the names from the previous game
+    for (var i = 0; i < initial_num_players; i++) {
+        var cur_player_input = document.getElementById('player_' + i + "_name_input");
+        cur_player_input.value = player_names[i];
+    }
+    // reset game data
+    cur_row = 0;
+    player_names = [];
+    player_scores = [];
 }
 //# sourceMappingURL=lambsie.js.map
