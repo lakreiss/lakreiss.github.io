@@ -9,9 +9,9 @@ function build_lamsbie_scorecard() {
 
     document.write("<form id='lambsie_scoreboard_form'>")
     //create edit, save, and cancel buttons
-    document.write("<button type='button' id='edit_button' class='lambsie_button' hidden>Edit</button>");
     document.write("<button type='button' id='play_again_button' class='lambsie_button' onclick='play_again();' hidden>Play Again</button>");
     document.write("<button type='button' id='save_button' class='lambsie_button' onclick='save();' hidden>Save</button>");
+    document.write("<button type='button' id='edit_button' class='lambsie_button' onclick='edit_last_row();' hidden>Edit</button>");
     document.write("<button type='button' id='start_button' class='lambsie_button' onclick='start_game();'>Start Game</button>");
     document.write("<button type='button' id='cancel_button' class='lambsie_button' hidden>Cancel</button>");
     document.write("<button type='button' id='add_column_button' class='lambsie_button' onclick='add_column();'>Add Column</button>");
@@ -86,6 +86,7 @@ function start_game() {
     document.getElementById('add_column_button').setAttribute('hidden', 'true');
     document.getElementById('remove_column_button').setAttribute('hidden', 'true');
     document.getElementById('save_button').removeAttribute('hidden');
+    document.getElementById('edit_button').removeAttribute('hidden');
 
     //set the names
     var all_name_inputs = document.getElementsByClassName('player_name_input');
@@ -184,6 +185,7 @@ function game_over_actions() {
 
     //hide save button
     document.getElementById('save_button').setAttribute('hidden', 'true');
+    document.getElementById('edit_button').setAttribute('hidden', 'true');
 
     //show play again button
     document.getElementById('play_again_button').removeAttribute('hidden');
@@ -241,4 +243,28 @@ function play_again() {
     cur_row = 0;
     player_names = [];
     player_scores = [];
+}
+
+function edit_last_row() {
+    if (cur_row > 0) { //don't do anything if it's the first row
+        //hide the current row
+        var all_score_inputs = document.getElementsByClassName('player_score_input_' + cur_row);
+        for (var i = 0; i < all_score_inputs.length; i++) {
+            var cur_score_input = <HTMLInputElement> all_score_inputs[i];
+            cur_score_input.setAttribute('hidden', 'true');
+            
+            var player_score_element = document.getElementById('player_' + i + '_score_' + (cur_row - 1));
+            player_score_element.setAttribute('hidden', 'true');
+
+            var prev_score_input = document.getElementById('player_' + i + '_score_input_' + (cur_row - 1));
+            prev_score_input.removeAttribute('hidden');
+
+            //update player_scores and score Total
+            player_scores[i].pop();
+            update_total_row();
+        }
+
+        cur_row -= 1;
+        open_form_for(cur_row);
+    } 
 }
