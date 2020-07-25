@@ -4,7 +4,7 @@
 
 const BOARD_HEIGHT: number = 20, BOARD_WIDTH: number = 22;
 var game_is_active: boolean = false, edge_wrapping: boolean = true, frame_count = 0;
-var cur_number: number, cur_value: string, cur_interval, cur_element: HTMLElement, cur_select_element: HTMLSelectElement, cur_shape_name: string, click_type: string, num_neighbors: number, cur_tile: string, cur_row: boolean[], cur_board: boolean[][], next_board: boolean[][];
+var cur_number: number, cur_value: string, cur_interval, cur_element: HTMLElement, cur_select_element: HTMLSelectElement, cur_shape_name: string, click_type: string, num_neighbors: number, cur_tile: string, cur_row, cur_board: boolean[][], next_board: boolean[][];
 
 function get_tile_name(i: number, j: number): string {
   if (i < 0 || i >= BOARD_HEIGHT || j < 0 || j >= BOARD_WIDTH) {

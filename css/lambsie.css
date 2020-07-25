@@ -4,6 +4,22 @@ table, th, td {
     text-align: center;
 }
 
+table {
+    table-layout: fixed ;
+}
+
+td {
+    min-width: 70px;
+}
+
 .lambsie_button {
     margin: 0em 0.5em 1em 0.5em;
+}
+
+/* input {
+    text-align: center;
+} */
+
+input[type="number"] {
+    max-width: 70px;
 }
