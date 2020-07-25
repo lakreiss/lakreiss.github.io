@@ -1,16 +1,16 @@
-var lambsy_rows = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'];
+var lambsie_rows = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'];
 var cur_turn = 0;
 var num_players = 4; //starting value
 function build_lamsbie_scorecard() {
     document.write("<form>");
     //create edit, save, and cancel buttons
-    document.write("<button type='button' id='edit_button' class='lambsy_button' hidden>Edit</button>");
-    document.write("<button type='button' id='save_button' class='lambsy_button' hidden>Save</button>");
-    document.write("<button type='button' id='start_button' class='lambsy_button' onclick='start_game();'>Start Game</button>");
-    document.write("<button type='button' id='cancel_button' class='lambsy_button' hidden>Cancel</button>");
-    document.write("<button type='button' id='add_row_button' class='lambsy_button' onclick='add_row();'>Add Row</button>");
-    document.write("<button type='button' id='remove_row_button' class='lambsy_button' onclick='remove_row();'>Remove Row</button>");
-    document.write("<table id='lambsy_table'>");
+    document.write("<button type='button' id='edit_button' class='lambsie_button' hidden>Edit</button>");
+    document.write("<button type='button' id='save_button' class='lambsie_button' hidden>Save</button>");
+    document.write("<button type='button' id='start_button' class='lambsie_button' onclick='start_game();'>Start Game</button>");
+    document.write("<button type='button' id='cancel_button' class='lambsie_button' hidden>Cancel</button>");
+    document.write("<button type='button' id='add_row_button' class='lambsie_button' onclick='add_row();'>Add Row</button>");
+    document.write("<button type='button' id='remove_row_button' class='lambsie_button' onclick='remove_row();'>Remove Row</button>");
+    document.write("<table id='lambsie_table'>");
     //create the player row
     document.write('<tr><th>Players</th>');
     for (var i = 0; i < num_players; i++) {
@@ -18,9 +18,9 @@ function build_lamsbie_scorecard() {
     }
     document.write('</tr>');
     // create the number rows
-    for (var i = 0; i < lambsy_rows.length; i++) {
+    for (var i = 0; i < lambsie_rows.length; i++) {
         var html_type = is_a_double_point_row(i) ? "th" : "td";
-        document.write('<tr><' + html_type + '>' + lambsy_rows[i] + '</' + html_type + '>');
+        document.write('<tr><' + html_type + '>' + lambsie_rows[i] + '</' + html_type + '>');
         for (var j = 0; j < num_players; j++) {
             document.write('<td></td>');
         }
@@ -39,7 +39,7 @@ function is_a_double_point_row(row) {
     return (row % 3 == 0);
 }
 function add_row() {
-    var table_rows = document.getElementById("lambsy_table").getElementsByTagName("tr");
+    var table_rows = document.getElementById("lambsie_table").getElementsByTagName("tr");
     var new_table_square;
     var player_num = num_players; //this works because it's zero indexed
     for (var i = 0; i < table_rows.length; i++) {
@@ -56,7 +56,7 @@ function add_row() {
 }
 function remove_row() {
     if (num_players > 1) {
-        var table_rows = document.getElementById("lambsy_table").getElementsByTagName("tr");
+        var table_rows = document.getElementById("lambsie_table").getElementsByTagName("tr");
         for (var i = 0; i < table_rows.length; i++) {
             var row = table_rows[i];
             row.removeChild(row.childNodes[row.childNodes.length - 1]);
