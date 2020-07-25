@@ -239,7 +239,7 @@ function set_up_and_start_game() {
     begin_turn(0);
 }
 
-function play_again() {
+function play_darts_again() {
     //clear all the displays
     document.getElementById('victory_text_container').setAttribute("hidden", "true");
     if (game_type == GAME_TYPE.CLASSIC) {

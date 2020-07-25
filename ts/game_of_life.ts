@@ -61,7 +61,7 @@ function toggle_tile(tile_name: string): void {
   // print_board();
 }
 
-function start_game(): void {
+function start_game_of_life(): void {
   if (game_is_active) {
     //do nothing because game is already active
   } else {

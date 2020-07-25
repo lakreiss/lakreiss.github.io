@@ -55,7 +55,7 @@ function toggle_tile(tile_name) {
     cur_board[cur_tile_coords[0]][cur_tile_coords[1]] = !cur_board[cur_tile_coords[0]][cur_tile_coords[1]];
     // print_board();
 }
-function start_game() {
+function start_game_of_life() {
     if (game_is_active) {
         //do nothing because game is already active
     }

@@ -9,7 +9,7 @@ function build_lamsbie_scorecard() {
 
     document.write("<form id='lambsie_scoreboard_form'>")
     //create edit, save, and cancel buttons
-    document.write("<button type='button' id='play_again_button' class='lambsie_button' onclick='play_again();' hidden>Play Again</button>");
+    document.write("<button type='button' id='play_lambsie_again_button' class='lambsie_button' onclick='play_lambsie_again();' hidden>Play Again</button>");
     document.write("<button type='button' id='save_button' class='lambsie_button' onclick='save();' hidden>Save</button>");
     document.write("<button type='button' id='edit_button' class='lambsie_button' onclick='edit_last_row();' hidden>Edit</button>");
     document.write("<button type='button' id='start_button' class='lambsie_button' onclick='start_game();'>Start Game</button>");
@@ -188,7 +188,7 @@ function game_over_actions() {
     document.getElementById('edit_button').setAttribute('hidden', 'true');
 
     //show play again button
-    document.getElementById('play_again_button').removeAttribute('hidden');
+    document.getElementById('play_lambsie_again_button').removeAttribute('hidden');
 }
 
 function update_total_row() {
@@ -212,9 +212,9 @@ function get_score_from_score_list(score_list) {
     return total;
 }
 
-function play_again() {
+function play_lambsie_again() {
     // hide play again button and game over text
-    document.getElementById('play_again_button').setAttribute('hidden', 'true');
+    document.getElementById('play_lambsie_again_button').setAttribute('hidden', 'true');
     document.getElementById('game_over_text').setAttribute('hidden', 'true');
 
 
