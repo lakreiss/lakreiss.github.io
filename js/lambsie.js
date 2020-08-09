@@ -1,10 +1,13 @@
 var lambsie_rows = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'];
+var card_game_rows = ['Round 1', 'Round 2', 'Round 3', 'Round 4', 'Round 5', 'Round 6', 'Round 7', 'Round 8', 'Round 9', 'Round 10'];
 var cur_turn = 0;
 var cur_row = 0; //annoying thing typescript made me do since i use the same variable name in a different file
 var num_players = 4; //starting value
 var player_names = [];
 var player_scores = [];
-function build_lamsbie_scorecard() {
+var is_lambsie = false;
+function build_scorecard(is_lambsie_input) {
+    is_lambsie = is_lambsie_input;
     document.write("<form id='lambsie_scoreboard_form'>");
     //create edit, save, and cancel buttons
     document.write("<button type='button' id='play_lambsie_again_button' class='lambsie_button' onclick='play_lambsie_again();' hidden>Play Again</button>");
@@ -22,13 +25,15 @@ function build_lamsbie_scorecard() {
     }
     document.write('</tr>');
     // create the number rows
-    for (var i = 0; i < lambsie_rows.length; i++) {
-        var html_type = is_a_double_point_row(i) ? "th" : "td";
-        document.write('<tr><' + html_type + '>' + lambsie_rows[i] + '</' + html_type + '>');
-        for (var j = 0; j < num_players; j++) {
-            document.write('<td><input type="number" class="player_score_input_' + i + '" id="player_' + j + '_score_input_' + i + '" size="6px" placeholder="Score" hidden></input><span id="player_' + j + '_score_' + i + '" hidden></span></td>');
+    if (is_lambsie) {
+        for (var i = 0; i < lambsie_rows.length; i++) {
+            add_a_row(i, lambsie_rows);
         }
-        document.write('</tr>');
+    }
+    else {
+        for (var i = 0; i < card_game_rows.length; i++) {
+            add_a_row(i, card_game_rows);
+        }
     }
     //create the score total row
     document.write('<tr><th>Total:</th>');
@@ -39,8 +44,41 @@ function build_lamsbie_scorecard() {
     document.write("</table>");
     document.write("</form>");
 }
+function add_a_row(i, row_list) {
+    if (i >= row_list.length) {
+        row_list.push("Round " + (i + 1));
+    }
+    var html_type = is_a_double_point_row(i) ? "th" : "td";
+    var tableRef = document.getElementById('lambsie_table').getElementsByTagName('tbody')[0];
+    var new_row = document.createElement("tr");
+    var new_row_heading = document.createElement(html_type);
+    new_row_heading.innerHTML = row_list[i];
+    new_row.appendChild(new_row_heading);
+    for (var j = 0; j < num_players; j++) {
+        var new_row_col = document.createElement('td');
+        var new_input = document.createElement('input');
+        new_input.type = "number";
+        new_input.classList.add('player_score_input_' + i);
+        new_input.id = 'player_' + j + '_score_input_' + i;
+        // new_input.size = "6px";
+        new_input.placeholder = "Score";
+        new_input.hidden = true;
+        var new_span = document.createElement('span');
+        new_span.id = 'player_' + j + '_score_' + i;
+        new_span.hidden = true;
+        new_row_col.appendChild(new_input);
+        new_row_col.appendChild(new_span);
+        new_row.appendChild(new_row_col);
+    }
+    tableRef.appendChild(new_row);
+}
 function is_a_double_point_row(row) {
-    return (row % 3 == 0);
+    if (is_lambsie) {
+        return (row % 3 == 0);
+    }
+    else {
+        return false;
+    }
 }
 function add_column() {
     var table_rows = document.getElementById("lambsie_table").getElementsByTagName("tr");
@@ -125,12 +163,27 @@ function save() {
     }
     //increment row counter
     cur_row += 1;
-    if (cur_row < lambsie_rows.length) {
-        //open up the forms for the next row
-        open_form_for(cur_row);
+    if (is_lambsie) {
+        if (cur_row < lambsie_rows.length) {
+            //open up the forms for the next row
+            open_form_for(cur_row);
+        }
+        else { //game is over
+            game_over_actions();
+        }
     }
-    else { //game is over
-        game_over_actions();
+    else {
+        if (cur_row < card_game_rows.length) {
+            //open up the forms for the next row
+            open_form_for(cur_row);
+        }
+        else { //add another row before Total
+            var tbody = document.getElementById("lambsie_table").getElementsByTagName("tbody")[0];
+            var total = tbody.removeChild(tbody.childNodes[tbody.childNodes.length - 1]);
+            add_a_row(cur_row, card_game_rows);
+            tbody.appendChild(total);
+            open_form_for(cur_row);
+        }
     }
 }
 function game_over_actions() {
