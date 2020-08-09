@@ -1,5 +1,6 @@
 var lambsie_rows = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'];
 var card_game_rows = ['Round 1', 'Round 2', 'Round 3', 'Round 4', 'Round 5', 'Round 6', 'Round 7', 'Round 8', 'Round 9', 'Round 10'];
+var cur_game_rows;
 var cur_turn = 0;
 var cur_row = 0; //annoying thing typescript made me do since i use the same variable name in a different file
 var num_players = 4; //starting value
@@ -8,6 +9,12 @@ var player_scores = [];
 var is_lambsie = false;
 function build_scorecard(is_lambsie_input) {
     is_lambsie = is_lambsie_input;
+    if (is_lambsie) {
+        cur_game_rows = lambsie_rows;
+    }
+    else {
+        cur_game_rows = card_game_rows;
+    }
     document.write("<form id='lambsie_scoreboard_form'>");
     //create edit, save, and cancel buttons
     document.write("<button type='button' id='play_lambsie_again_button' class='lambsie_button' onclick='play_lambsie_again();' hidden>Play Again</button>");
@@ -25,15 +32,8 @@ function build_scorecard(is_lambsie_input) {
     }
     document.write('</tr>');
     // create the number rows
-    if (is_lambsie) {
-        for (var i = 0; i < lambsie_rows.length; i++) {
-            add_a_row(i, lambsie_rows);
-        }
-    }
-    else {
-        for (var i = 0; i < card_game_rows.length; i++) {
-            add_a_row(i, card_game_rows);
-        }
+    for (var i = 0; i < cur_game_rows.length; i++) {
+        add_a_row(i, cur_game_rows);
     }
     //create the score total row
     document.write('<tr><th>Total:</th>');
@@ -43,6 +43,9 @@ function build_scorecard(is_lambsie_input) {
     document.write('</tr>');
     document.write("</table>");
     document.write("</form>");
+    if (!is_lambsie) {
+        document.write("<button type='button' id='restart_game_button' class='lambsie_button' onclick='play_lambsie_again();' hidden>Restart Game</button>");
+    }
 }
 function add_a_row(i, row_list) {
     if (i >= row_list.length) {
@@ -89,7 +92,7 @@ function add_column() {
         if (i == 0) { //player name
             new_table_square.innerHTML = '<input type="text" class="player_name_input" id="player_' + player_num + '_name_input" size="8" placeholder="Name"></input><span id="player_' + player_num + '_name" hidden></span>';
         }
-        else if (i == 14) { //total
+        else if (i == 1 + cur_game_rows.length) { //total
             new_table_square.innerHTML = '<span class="player_total_score">0</span>';
         }
         else {
@@ -117,6 +120,9 @@ function start_game() {
     document.getElementById('remove_column_button').setAttribute('hidden', 'true');
     document.getElementById('save_button').removeAttribute('hidden');
     document.getElementById('edit_button').removeAttribute('hidden');
+    if (!is_lambsie) {
+        document.getElementById('restart_game_button').removeAttribute('hidden');
+    }
     //set the names
     var all_name_inputs = document.getElementsByClassName('player_name_input');
     for (var i = 0; i < all_name_inputs.length; i++) {
@@ -164,7 +170,7 @@ function save() {
     //increment row counter
     cur_row += 1;
     if (is_lambsie) {
-        if (cur_row < lambsie_rows.length) {
+        if (cur_row < cur_game_rows.length) {
             //open up the forms for the next row
             open_form_for(cur_row);
         }
@@ -173,14 +179,14 @@ function save() {
         }
     }
     else {
-        if (cur_row < card_game_rows.length) {
+        if (cur_row < cur_game_rows.length) {
             //open up the forms for the next row
             open_form_for(cur_row);
         }
         else { //add another row before Total
             var tbody = document.getElementById("lambsie_table").getElementsByTagName("tbody")[0];
             var total = tbody.removeChild(tbody.childNodes[tbody.childNodes.length - 1]);
-            add_a_row(cur_row, card_game_rows);
+            add_a_row(cur_row, cur_game_rows);
             tbody.appendChild(total);
             open_form_for(cur_row);
         }
@@ -244,9 +250,15 @@ function get_score_from_score_list(score_list) {
     return total;
 }
 function play_lambsie_again() {
+    //hide save and edit buttons
+    document.getElementById('save_button').setAttribute('hidden', 'true');
+    document.getElementById('edit_button').setAttribute('hidden', 'true');
     // hide play again button and game over text
     document.getElementById('play_lambsie_again_button').setAttribute('hidden', 'true');
     document.getElementById('game_over_text').setAttribute('hidden', 'true');
+    if (!is_lambsie) {
+        document.getElementById('restart_game_button').setAttribute('hidden', 'true');
+    }
     // show buttons for the start of the game
     document.getElementById('start_button').removeAttribute('hidden');
     document.getElementById('add_column_button').removeAttribute('hidden');
