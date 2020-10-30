@@ -1,0 +1,30 @@
+<!doctype html>
+<!-- This is a comment -->
+<html class="no-js" lang="en-US">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <head>
+      <script src="../js/menu_builder.js"></script>
+      <link rel="stylesheet" href="../css/arnold_coffee_meter.css">
+      <script>build_header();</script>
+      <script src="../js/arnold_coffee_meter.js"></script>
+    </head>
+
+    <body onload="check_and_set_dark_mode();">
+      <script>build_menu();</script>
+
+      <div class="text">
+        <h1>Arnold's Coffee Meter
+        </h1>
+        <p>Use this if you interact with Arnold Mong often; it might save your life.</p>
+      </div>
+
+      <div id="coffee_meter" class="center text"></div>
+      <div id="coffee_meter_meaning" class="center text"></div>
+
+      <script>
+        build_footer();
+        build_coffee_meter();
+      </script>
+
+    </body>
+</html>
