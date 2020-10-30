@@ -18,7 +18,7 @@ class CoffeeIntake {
 
 var pointthreefivecoffee = new CoffeeIntake(2, new Date(2020 /*year*/, 9 /*month but for some reason off by 1?*/, 29 /*day*/, 11 /*hour*/, 30 /*minute*/));
 var onecupcoffee = new CoffeeIntake(1, new Date());
-var all_cups_of_coffee: CoffeeIntake[] = [];
+var all_cups_of_coffee: CoffeeIntake[] = [pointthreefivecoffee];
 var SVG_HEIGHT: number = 500;
 var SVG_WIDTH: number = 500;
 var THERMO_HEIGHT = SVG_HEIGHT * 4/5;
