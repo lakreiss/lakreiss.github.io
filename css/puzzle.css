@@ -24,6 +24,6 @@
   }
   
   .selected {
-    border: 1px solid #ffa500;
+    background-color: rgba(255, 251, 0, 0.473);
   }
   

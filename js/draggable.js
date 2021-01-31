@@ -37,6 +37,7 @@ function key_press(e) {
 }
 
 function set_selected(id) {
+  console.log("here");
   if (selected_element) {
     selected_element.classList.toggle("selected");
   }
