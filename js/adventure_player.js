@@ -1,7 +1,7 @@
 var HEIGHT = 50, WIDTH = 25;
 var STARTING_X = 100, STARTING_Y = 0;
 // const IMAGE_SRC = "../img/stick_figure.png", ID = "player_element";
-var IMAGE_PREFIX = "../img/", IMAGE_POSTFIX = ".png";
+var IMAGE_PREFIX = "../img/stick_person/", IMAGE_POSTFIX = ".png";
 var IMAGE_SRC = build_image("idle"), ID = "player_element";
 var JUMP_SPEED = 15, GRAVITY = 1;
 var NUM_RUNNING_FRAMES = 8, SLOW_FACTOR = 4;
@@ -68,7 +68,7 @@ var Player = /** @class */ (function () {
         if (v_x !== 0) {
             this.increment_image_index();
             if (v_x < 0) {
-                this.image = build_image("run_right_" + Math.ceil(this.image_index / SLOW_FACTOR));
+                this.image = build_image("run_left_" + Math.ceil(this.image_index / SLOW_FACTOR));
             }
             else {
                 this.image = build_image("run_right_" + Math.ceil(this.image_index / SLOW_FACTOR));
