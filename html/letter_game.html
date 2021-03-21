@@ -17,7 +17,7 @@
       <script src="../js/dice_grid.js"></script>
     </head>
 
-    <body onload="upload_dice(); check_and_set_dark_mode();">
+    <body onload="download_dice_from_url(); check_and_set_dark_mode();">
       <script language="JavaScript">
         var is_mobile = !!navigator.userAgent.match(/iphone|android|blackberry/ig) || false;
         if (is_mobile) {
@@ -41,8 +41,9 @@
               <div class="dice_button_container">
                 <button class="dice_button" onclick="roll_dice()">Roll Dice</button>
                 <button class="dice_button" onclick="reset_board()">Reset Board</button>
-                <!-- <button class="dice_button" onclick="upload_dice()">Upload</button> -->
-                <button class="dice_button" onclick="download_dice()">Download</button>
+                <button class="dice_button" onclick="upload_dice()">Upload</button>
+                <input id="custom_letters" type="text" placeholder="Custom Letters">
+                <button class="dice_button" onclick="download_dice_from_custom_letters()">Download</button>
               </div>
               <script language="JavaScript">
                 for (var index=0; index < num_dice; index++) {
