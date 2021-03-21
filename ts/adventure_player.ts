@@ -4,7 +4,7 @@ const STARTING_X = 100, STARTING_Y = 0;
 const IMAGE_PREFIX = "../img/stick_person/", IMAGE_POSTFIX = ".png";
 const IMAGE_SRC = build_image("idle"), ID = "player_element";
 const JUMP_SPEED = 15, GRAVITY = 1;
-const NUM_RUNNING_FRAMES = 8, SLOW_FACTOR = 4;
+const NUM_RUNNING_FRAMES = 8, SLOW_FACTOR = 3;
 
 export class Player {
   image:string = IMAGE_SRC;
@@ -63,25 +63,38 @@ export class Player {
       this.position.v_y = 0;
     }
     this.position.x = this.get_number_from_pixels(this.position.x) + this.position.v_x + "px";
-    this.set_new_image_based_off_velocity(this.position.v_x);
     this.position.y = this.get_number_from_pixels(this.position.y) - this.position.v_y + "px";
+    this.set_new_image_based_off_velocity(this.position.v_x, this.position.v_y);
   }
 
   set_y_position_to_top_of(element) {
     this.position.y = element.getBoundingClientRect().top - HEIGHT + 1 + "px";
   }
 
-  set_new_image_based_off_velocity(v_x: number) {
-    if (v_x !== 0) {
-      this.increment_image_index();
-      if (v_x < 0) {
-        this.image = build_image("run_left_" + Math.ceil(this.image_index / SLOW_FACTOR));
+  set_new_image_based_off_velocity(v_x: number, v_y: number) {
+    if (v_y === 0) {
+      if (v_x !== 0) {
+        this.increment_image_index();
+        if (v_x < 0) {
+          this.image = build_image("run_left_" + Math.ceil(this.image_index / SLOW_FACTOR));
+        } else {
+          this.image = build_image("run_right_" + Math.ceil(this.image_index / SLOW_FACTOR));
+        }
       } else {
-        this.image = build_image("run_right_" + Math.ceil(this.image_index / SLOW_FACTOR));
+        this.image_index = 0;
+        this.image = build_image("idle");
       }
     } else {
-      this.image_index = 0;
-      this.image = build_image("idle");
+      if (v_x !== 0) {
+        if (v_x < 0) {
+          this.image = build_image("jump_left_1");
+        } else {
+          this.image = build_image("run_right_1");
+        }
+      } else {
+        this.image_index = 0;
+        this.image = build_image("idle");
+      }
     }
   }
 

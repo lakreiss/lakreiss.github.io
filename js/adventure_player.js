@@ -4,7 +4,7 @@ var STARTING_X = 100, STARTING_Y = 0;
 var IMAGE_PREFIX = "../img/stick_person/", IMAGE_POSTFIX = ".png";
 var IMAGE_SRC = build_image("idle"), ID = "player_element";
 var JUMP_SPEED = 15, GRAVITY = 1;
-var NUM_RUNNING_FRAMES = 8, SLOW_FACTOR = 4;
+var NUM_RUNNING_FRAMES = 8, SLOW_FACTOR = 3;
 var Player = /** @class */ (function () {
     function Player() {
         this.image = IMAGE_SRC;
@@ -58,25 +58,41 @@ var Player = /** @class */ (function () {
             this.position.v_y = 0;
         }
         this.position.x = this.get_number_from_pixels(this.position.x) + this.position.v_x + "px";
-        this.set_new_image_based_off_velocity(this.position.v_x);
         this.position.y = this.get_number_from_pixels(this.position.y) - this.position.v_y + "px";
+        this.set_new_image_based_off_velocity(this.position.v_x, this.position.v_y);
     };
     Player.prototype.set_y_position_to_top_of = function (element) {
         this.position.y = element.getBoundingClientRect().top - HEIGHT + 1 + "px";
     };
-    Player.prototype.set_new_image_based_off_velocity = function (v_x) {
-        if (v_x !== 0) {
-            this.increment_image_index();
-            if (v_x < 0) {
-                this.image = build_image("run_left_" + Math.ceil(this.image_index / SLOW_FACTOR));
+    Player.prototype.set_new_image_based_off_velocity = function (v_x, v_y) {
+        if (v_y === 0) {
+            if (v_x !== 0) {
+                this.increment_image_index();
+                if (v_x < 0) {
+                    this.image = build_image("run_left_" + Math.ceil(this.image_index / SLOW_FACTOR));
+                }
+                else {
+                    this.image = build_image("run_right_" + Math.ceil(this.image_index / SLOW_FACTOR));
+                }
             }
             else {
-                this.image = build_image("run_right_" + Math.ceil(this.image_index / SLOW_FACTOR));
+                this.image_index = 0;
+                this.image = build_image("idle");
             }
         }
         else {
-            this.image_index = 0;
-            this.image = build_image("idle");
+            if (v_x !== 0) {
+                if (v_x < 0) {
+                    this.image = build_image("jump_left_1");
+                }
+                else {
+                    this.image = build_image("run_right_1");
+                }
+            }
+            else {
+                this.image_index = 0;
+                this.image = build_image("idle");
+            }
         }
     };
     Player.prototype.get_number_from_pixels = function (pixels) {
