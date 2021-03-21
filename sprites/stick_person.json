@@ -1,0 +1,11 @@
+{
+    "imageURL": "../img/stick_person_animation.png",
+
+    "frames": [
+        {
+            "name": "idle",
+            "rect": [50, 50, 16, 16]
+        }
+    ]
+
+}

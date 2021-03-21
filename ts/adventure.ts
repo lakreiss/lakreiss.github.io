@@ -46,10 +46,13 @@ function key_down(e) {
 				move_right(SPEED);
 			}
 			break;
-		default:
-			// do nothing
+		case 81: //q key
 			clearInterval(interval);
 			adventure_in_progress = false;
+			delete_player();
+			break;
+		default:
+			// do nothing
 	}
 }
 
@@ -95,6 +98,7 @@ function instantiate_player() {
 	if (!adventure_in_progress) {
 		adventure_in_progress = true;
 
+		//build player and player element
 		player.create_new_player();
 		const player_element = document.createElement("img");
 		player_element.src = player.image;
@@ -105,6 +109,7 @@ function instantiate_player() {
 		player_element.style.width = player.width;
 		document.body.insertBefore(player_element, document.getElementById("page_text"));
 	
+		//start interval
 		interval = setInterval(drawScreen, 33);
 	}
 }
@@ -137,6 +142,7 @@ function y_collision_between(top_element, bottom_element): boolean {
 
 function updateEntities() {
 	player.update_position();
+	(<HTMLImageElement>document.getElementById(player.id)).src = player.image;
 	update_entity_position(player.id);
 }
 
@@ -164,4 +170,8 @@ function jump() {
 	}
 }
 
+function delete_player() {
+	document.body.removeChild(document.getElementById(player.id));
+	player = new Player();
+}
 

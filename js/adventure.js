@@ -40,10 +40,13 @@ function key_down(e) {
                 move_right(SPEED);
             }
             break;
-        default:
-            // do nothing
+        case 81: //q key
             clearInterval(interval);
             adventure_in_progress = false;
+            delete_player();
+            break;
+        default:
+        // do nothing
     }
 }
 function key_up(e) {
@@ -84,6 +87,7 @@ function begin_game() {
 function instantiate_player() {
     if (!adventure_in_progress) {
         adventure_in_progress = true;
+        //build player and player element
         player.create_new_player();
         var player_element = document.createElement("img");
         player_element.src = player.image;
@@ -93,6 +97,7 @@ function instantiate_player() {
         player_element.style.height = player.height;
         player_element.style.width = player.width;
         document.body.insertBefore(player_element, document.getElementById("page_text"));
+        //start interval
         interval = setInterval(drawScreen, 33);
     }
 }
@@ -120,6 +125,7 @@ function y_collision_between(top_element, bottom_element) {
 }
 function updateEntities() {
     player.update_position();
+    document.getElementById(player.id).src = player.image;
     update_entity_position(player.id);
 }
 function update_entity_position(id) {
@@ -140,5 +146,9 @@ function jump() {
     if (!player.is_falling && !player.is_rising) {
         player.jump();
     }
+}
+function delete_player() {
+    document.body.removeChild(document.getElementById(player.id));
+    player = new Player();
 }
 //# sourceMappingURL=adventure.js.map
