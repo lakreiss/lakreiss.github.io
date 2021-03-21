@@ -313,12 +313,11 @@ function download_dice_from_url() {
 }
 
 function download_dice_from_custom_letters() {
-  var letters = document.getElementById("custom_letters").value.trim().split('');
-  console.log(letters);
+  var letters = document.getElementById("custom_letters").value.trim().toLowerCase().split('');
   if (letters.length == 16) {
     change_dice_from_letters(letters);
   } else {
-    alert("Make sure you input exactly 16 letters.");
+    alert(`Make sure you input exactly 16 letters. You currently have ${letters.length} letters.`);
   }
 }
 
@@ -640,7 +639,6 @@ function failed_check(illegal_word, similar_words) {
 
 function get_similar_valid_words(similar_words) {
   all_words = similar_words.replace(/","/g, ',').replace(/"]/g, '').replace(/\["/g, '').split(",");
-  console.log(all_words);
 
   valid_letters = new Set();
   for (var i=0; i < num_dice; i++) {
@@ -660,12 +658,9 @@ function get_similar_valid_words(similar_words) {
 
 function isSuperset(set, word) {
   for (var i = 0; i < word.length; i++) {
-    // console.log(word.charAt(i));
     if (!(set.has(word.charAt(i)))) { //purposefully not making this lower case, as words with upper case are proper nouns, and therefore illegal
-      // console.log("not in " + set);
       return false;
     }
-    // console.log("in " + set);
   }
   return true;
 }
