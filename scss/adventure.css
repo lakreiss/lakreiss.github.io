@@ -1,0 +1,14 @@
+#player_element {
+  position: fixed;
+}
+
+#ground {
+  text-align: center;
+  width: 150%;
+  height: 50%;
+  bottom: -52%;
+  left: 0;
+  position: fixed;
+  z-index: 1;
+}
+/*# sourceMappingURL=adventure.css.map */

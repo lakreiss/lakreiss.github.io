@@ -1,3 +1,5 @@
+export {};
+
 var NUM_LETTERS: number = 7, EMPTY_STRING: string = "-", URL_DELIM: string = "#", NUM_WORDS_FOUND_COLS: number = 3;
 var score: number = 0, cur_word = ""; //TODO: add cookies that store scores for letter configs
 var all_letters: string[] = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];

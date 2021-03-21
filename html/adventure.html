@@ -1,0 +1,24 @@
+<!doctype html>
+<!-- This is a comment -->
+<html class="no-js" lang="en-US">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <head>
+      <script src="../js/menu_builder.js"></script>
+      <script>build_header();</script>
+
+      <link rel="stylesheet" href="../scss/adventure.css">
+      <script type="module" src="../js/adventure.js"></script>
+    </head>
+
+    <body onload="check_and_set_dark_mode();">
+      <script>build_menu();</script>
+
+      <section id="page_text" class="text">
+        <h1>Adventure</h1>
+        <p>Press "Space" to begin your adventure</p>
+        <p id="ground"></p>
+      </section>
+
+      <script>build_footer();</script>
+    </body>
+</html>
