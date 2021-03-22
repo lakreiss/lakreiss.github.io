@@ -8,6 +8,10 @@
 
       <link rel="stylesheet" href="../css/balanced_ternary.css">
       <script src="../js/balanced_ternary.js"></script>
+
+      <!-- TODO: add when every url has adventure capabilities -->
+      <!-- <link rel="stylesheet" href="../scss/adventure.css">
+      <script type="module" src="../js/adventure.js"></script> -->
     </head>
 
     <!-- <body onload="check_and_set_dark_mode(); set_html_to_empty_display('display_area'); onload_warning();"> -->
@@ -19,70 +23,68 @@
         }
       </script>
       <script>build_menu();</script>
+      <div id="page_text">
+        <div class="left_side">
+          <div class="clearfix">
+            <div class="text">
+              <h1>Balanced Ternary Calculator</h1>
+              <p>Use this calculator to gain a deeper understanding of the beauty of balanced ternary.</p>
+              <p>The "&#923;" character represents positive one (+1), and the "V" character represents negative one (-1).</p>
+            </div>
+            <div class="text clearfix">
+              <p>Below are the addition and multiplication tables for balanced ternary. Note how few "carries" are necessary, especially when compared to the base 10 which we are familiar with.</p>
+              <table>
+                <tr><th>+</th><th>V</th><th>0</th><th>&#923;</th></tr>
+                <tr><th>V</th><td>V&#923;</td><td>V</td><td>0</td></tr>
+                <tr><th>0</th><td>V</td><td>0</td><td>&#923;</td></tr>
+                <tr><th>&#923;</th><td>0</td><td>&#923;</td><td>&#923;V</td></tr>
+              </table>
 
-      <div class="left_side">
-        <div class="clearfix">
-          <div class="text">
-            <h1>Balanced Ternary Calculator</h1>
-            <p>Use this calculator to gain a deeper understanding of the beauty of balanced ternary.</p>
-            <p>The "&#923;" character represents positive one (+1), and the "V" character represents negative one (-1).</p>
-          </div>
-          <div class="text clearfix">
-            <p>Below are the addition and multiplication tables for balanced ternary. Note how few "carries" are necessary, especially when compared to the base 10 which we are familiar with.</p>
-            <table>
-              <tr><th>+</th><th>V</th><th>0</th><th>&#923;</th></tr>
-              <tr><th>V</th><td>V&#923;</td><td>V</td><td>0</td></tr>
-              <tr><th>0</th><td>V</td><td>0</td><td>&#923;</td></tr>
-              <tr><th>&#923;</th><td>0</td><td>&#923;</td><td>&#923;V</td></tr>
-            </table>
-
-            <table>
-              <tr><th>x</th><th>V</th><th>0</th><th>&#923;</th></tr>
-              <tr><th>V</th><td>&#923;</td><td>0</td><td>V</td></tr>
-              <tr><th>0</th><td>0</td><td>0</td><td>0</td></tr>
-              <tr><th>&#923;</th><td>V</td><td>0</td><td>&#923;</td></tr>
-            </table>
+              <table>
+                <tr><th>x</th><th>V</th><th>0</th><th>&#923;</th></tr>
+                <tr><th>V</th><td>&#923;</td><td>0</td><td>V</td></tr>
+                <tr><th>0</th><td>0</td><td>0</td><td>0</td></tr>
+                <tr><th>&#923;</th><td>V</td><td>0</td><td>&#923;</td></tr>
+              </table>
+            </div>
           </div>
         </div>
+        <div class="right_side">
+          <div class="balanced_ternary_board text">
+            <br>
+            <div class="full_width calc_display">
+              <p id="stored_area" class="half_width"></p>
+              <p id="display_area" class="half_width"></p>
+            </div><br><br>
+
+            <div class="button_area">
+              <div class="button_row">
+                <button id="zero_button" class="column calc_button" onclick="clicked('0')">0</button>
+                <button id="up_button" class="column calc_button" onclick="clicked('&#923;')">&#923;</button>
+                <button id="down_button" class="column calc_button" onclick="clicked('V')">V</button>
+                <button id="clear_button" class="column calc_button" onclick="clear_all()">C</button>
+              </div><br>
+              <div class="button_row">
+                <button id="plus_button" class="column calc_button" onclick="set_operator('+')">+</button>
+                <button id="minus_button" class="column calc_button" onclick="set_operator('-')">-</button>
+                <button id="times_button" class="column calc_button" onclick="set_operator('x')">x</button>
+                <button id="divide_button" class="column calc_button" onclick="set_operator('/')">/</button>
+              </div><br>
+              <div class="button_row">
+                <button id="sign_button" class="half_width calc_button" onclick="switch_sign()">+/-</button>
+                <button id="equals_button" class="half_width calc_button" onclick="equals()">=</button>
+              </div><br>
+              <div class="button_row">
+                <button id="convert_button" class="full_width calc_button" onclick="convert()">CONVERT TO BASE 10</button>
+              </div><br>
+            </div>
+          </div>
+
+          <div class="text center">
+            <span>Information: <i class="fas fa-info-circle" onclick="show_information();"></i></span>
+          </div>
+        </div>
+        <script>build_footer();</script>
       </div>
-      <div class="right_side">
-        <div class="balanced_ternary_board text">
-          <br>
-          <div class="full_width calc_display">
-            <p id="stored_area" class="half_width"></p>
-            <p id="display_area" class="half_width"></p>
-          </div><br><br>
-
-          <div class="button_area">
-            <div class="button_row">
-              <button id="zero_button" class="column calc_button" onclick="clicked('0')">0</button>
-              <button id="up_button" class="column calc_button" onclick="clicked('&#923;')">&#923;</button>
-              <button id="down_button" class="column calc_button" onclick="clicked('V')">V</button>
-              <button id="clear_button" class="column calc_button" onclick="clear_all()">C</button>
-            </div><br>
-            <div class="button_row">
-              <button id="plus_button" class="column calc_button" onclick="set_operator('+')">+</button>
-              <button id="minus_button" class="column calc_button" onclick="set_operator('-')">-</button>
-              <button id="times_button" class="column calc_button" onclick="set_operator('x')">x</button>
-              <button id="divide_button" class="column calc_button" onclick="set_operator('/')">/</button>
-            </div><br>
-            <div class="button_row">
-              <button id="sign_button" class="half_width calc_button" onclick="switch_sign()">+/-</button>
-              <button id="equals_button" class="half_width calc_button" onclick="equals()">=</button>
-            </div><br>
-            <div class="button_row">
-              <button id="convert_button" class="full_width calc_button" onclick="convert()">CONVERT TO BASE 10</button>
-            </div><br>
-          </div>
-        </div>
-
-        <div class="text center">
-          <span>Information: <i class="fas fa-info-circle" onclick="show_information();"></i></span>
-        </div>
-      </div>
-
-
-      <script>build_footer();</script>
-
     </body>
 </html>

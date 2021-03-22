@@ -55,6 +55,16 @@ body {
   margin: 0 -5rem;
 }
 
+#ground {
+  position: fixed;
+  text-align: center;
+  width: 150%;
+  height: 50%;
+  bottom: -52%;
+  left: 0;
+  z-index: 1;
+}
+
 .clearfix::after {
   content: "";
   clear: both;

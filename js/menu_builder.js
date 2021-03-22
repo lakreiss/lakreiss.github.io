@@ -179,6 +179,7 @@ function build_footer() {
   document.write('<a class="icon" id="color_mode_button" title="Color Mode" onclick="color_mode()"><i class="fas fa-paint-brush"></i></a>');
   document.write('</div>');
   document.write('</div>');
+  build_ground();
 }
 
 /*
@@ -190,5 +191,12 @@ function build_footer() {
     <a title="My Github" href="https://github.com/lakreiss" class="fa social fa-github" target="_blank"></a>
   </div>
 </div>
+*/
 
+function build_ground() {
+  document.write('<p id="ground"></p>');
+}
+
+/*
+<p id="ground"></p>
 */

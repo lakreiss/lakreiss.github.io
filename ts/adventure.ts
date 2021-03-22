@@ -93,7 +93,7 @@ function key_up(e) {
 
 function begin_game() {
 	instantiate_player();
-	if (document.getElementById("move_instructions_text").hasAttribute("hidden")) {
+	if (document.getElementById("move_instructions_text") && document.getElementById("move_instructions_text").hasAttribute("hidden")) {
 		document.getElementById("move_instructions_text").removeAttribute("hidden");
 		document.getElementById("move_instructions_coin").removeAttribute("hidden");
 	}
@@ -131,7 +131,7 @@ function checkForCollisions() {
 	//check collisions with text
 	if (!player.is_rising) {
 		var player_is_falling = true;
-		document.getElementById("page_text").querySelectorAll("p, h1").forEach(text_element => {
+		document.getElementById("page_text").querySelectorAll("p, h1, span, button, a, tr").forEach(text_element => {
 			if (y_collision_between(player_element, text_element)) {
 				player_is_falling = false;
 				player.set_y_position_to_top_of(text_element);
@@ -217,7 +217,6 @@ function hide_hidden_entities() {
 }
 
 function unlock_area(unlocker) {
-	// console.log("unlock area called with " + coin + " and " + id);
 	if (unlocker) {
 		if (unlocker.id === "move_instructions_coin") {
 			document.getElementById("coin_instructions_text").removeAttribute("hidden");
@@ -228,12 +227,14 @@ function unlock_area(unlocker) {
 		} else if (unlocker.id === "jump_instructions_coin") {
 			//TODO: add next coin unlock which sets a cookie that makes the adventure exist on every url within my webiste
 			//This will require:
-				//ground on every level
+				//ground on every level √
 				//cookie to store whether or not adventure mode is on
 				//page_text that player spawns on top of
 		} else if (unlocker.id === "ground") {
-			document.getElementById("q_instructions_text").removeAttribute("hidden");
-			document.getElementById("necessary_instructions_text").removeAttribute("hidden");
+			if (document.getElementById("q_instructions_text") && document.getElementById("necessary_instructions_text")) {
+				document.getElementById("q_instructions_text").removeAttribute("hidden");
+				document.getElementById("necessary_instructions_text").removeAttribute("hidden");
+			}
 		}
 	}
 }
