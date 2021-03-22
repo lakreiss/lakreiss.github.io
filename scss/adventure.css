@@ -11,4 +11,16 @@
   position: fixed;
   z-index: 1;
 }
+
+#jump_instructions {
+  position: absolute;
+  top: 30%;
+  left: 30%;
+}
+
+#coin_instructions {
+  position: absolute;
+  top: 30%;
+  left: 55%;
+}
 /*# sourceMappingURL=adventure.css.map */
