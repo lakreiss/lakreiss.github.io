@@ -5,8 +5,8 @@ import {Player, Position, Direction} from "./adventure_player.js";
 window.addEventListener('keydown', function(e) { key_down(e); });
 window.addEventListener('keyup', function(e) { key_up(e); });
 
-// const SPEED = 5; //REAL SPEED
-const SPEED = 15; //DEBUGGING SPEED
+const SPEED = 5; //REAL SPEED
+// const SPEED = 15; //DEBUGGING SPEED
 
 var interval;
 var adventure_in_progress: boolean = false;

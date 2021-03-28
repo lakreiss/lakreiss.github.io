@@ -2,8 +2,8 @@ import { Player } from "./adventure_player.js";
 // import {getCookie} from "../js/menu_builder.js";
 window.addEventListener('keydown', function (e) { key_down(e); });
 window.addEventListener('keyup', function (e) { key_up(e); });
-// const SPEED = 5; //REAL SPEED
-var SPEED = 15; //DEBUGGING SPEED
+var SPEED = 5; //REAL SPEED
+// const SPEED = 15; //DEBUGGING SPEED
 var interval;
 var adventure_in_progress = false;
 var player = new Player();
