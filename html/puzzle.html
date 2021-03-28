@@ -7,39 +7,42 @@
 
         <link rel="stylesheet" href="../css/puzzle.css">
         <script src="../js/puzzle.js"></script>
+
+      <link rel="stylesheet" href="../scss/adventure.css">
+      <script type="module" src="../js/adventure.js"></script>
     </head>
     <body>
-        <script>build_menu();</script>
+      <script>build_menu();</script>
 
+      <div id="page_text">
         <div>
             <h1 id="name">Puzzle</h1>
         </div>
 
-    <div class="whole_page">
-      <div id="instruction_container">
-        <span>Drag the puzzle pieces to move them around.</span><br>
-        <span>Click or drag pieces to select them.</span><br>
-        <span>Once they're selected, use 'Z' and 'X' to rotate the pieces.</span>
+        <div class="whole_page">
+          <div id="instruction_container">
+            <span>Drag the puzzle pieces to move them around.</span><br>
+            <span>Click or drag pieces to select them.</span><br>
+            <span>Once they're selected, use 'Z' and 'X' to rotate the pieces.</span>
 
-        <!-- MAKE PIECES -->
-        <script>
-          make_pieces();
-        </script>
+            <!-- MAKE PIECES -->
+            <script>
+              make_pieces();
+            </script>
 
+          </div>
+
+          <div id="puzzle_container">
+
+            <!-- MAKE OUTLINE -->
+            <script>
+              make_outline();
+            </script>
+
+          </div>
+        </div>
+        <script>build_footer();</script>
       </div>
-
-      <div id="puzzle_container">
-
-        <!-- MAKE OUTLINE -->
-        <script>
-          make_outline();
-        </script>
-
-      </div>
-    </div>
-
-    <script>build_footer();</script>
-
-  </body>
+    </body>
   <script src="../js/draggable.js"></script>
 </html>

@@ -6,27 +6,32 @@
       <script src="../js/menu_builder.js"></script>
       <script>build_header();</script>
 
+      <link rel="stylesheet" href="../scss/adventure.css">
+      <script type="module" src="../js/adventure.js"></script>
     </head>
 
     <body onload="check_and_set_dark_mode();">
       <script>build_menu();</script>
 
-      <section class = "free_rice">
-        <div class="free_rice_video">
-          <iframe width="578" height="361" src="https://www.youtube.com/embed/dUwe-C_JjYU" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-          <!-- <iframe width="578" height="361" src="https://www.youtube.com/embed/dUwe-C_JjYU" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> -->
-        </div>
+      <div id="page_text">
 
-        <div class="text free_rice_text">
-          <h1>Free Rice</h1>
+        <section class = "free_rice">
+          <div class="free_rice_video">
+            <iframe width="578" height="361" src="https://www.youtube.com/embed/dUwe-C_JjYU" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <!-- <iframe width="578" height="361" src="https://www.youtube.com/embed/dUwe-C_JjYU" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> -->
+          </div>
 
-          <p>Free Rice is a web bot powered by Selenium which earns rice for the World Food Programme.</p>
-          <p>It was inspired by
-          <a href="https://www.youtube.com/watch?v=lvFAuUcowT4&feature=youtu.be" target="_blank">this</a>
-          Code Drip YouTube video, and my code is available to download <a href="https://github.com/lakreiss/FreeRice" target="_blank">here</a>.</p>
-        </div>
-      </section>
+          <div class="text free_rice_text">
+            <h1>Free Rice</h1>
 
-      <script>build_footer();</script>
+            <p>Free Rice is a web bot powered by Selenium which earns rice for the World Food Programme.</p>
+            <p>It was inspired by
+            <a href="https://www.youtube.com/watch?v=lvFAuUcowT4&feature=youtu.be" target="_blank">this</a>
+            Code Drip YouTube video, and my code is available to download <a href="https://github.com/lakreiss/FreeRice" target="_blank">here</a>.</p>
+          </div>
+        </section>
+
+        <script>build_footer();</script>
+      </div>
     </body>
 </html>

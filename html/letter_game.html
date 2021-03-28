@@ -7,6 +7,9 @@
       <script src="../js/menu_builder.js"></script>
       <script>build_header();</script>
 
+      <link rel="stylesheet" href="../scss/adventure.css">
+      <script type="module" src="../js/adventure.js"></script>
+
       <link rel="stylesheet" href="../css/letters.css">
 
       <!-- for the example pop-up, which is inspired by https://jqueryui.com/dialog/#animated -->
@@ -15,6 +18,7 @@
       <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
       <script src="../js/dice_grid.js"></script>
+
     </head>
 
     <body onload="download_dice_from_url(); check_and_set_dark_mode();">
@@ -26,88 +30,88 @@
       </script>
       <script>build_menu();</script>
 
-      <section class="letter_game">
-        <div class="row">
-          <div class="col-4">
-            <div class="text letter_game_intro">
-              <h1>Welcome to the Letter Game!</h1>
-              <span class="align_left">Instructions: <span class="fa fa-info-circle" onclick="display_instructions()"></span></span>
-              <span class="align_center">&nbsp&nbsp&nbsp&nbsp&nbsp Advanced: <span class="fa fa-info-circle" onclick="display_advanced()"></span></span>
-              <span class="align_right">&nbsp&nbsp&nbsp&nbsp&nbsp FAQs: <span class="fa fa-info-circle" onclick="display_faqs()"></span></span>
-              <span class="clear_floats"></span>
-            </div>
-
-            <div class="text letter_game_dice">
-              <div class="dice_button_container">
-                <button class="dice_button" onclick="roll_dice()">Roll Dice</button>
-                <button class="dice_button" onclick="reset_board()">Reset Board</button>
-                <button class="dice_button" onclick="upload_dice()">Upload</button>
-                <input id="custom_letters" type="text" placeholder="Custom Letters">
-                <button class="dice_button" onclick="download_dice_from_custom_letters()">Download</button>
+      <div id="page_text">
+        <section class="letter_game">
+          <div class="row">
+            <div class="col-4">
+              <div class="text letter_game_intro">
+                <h1>Welcome to the Letter Game!</h1>
+                <span class="align_left">Instructions: <span class="fa fa-info-circle" onclick="display_instructions()"></span></span>
+                <span class="align_center">&nbsp&nbsp&nbsp&nbsp&nbsp Advanced: <span class="fa fa-info-circle" onclick="display_advanced()"></span></span>
+                <span class="align_right">&nbsp&nbsp&nbsp&nbsp&nbsp FAQs: <span class="fa fa-info-circle" onclick="display_faqs()"></span></span>
+                <span class="clear_floats"></span>
               </div>
-              <script language="JavaScript">
-                for (var index=0; index < num_dice; index++) {
-                  var dice_id = "dice" + index;
-                  document.write("<div class=\"dice unused_dice\" id=\""+dice_id+"\" onclick=\"clicked(\'"+dice_id+"\')\" draggable=\"true\" ondragstart=\"drag(event)\" ondrop=\"drop(event)\" ondragover=\"allowDrop(event)\">" + blank_dice + "</div>");
-                }
-              </script>
-            </div>
-          </div>
 
-          <div class="col-8">
-            <div class="text letter_board">
-              <script language="JavaScript">
-                for (var i=0; i < board_height; i++)
-                { document.write("<nobr>");
-                  for (var j=0; j < board_width; j++)
-                  {
-                    var tile_name = get_tile_name(i, j);
-                    document.write("<img src=\"/../img/letter_pieces/blank.png\" id=\""+tile_name+"\"onclick=\"clicked(\'"+tile_name+"\')\" data-dice_id=\'none\' draggable=\"true\" ondragstart=\"drag(event)\" ondrop=\"drop(event)\" ondragover=\"allowDrop(event)\" title='"+tile_name+"' alt='"+tile_name+"'>");
-                  }
-                  document.writeln("</nobr><br>");
-                }
-              </script>
-            </div>
-
-            <div class="text letter_board_options">
-              <!-- <form submit> -->
-              <form name="word_check_form">
-                <input id="word_check" type="text" placeholder="Word to Check">
-
-                <!-- adding 'type="button"' to the following button element makes it not run when the text box is highlighted and enter is pressed -->
-                <button class="board_button" onclick="check_word();return false">Check Word</button>
-                <button class="board_button" type="button" onclick="check_solution();return false">Check Grid</button>
-                <button class="board_button" type="button" onclick="transpose();return false">Transpose</button>
-                <button class="board_button" type="button" onclick="auto_populate_sorted_letters(vowel_sort);return false">Vowel Sort</button>
-                <button class="board_button" type="button" onclick="auto_populate_sorted_letters();return false">Sort</button>
-
-                <!-- <button id="opener" class="board_button">Example Grid</button>
-                <div id="dialog" title="Example Solution">
-                </div> -->
-
-                <div id="dialog" class="pop-up" title="Example Solution">
-                  <div class="pop_up_text">
-                    <p>Here is an example of a valid solution. Note that all 16 dice are used, and every word has at least four letters.</p>
-                  </div>
-                  <div class="pop_up_image">
-                    <img class="example_solution" src="/../img/example_2.png" alt="Example Solution" />
-                  </div>
+              <div class="text letter_game_dice">
+                <div class="dice_button_container">
+                  <button class="dice_button" onclick="roll_dice()">Roll Dice</button>
+                  <button class="dice_button" onclick="reset_board()">Reset Board</button>
+                  <button class="dice_button" onclick="upload_dice()">Upload</button>
+                  <input id="custom_letters" type="text" placeholder="Custom Letters">
+                  <button class="dice_button" onclick="download_dice_from_custom_letters()">Download</button>
                 </div>
+                <script language="JavaScript">
+                  for (var index=0; index < num_dice; index++) {
+                    var dice_id = "dice" + index;
+                    document.write("<div class=\"dice unused_dice\" id=\""+dice_id+"\" onclick=\"clicked(\'"+dice_id+"\')\" draggable=\"true\" ondragstart=\"drag(event)\" ondrop=\"drop(event)\" ondragover=\"allowDrop(event)\">" + blank_dice + "</div>");
+                  }
+                </script>
+              </div>
+            </div>
 
-                <button id="opener" class="board_button" type="button">Example Solution</button>
+            <div class="col-8">
+              <div class="text letter_board">
+                <script language="JavaScript">
+                  for (var i=0; i < board_height; i++)
+                  { document.write("<nobr>");
+                    for (var j=0; j < board_width; j++)
+                    {
+                      var tile_name = get_tile_name(i, j);
+                      document.write("<img src=\"/../img/letter_pieces/blank.png\" id=\""+tile_name+"\"onclick=\"clicked(\'"+tile_name+"\')\" data-dice_id=\'none\' draggable=\"true\" ondragstart=\"drag(event)\" ondrop=\"drop(event)\" ondragover=\"allowDrop(event)\" title='"+tile_name+"' alt='"+tile_name+"'>");
+                    }
+                    document.writeln("</nobr><br>");
+                  }
+                </script>
+              </div>
 
-              </form>
-                <!-- <input type="submit" value="submit" onclick="trigger_alert()" /> -->
-              <!-- </form> -->
+              <div class="text letter_board_options">
+                <!-- <form submit> -->
+                <form name="word_check_form">
+                  <input id="word_check" type="text" placeholder="Word to Check">
+
+                  <!-- adding 'type="button"' to the following button element makes it not run when the text box is highlighted and enter is pressed -->
+                  <button class="board_button" onclick="check_word();return false">Check Word</button>
+                  <button class="board_button" type="button" onclick="check_solution();return false">Check Grid</button>
+                  <button class="board_button" type="button" onclick="transpose();return false">Transpose</button>
+                  <button class="board_button" type="button" onclick="auto_populate_sorted_letters(vowel_sort);return false">Vowel Sort</button>
+                  <button class="board_button" type="button" onclick="auto_populate_sorted_letters();return false">Sort</button>
+
+                  <!-- <button id="opener" class="board_button">Example Grid</button>
+                  <div id="dialog" title="Example Solution">
+                  </div> -->
+
+                  <div id="dialog" class="pop-up" title="Example Solution">
+                    <div class="pop_up_text">
+                      <p>Here is an example of a valid solution. Note that all 16 dice are used, and every word has at least four letters.</p>
+                    </div>
+                    <div class="pop_up_image">
+                      <img class="example_solution" src="/../img/example_2.png" alt="Example Solution" />
+                    </div>
+                  </div>
+
+                  <button id="opener" class="board_button" type="button">Example Solution</button>
+
+                </form>
+                  <!-- <input type="submit" value="submit" onclick="trigger_alert()" /> -->
+                <!-- </form> -->
+              </div>
             </div>
           </div>
-        </div>
 
+        </section>
 
-
-      </section>
-
-      <script>build_footer();</script>
+        <script>build_footer();</script>
+      </div>
 
     </body>
 </html>

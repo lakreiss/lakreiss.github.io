@@ -5,27 +5,32 @@
     <head>
       <script src="../js/menu_builder.js"></script>
       <script>build_header();</script>
+
+      <link rel="stylesheet" href="../scss/adventure.css">
+      <script type="module" src="../js/adventure.js"></script>
     </head>
 
     <body onload="check_and_set_dark_mode();">
       <script>build_menu();</script>
 
-      <section class="plus4">
-        <div class="plus4_video">
-          <iframe width="560" height="315" src="https://www.youtube.com/embed/ojTQ7ea7gbk" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-        </div>
+      <div id="page_text">
+        <section class="plus4">
+          <div class="plus4_video">
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/ojTQ7ea7gbk" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          </div>
 
-        <div class="text plus4_text">
-          <h1>Plus4</h1>
-          <p>Plus4 is written in Java with the JavaFX library.</p>
-          <p>The game is similar to connect four, in which the goal is to place four of your pieces in a line. However, in Plus4, pieces are always placed into the
-            top of the board, and only fall down if they are pushed from above. Once a piece has been pushed four times, it falls out from the bottom of the board and disappears.</p>
-          <p>The more you play against the "Intelligent" computer, the better it will get at beating you, so good luck!</p>
-          <p>Code for Plus4 is available <a href="https://github.com/lakreiss/Plus4" target="blank">here</a>.</p>
-        </div>
-      </section>
+          <div class="text plus4_text">
+            <h1>Plus4</h1>
+            <p>Plus4 is written in Java with the JavaFX library.</p>
+            <p>The game is similar to connect four, in which the goal is to place four of your pieces in a line. However, in Plus4, pieces are always placed into the
+              top of the board, and only fall down if they are pushed from above. Once a piece has been pushed four times, it falls out from the bottom of the board and disappears.</p>
+            <p>The more you play against the "Intelligent" computer, the better it will get at beating you, so good luck!</p>
+            <p>Code for Plus4 is available <a href="https://github.com/lakreiss/Plus4" target="blank">here</a>.</p>
+          </div>
+        </section>
 
-      <script>build_footer();</script>
+        <script>build_footer();</script>
+      </div>
 
     </body>
 </html>

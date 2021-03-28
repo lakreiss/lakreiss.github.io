@@ -5,26 +5,30 @@
     <head>
       <script src="../js/menu_builder.js"></script>
       <script>build_header();</script>
+
+      <link rel="stylesheet" href="../scss/adventure.css">
+      <script type="module" src="../js/adventure.js"></script>
     </head>
 
     <body onload="check_and_set_dark_mode();">
       <script>build_menu();</script>
 
-      <section class="quadris">
-        <div class="quadris_video">
-          <iframe width="332" height="440" src="https://www.youtube.com/embed/HdH3w9qPyoA" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-        </div>
+      <div id="page_text">
+        <section class="quadris">
+          <div class="quadris_video">
+            <iframe width="332" height="440" src="https://www.youtube.com/embed/HdH3w9qPyoA" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          </div>
 
-        <div class="text quadris_text">
+          <div class="text quadris_text">
 
-          <h1>Quadris</h1>
-          <p>Quadris is a self-playing Tetris agent written in Java with the JavaFX library. Our AI, named Cerulean, learned to play through a Genetic Algorithm.
-          After about 15 epochs of training, our algorithm outperformed humans on average, though it had a significant standard deviation in its performance.</p>
-          <p>Code for Quadris is available <a href="https://github.com/hjobrien/Quadris" target="blank">here</a>.</p>
-        </div>
-      </section>
+            <h1>Quadris</h1>
+            <p>Quadris is a self-playing Tetris agent written in Java with the JavaFX library. Our AI, named Cerulean, learned to play through a Genetic Algorithm.
+            After about 15 epochs of training, our algorithm outperformed humans on average, though it had a significant standard deviation in its performance.</p>
+            <p>Code for Quadris is available <a href="https://github.com/hjobrien/Quadris" target="blank">here</a>.</p>
+          </div>
+        </section>
 
-      <script>build_footer();</script>
-
+        <script>build_footer();</script>
+      </div>
     </body>
 </html>

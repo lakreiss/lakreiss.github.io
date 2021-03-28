@@ -19,6 +19,8 @@
         });
       </script>
 
+      <link rel="stylesheet" href="../scss/adventure.css">
+      <script type="module" src="../js/adventure.js"></script>
     </head>
 
     <body onload="check_and_set_dark_mode();">
@@ -27,114 +29,116 @@
       <!-- General plan is to have the left player, dart board, right player, with stats below each player -->
       <!-- Similar to https://darts-scoring.com/play/ -->
 
-      <div class="left_side">
+      <div id="page_text">
+        <div class="left_side">
 
-        <div id="description" class="text">
-          <h1>Smart Dart</h1>
-          <span id="description_info">Dart Scoreboard and Tracker that analyzes your throwing statistics and helps you to understand and improve your game.</span>
-        </div>
-
-        <div id="dart_board_display_container" hidden>
-          <div id="dart_board">
-            <!-- code is written in darts.js file -->
-          </div>
-  
-          <div id="board_display_options_container" class="text center">
-            <!-- code is written in darts.js file -->
-          </div>
-        </div>        
-      </div>
-
-      <div class="right_side">
-
-        <div class="text center" id="victory_text_container" hidden>
-          <div id="victory_text">
-            <!-- code is written in darts.js file when the game is created -->
-          </div>
-          <form>
-            <button class="button" type="button" onclick="play_darts_again();">Play Again?</button>
-          </form>
-        </div>
-
-        <div class="text center" id="game_text_container" hidden>
-          <!-- code is written in darts.js file when the game is created -->
-          <div class="half_width">
-            <div class="player_name" id="player_1_name"></div>
-            <div class="player_score" id="player_1_score"></div>
-            <div class="player_throws_cur_turn" id="player_1_throws_cur_turn"></div>
-          </div>
-          <div class="half_width">
-            <div class="player_name" id="player_2_name"></div>
-            <div class="player_score" id="player_2_score"></div>
-            <div class="player_throws_cur_turn" id="player_2_throws_cur_turn"></div>
-          </div>
-        </div>
-
-        <div class="text center" id="game_data_table" hidden>
-          <div class="half_width">
-            <div class="player_average_score" id="player_1_average_score_this_game"></div>
-            <div class="player_average_score" id="player_1_average_score"></div>
-          </div>
-          <div class="half_width">            
-            <div class="player_average_score" id="player_2_average_score_this_game"></div>
-            <div class="player_average_score" id="player_2_average_score"></div>
-          </div>
-          <br>
-          <table id="score_list_table">
-            <!-- code is written in darts.js file when the game is created -->
-          </table>
-        </div>
-
-        <form class="text center" id="start_form">
-          <h2>BEGIN A NEW GAME</h2>
-
-          <!-- TODO: add CSS to make it look nice -->
-          <div class="game_select_container" onchange="set_game_type_element()">
-            <select id="game_select">
-              <option value="0">Classic Darts</option>
-              <!-- can change the order for debugging -->
-              <option value="1">Cricket</option> 
-            </select>
+          <div id="description" class="text">
+            <h1>Smart Dart</h1>
+            <span id="description_info">Dart Scoreboard and Tracker that analyzes your throwing statistics and helps you to understand and improve your game.</span>
           </div>
 
-          <div class="input" id="game_type">
-            <div class="game_option" id="game_option_container">
+          <div id="dart_board_display_container" hidden>
+            <div id="dart_board">
               <!-- code is written in darts.js file -->
+            </div>
+    
+            <div id="board_display_options_container" class="text center">
+              <!-- code is written in darts.js file -->
+            </div>
+          </div>        
+        </div>
+
+        <div class="right_side">
+
+          <div class="text center" id="victory_text_container" hidden>
+            <div id="victory_text">
+              <!-- code is written in darts.js file when the game is created -->
+            </div>
+            <form>
+              <button class="button" type="button" onclick="play_darts_again();">Play Again?</button>
+            </form>
+          </div>
+
+          <div class="text center" id="game_text_container" hidden>
+            <!-- code is written in darts.js file when the game is created -->
+            <div class="half_width">
+              <div class="player_name" id="player_1_name"></div>
+              <div class="player_score" id="player_1_score"></div>
+              <div class="player_throws_cur_turn" id="player_1_throws_cur_turn"></div>
+            </div>
+            <div class="half_width">
+              <div class="player_name" id="player_2_name"></div>
+              <div class="player_score" id="player_2_score"></div>
+              <div class="player_throws_cur_turn" id="player_2_throws_cur_turn"></div>
             </div>
           </div>
 
-          <input id="player_1_name_input" type="text" placeholder="Player 1 Name" /><br>
-          <input id="player_2_name_input" type="text" placeholder="Player 2 Name" /><br>
-          <!-- TODO: add player removal, addition options -->
+          <div class="text center" id="game_data_table" hidden>
+            <div class="half_width">
+              <div class="player_average_score" id="player_1_average_score_this_game"></div>
+              <div class="player_average_score" id="player_1_average_score"></div>
+            </div>
+            <div class="half_width">            
+              <div class="player_average_score" id="player_2_average_score_this_game"></div>
+              <div class="player_average_score" id="player_2_average_score"></div>
+            </div>
+            <br>
+            <table id="score_list_table">
+              <!-- code is written in darts.js file when the game is created -->
+            </table>
+          </div>
 
-          <button class="button" type="button" onclick="set_up_and_start_game();">Begin</button>
-        </form>
+          <form class="text center" id="start_form">
+            <h2>BEGIN A NEW GAME</h2>
 
+            <!-- TODO: add CSS to make it look nice -->
+            <div class="game_select_container" onchange="set_game_type_element()">
+              <select id="game_select">
+                <option value="0">Classic Darts</option>
+                <!-- can change the order for debugging -->
+                <option value="1">Cricket</option> 
+              </select>
+            </div>
+
+            <div class="input" id="game_type">
+              <div class="game_option" id="game_option_container">
+                <!-- code is written in darts.js file -->
+              </div>
+            </div>
+
+            <input id="player_1_name_input" type="text" placeholder="Player 1 Name" /><br>
+            <input id="player_2_name_input" type="text" placeholder="Player 2 Name" /><br>
+            <!-- TODO: add player removal, addition options -->
+
+            <button class="button" type="button" onclick="set_up_and_start_game();">Begin</button>
+          </form>
+
+        </div>
+
+        <!-- <svg width="100%" viewBox="0 0 768 447" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+          <defs>
+              <rect id="path-1" x="0" y="0" width="768" height="447"></rect>
+              <mask id="mask-2" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="768" height="447" fill="white">
+                  <use xlink:href="#path-1"></use>
+              </mask>
+          </defs>
+          <g id="journocode" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+              <g id="example">
+                  <use id="Rectangle-1" stroke="#50E3C2" mask="url(#mask-2)" stroke-width="42" fill="#4A4A4A" xlink:href="#path-1"></use>
+      
+                  <circle id="Oval-1" fill="#FF7979" cx="142.5" cy="147.5" r="92.5" class="tooltip" title="I am a circle!"></circle>
+                  <polygon fill="#FFF681" points="384 349 328.748186 378.047597 339.300344 316.523799 294.600687 272.952403 356.374093 263.976201 384 208 411.625907 263.976201 473.399313 272.952403 428.699656 316.523799 439.251814 378.047597" class="tooltip" title="<strong>Stars for the win</strong><br>I am a star!"></polygon> 
+                  <polygon id="Triangle-1" fill="#A9FFEC" points="619 72 717 223 521 223" class="tooltip" title="<p style='color:#F85D00'>Hell yeah!</p>"></polygon> 
+                </g> 
+          </g> 
+      </svg>  -->
+
+
+        <script>
+          build_footer();
+          set_game_type_element();
+          build_dart_board();
+        </script>
       </div>
-
-      <!-- <svg width="100%" viewBox="0 0 768 447" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-        <defs>
-            <rect id="path-1" x="0" y="0" width="768" height="447"></rect>
-            <mask id="mask-2" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="768" height="447" fill="white">
-                <use xlink:href="#path-1"></use>
-            </mask>
-        </defs>
-        <g id="journocode" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-            <g id="example">
-                <use id="Rectangle-1" stroke="#50E3C2" mask="url(#mask-2)" stroke-width="42" fill="#4A4A4A" xlink:href="#path-1"></use>
-     
-                <circle id="Oval-1" fill="#FF7979" cx="142.5" cy="147.5" r="92.5" class="tooltip" title="I am a circle!"></circle>
-                <polygon fill="#FFF681" points="384 349 328.748186 378.047597 339.300344 316.523799 294.600687 272.952403 356.374093 263.976201 384 208 411.625907 263.976201 473.399313 272.952403 428.699656 316.523799 439.251814 378.047597" class="tooltip" title="<strong>Stars for the win</strong><br>I am a star!"></polygon> 
-                <polygon id="Triangle-1" fill="#A9FFEC" points="619 72 717 223 521 223" class="tooltip" title="<p style='color:#F85D00'>Hell yeah!</p>"></polygon> 
-              </g> 
-        </g> 
-    </svg>  -->
-
-
-      <script>
-        build_footer();
-        set_game_type_element();
-        build_dart_board();
-      </script>
     </body>
 </html>

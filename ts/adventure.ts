@@ -1,5 +1,6 @@
 export {};
 import {Player, Position, Direction} from "./adventure_player.js";
+// import {getCookie} from "../js/menu_builder.js";
 
 window.addEventListener('keydown', function(e) { key_down(e); });
 window.addEventListener('keyup', function(e) { key_up(e); });
@@ -17,7 +18,7 @@ function key_down(e) {
 	switch(e.keyCode) {
 		case 32: //space bar
 			//begin game
-			begin_game();
+			try_begin_game();
 			break;
 		case 38: //up key
 		case 87: //w key
@@ -88,6 +89,12 @@ function key_up(e) {
 			break;
 		default:
 			// do nothing
+	}
+}
+
+function try_begin_game() {
+	if (document.URL.indexOf("adventure") >= 0 || getCookie("adventure") === "true") {
+		begin_game();
 	}
 }
 
@@ -230,6 +237,7 @@ function unlock_area(unlocker) {
 				//ground on every level √
 				//cookie to store whether or not adventure mode is on
 				//page_text that player spawns on top of
+			setCookie("adventure", "true");
 		} else if (unlocker.id === "ground") {
 			if (document.getElementById("q_instructions_text") && document.getElementById("necessary_instructions_text")) {
 				document.getElementById("q_instructions_text").removeAttribute("hidden");

@@ -8,28 +8,32 @@
 
     <link rel="stylesheet" href="../css/lambsie.css">
     <script src="../js/lambsie.js"></script>
+
+    <link rel="stylesheet" href="../scss/adventure.css">
+    <script type="module" src="../js/adventure.js"></script>
   </head>
 
   <body onload="check_and_set_dark_mode();">
     <script>build_menu();</script>
-
-    <div class="clearfix">
-      <div class="text">
-        <h1>Card Game Scorecard</h1>
-        <p>The best web-app to use for your card game scorecard.</p>
-        <p>If the background is distracting, click the paintbrush at the bottom to make it monochrome.</p>
-      </div>
-      <div class="text">
-        <div class="center">
-          <p id="game_over_text" hidden></p>
-          <script>
-              build_scorecard(false);
-          </script>
+    <div id="page_text">
+      <div class="clearfix">
+        <div class="text">
+          <h1>Card Game Scorecard</h1>
+          <p>The best web-app to use for your card game scorecard.</p>
+          <p>If the background is distracting, click the paintbrush at the bottom to make it monochrome.</p>
+        </div>
+        <div class="text">
+          <div class="center">
+            <p id="game_over_text" hidden></p>
+            <script>
+                build_scorecard(false);
+            </script>
+          </div>
         </div>
       </div>
-    </div>
 
-    <script>build_footer();</script>
+      <script>build_footer();</script>
+    </div>
 
   </body>
 </html>

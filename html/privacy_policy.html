@@ -5,23 +5,28 @@
     <head>
       <script src="../js/menu_builder.js"></script>
       <script>build_header();</script>
+
+      <link rel="stylesheet" href="../scss/adventure.css">
+      <script type="module" src="../js/adventure.js"></script>
     </head>
 
     <body onload="check_and_set_dark_mode();">
       <script>build_menu();</script>
 
-      <div class="clearfix">
-        <h1 class="text">
-          Privacy Policy
-        </h1>
-        <p class="text">
-          I wanted to test out giving people the option to sign in with their gmail if they want to send an email to me. The only info I need to collect for that is the user's email after they log in, and access to sending emails (which they would compose). No data would be stored by me; everything is done client-side in javascript.
-          <br><br>I'm not sure what else I need to say here; I'm not trying to do anything malicious. If there's some vulnerability with what I'm doing, please tell me and I'll take this down immediately. Thanks!
-        </p>
+      <div id="page_text">
+        <div class="clearfix">
+          <h1 class="text">
+            Privacy Policy
+          </h1>
+          <p class="text">
+            I wanted to test out giving people the option to sign in with their gmail if they want to send an email to me. The only info I need to collect for that is the user's email after they log in, and access to sending emails (which they would compose). No data would be stored by me; everything is done client-side in javascript.
+            <br><br>I'm not sure what else I need to say here; I'm not trying to do anything malicious. If there's some vulnerability with what I'm doing, please tell me and I'll take this down immediately. Thanks!
+          </p>
 
+        </div>
+
+        <script>build_footer();</script>
       </div>
-
-      <script>build_footer();</script>
 
     </body>
 </html>
