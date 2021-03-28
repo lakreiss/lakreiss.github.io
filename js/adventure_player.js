@@ -103,7 +103,7 @@ var Player = /** @class */ (function () {
         return parseInt(this.position.x) + (WIDTH);
     };
     Player.prototype.get_click_position_y = function () {
-        return parseInt(this.position.y);
+        return parseInt(this.position.y + (HEIGHT / 10));
     };
     return Player;
 }());

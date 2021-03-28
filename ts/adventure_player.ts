@@ -108,7 +108,7 @@ export class Player {
   }
 
   get_click_position_y() {
-    return parseInt(this.position.y);
+    return parseInt(this.position.y + (HEIGHT / 10));
   }
 }
 
