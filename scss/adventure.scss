@@ -4,10 +4,12 @@ $coin_instructions_text_top: 54%;
 $coin_instructions_text_left: 10%;
 $jump_instructions_text_top: 30%;
 $jump_instructions_text_left: 54%;
-$q_instructions_text_top: 66%;
-$q_instructions_text_left: 32%;
+$r_instructions_text_top: 66%;
+$r_instructions_text_left: 32%;
 $necessary_instructions_text_top: 78%;
 $necessary_instructions_text_left: 54%;
+$free_play_text_top: 54%;
+$free_play_text_left: 54%;
 
 $coin_height_above_text: 2%;
 $coin_distance_from_text_edge: 1%;
@@ -16,16 +18,6 @@ $coin_size: 10px;
 #player_element {
     position: fixed;
 }
-
-// #ground {
-//     text-align: center;
-//     width: 150%;
-//     height: 50%;
-//     bottom: -52%;
-//     left: 0;
-//     position: fixed;
-//     z-index: 1;
-// }
 
 #move_instructions_text {
     position: absolute;
@@ -63,16 +55,22 @@ $coin_size: 10px;
     left: $jump_instructions_text_left + 25%;
 }
 
-#q_instructions_text {
+#r_instructions_text {
     position: absolute;
-    top: $q_instructions_text_top;
-    left: $q_instructions_text_left;
+    top: $r_instructions_text_top;
+    left: $r_instructions_text_left;
 }
 
 #necessary_instructions_text {
     position: absolute;
     top: $necessary_instructions_text_top;
     left: $necessary_instructions_text_left;
+}
+
+#free_play_text {
+    position: absolute;
+    top: $free_play_text_top;
+    left: $free_play_text_left;
 }
 
 h1 {

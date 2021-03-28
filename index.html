@@ -5,34 +5,39 @@
     <head>
       <script src="js/menu_builder.js"></script>
       <script>build_header();</script>
+
+      <link rel="stylesheet" href="../scss/adventure.css">
+      <script type="module" src="../js/adventure.js"></script>
     </head>
 
     <body onload="check_and_set_dark_mode();">
       <script>build_menu();</script>
 
-      <div class="clearfix">
+      <div id="page_text">
+        <div class="clearfix">
 
-        <img class="my_face" src="img/my_face.jpg" alt="My Face" usemap="#mapname" height="20%" width="20%">
-        <map name="mapname">
-            <area shape="rect" coords="100,140,130,170" href="img/ultimate_photo.png" alt="you found it!">
-        </map>
-        <div class="text title_text_with_face_image">
-          <h1>Liam Kreiss</h1>
-          <p>Hi, welcome to my website. It's a work-in-progress, and I hope to add more of my creations to it in the near future.</p>
-          <p>Coming soon, my website will include a little treasure-hunt, so stay tuned!</p>
+          <img class="my_face" src="img/my_face.jpg" alt="My Face" usemap="#mapname" height="20%" width="20%">
+          <map name="mapname">
+              <area shape="rect" coords="100,140,130,170" href="img/ultimate_photo.png" alt="you found it!">
+          </map>
+          <div class="text title_text_with_face_image">
+            <h1>Liam Kreiss</h1>
+            <p>Hi, welcome to my website. It's a work-in-progress, and I hope to add more of my creations to it in the near future.</p>
+            <p>Coming soon, my website will include a little treasure-hunt, so stay tuned!</p>
+          </div>
         </div>
+
+        <!-- A secret message! Follow the clues to win a prize -->
+        <!-- CLUE 1:
+            I smell a treasure hunt afoot
+            with latent clues, which code outputs.
+
+            Pick me first, and find my picture.
+            In the pixels lies the clincher.
+        -->
+
+        <script>build_footer();</script>
       </div>
-
-      <!-- A secret message! Follow the clues to win a prize -->
-      <!-- CLUE 1:
-          I smell a treasure hunt afoot
-          with latent clues, which code outputs.
-
-          Pick me first, and find my picture.
-          In the pixels lies the clincher.
-      -->
-
-      <script>build_footer();</script>
 
     </body>
 </html>

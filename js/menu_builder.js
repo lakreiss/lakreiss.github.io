@@ -214,7 +214,7 @@ function getCookie(cName) {
 }
 
 //from https://www.tabnine.com/academy/javascript/how-to-set-cookies-javascript/#:~:text=To%20update%20a%20cookie%2C%20simply,Name%2C%20but%20a%20different%20Value.
-function setCookie(cName, cValue, expDays) {
+function setCookie(cName, cValue, expDays=1) {
   let date = new Date();
   date.setTime(date.getTime() + (expDays * 24 * 60 * 60 * 1000));
   const expires = "expires=" + date.toUTCString();

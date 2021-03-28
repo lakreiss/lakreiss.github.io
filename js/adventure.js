@@ -2,8 +2,8 @@ import { Player } from "./adventure_player.js";
 // import {getCookie} from "../js/menu_builder.js";
 window.addEventListener('keydown', function (e) { key_down(e); });
 window.addEventListener('keyup', function (e) { key_up(e); });
-var SPEED = 5; //REAL SPEED
-// const SPEED = 15; //DEBUGGING SPEED
+// const SPEED = 5; //REAL SPEED
+var SPEED = 15; //DEBUGGING SPEED
 var interval;
 var adventure_in_progress = false;
 var player = new Player();
@@ -49,6 +49,14 @@ function key_down(e) {
             delete_player();
             hide_hidden_entities();
             break;
+        case 82: //r key = restart = q + space
+            //q 
+            clearInterval(interval);
+            adventure_in_progress = false;
+            delete_player();
+            hide_hidden_entities();
+            //space
+            try_begin_game();
         default:
         // do nothing
     }
@@ -207,16 +215,16 @@ function unlock_area(unlocker) {
             document.getElementById("jump_instructions_coin").removeAttribute("hidden");
         }
         else if (unlocker.id === "jump_instructions_coin") {
-            //TODO: add next coin unlock which sets a cookie that makes the adventure exist on every url within my webiste
-            //This will require:
-            //ground on every level √
-            //cookie to store whether or not adventure mode is on
-            //page_text that player spawns on top of
+            document.getElementById("free_play_text").removeAttribute("hidden");
             setCookie("adventure", "true");
+            //requires:
+            //ground on every level √
+            //cookie to store whether or not adventure mode is on √
+            //page_text that player spawns on top of √
         }
         else if (unlocker.id === "ground") {
-            if (document.getElementById("q_instructions_text") && document.getElementById("necessary_instructions_text")) {
-                document.getElementById("q_instructions_text").removeAttribute("hidden");
+            if (document.getElementById("r_instructions_text") && document.getElementById("necessary_instructions_text")) {
+                document.getElementById("r_instructions_text").removeAttribute("hidden");
                 document.getElementById("necessary_instructions_text").removeAttribute("hidden");
             }
         }
