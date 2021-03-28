@@ -18,7 +18,11 @@ function key_down(e) {
 	switch(e.keyCode) {
 		case 32: //space bar
 			//begin game
-			try_begin_game();
+			if (!adventure_in_progress) {
+				try_begin_game(e);
+			} else {
+				try_click(e);
+			}
 			break;
 		case 38: //up key
 		case 87: //w key
@@ -61,7 +65,7 @@ function key_down(e) {
 			delete_player();
 			hide_hidden_entities();
 			//space
-			try_begin_game();
+			try_begin_game(e);
 		default:
 			// do nothing
 	}
@@ -100,10 +104,22 @@ function key_up(e) {
 	}
 }
 
-function try_begin_game() {
-	if (document.URL.indexOf("adventure") >= 0 || getCookie("adventure") === "true") {
+function try_begin_game(e) {
+	if (adventure_is_allowed()) {
+		e.preventDefault();
 		begin_game();
 	}
+}
+
+function try_click(e) {
+	if (adventure_is_allowed) {
+		e.preventDefault();
+		(<HTMLElement> document.elementFromPoint(player.get_click_position_x(), player.get_click_position_y())).click();
+	}
+}
+
+function adventure_is_allowed() {
+	return document.URL.indexOf("adventure") >= 0 || getCookie("adventure") === "true";
 }
 
 function begin_game() {

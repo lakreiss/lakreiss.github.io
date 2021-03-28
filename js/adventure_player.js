@@ -98,6 +98,13 @@ var Player = /** @class */ (function () {
     Player.prototype.get_number_from_pixels = function (pixels) {
         return parseInt(pixels.substring(0, pixels.length - 2));
     };
+    Player.prototype.get_click_position_x = function () {
+        // return parseInt(this.position.x) + (WIDTH / 2);
+        return parseInt(this.position.x) + (WIDTH);
+    };
+    Player.prototype.get_click_position_y = function () {
+        return parseInt(this.position.y);
+    };
     return Player;
 }());
 export { Player };

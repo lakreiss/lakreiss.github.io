@@ -101,6 +101,15 @@ export class Player {
   get_number_from_pixels(pixels: string): number {
     return parseInt(pixels.substring(0, pixels.length - 2));
   }
+  
+  get_click_position_x() {
+    // return parseInt(this.position.x) + (WIDTH / 2);
+    return parseInt(this.position.x) + (WIDTH);
+  }
+
+  get_click_position_y() {
+    return parseInt(this.position.y);
+  }
 }
 
 export class Position {
