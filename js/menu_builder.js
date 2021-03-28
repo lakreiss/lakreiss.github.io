@@ -88,20 +88,22 @@ function build_menu() {
 */
 
 function dark_mode() {
-  if (document.cookie.includes("theme=")) {
-    document.cookie = 'theme=' + (document.cookie.split("theme=")[1].includes('light') ? 'dark' : 'light');
-    // console.log('Cookies are now: ' + document.cookie.split("theme=")[1]);
+  if (hasCookie("theme")) {
+    let cur_theme = getCookie("theme");
+    setCookie("theme", (cur_theme.includes('light') ? 'dark' : 'light'));
+    printCookies();
   } else {
-    document.cookie = 'theme=dark';
+    setCookie("theme", "dark");
   }
   toggle_dark_mode();
 }
 
 function color_mode() {
-  if (document.cookie.includes("color=")) {
-    document.cookie = 'color=' + (document.cookie.split("color=")[1].includes('none') ? 'colored' : 'none');
+  if (hasCookie("color")) {
+    let cur_color = getCookie("color");
+    setCookie("color", cur_color.includes('none') ? 'colored' : 'none');
   } else {
-    document.cookie = 'color=lightsteelblue';
+    setCookie("color", "lightsteelblue");
   }
   toggle_color_mode();
 }
@@ -141,8 +143,7 @@ function toggle_dark_mode() {
 }
 
 function is_dark_mode() {
-  var cur_theme = document.cookie.split("theme=")[1];
-  // alert("is dark? " + cur_theme.includes("dark"));
+  var cur_theme = getCookie("theme");
   if (!cur_theme) {
     return false;
   }
@@ -150,8 +151,7 @@ function is_dark_mode() {
 }
 
 function is_color_mode() {
-  var cur_theme = document.cookie.split("color=")[1];
-  // alert("is dark? " + cur_theme.includes("dark"));
+  var cur_theme = getCookie("color");
   if (!cur_theme) {
     return false;
   }
@@ -200,3 +200,50 @@ function build_ground() {
 /*
 <p id="ground"></p>
 */
+
+//from https://www.tabnine.com/academy/javascript/how-to-set-cookies-javascript/#:~:text=To%20update%20a%20cookie%2C%20simply,Name%2C%20but%20a%20different%20Value.
+function getCookie(cName) {
+  const name = cName + "=";
+  const cDecoded = decodeURIComponent(document.cookie); //to be careful
+  const cArr = cDecoded.split('; ');
+  let res;
+  cArr.forEach(val => {
+      if (val.indexOf(name) === 0) res = val.substring(name.length);
+  })
+  return res;
+}
+
+//from https://www.tabnine.com/academy/javascript/how-to-set-cookies-javascript/#:~:text=To%20update%20a%20cookie%2C%20simply,Name%2C%20but%20a%20different%20Value.
+function setCookie(cName, cValue, expDays) {
+  let date = new Date();
+  date.setTime(date.getTime() + (expDays * 24 * 60 * 60 * 1000));
+  const expires = "expires=" + date.toUTCString();
+  document.cookie = cName + "=" + cValue + "; " + expires + "; path=/";
+}
+
+function hasCookie(cName) {
+  const name = cName + "=";
+  const cDecoded = decodeURIComponent(document.cookie); //to be careful
+  const cArr = cDecoded.split('; ');
+  let res = false;
+  cArr.forEach(val => {
+      if (val.indexOf(name) === 0) res = true;
+  })
+  return res;
+}
+
+// from https://stackoverflow.com/questions/179355/clearing-all-cookies-with-javascript
+function deleteAllCookies() {
+  var cookies = document.cookie.split("; ");
+
+  for (var i = 0; i < cookies.length; i++) {
+      var cookie = cookies[i];
+      var eqPos = cookie.indexOf("=");
+      var name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+      document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
+  }
+}
+
+function printCookies() {
+  console.log('Cookies are now: ' + document.cookie);
+}
