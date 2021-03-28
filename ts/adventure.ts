@@ -12,6 +12,9 @@ var interval;
 var adventure_in_progress: boolean = false;
 var player = new Player();
 var stopwatch: number = 0;
+var coin_sound = new Audio();
+coin_sound.src = "../mp3/Mario-coin-sound.mp3";
+coin_sound.volume = 0.3;
 
 function key_down(e) {
 	// alert(e.keyCode);
@@ -181,6 +184,7 @@ function checkForCollisions() {
 			if (coin_is_inside_player(player_element, coins[i])) {
 				unlock_area(coins[i]);
 				coins[i].setAttribute("hidden", "true");
+				coin_sound.play();
 			}
 		}
 	}
