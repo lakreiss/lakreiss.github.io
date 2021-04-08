@@ -146,6 +146,9 @@ function Square(x, y, fill_shade) {
 
 function Queen(color) {
     this.color = color; //either white or black
+
+    //TODO: add a getValidMoves(x, y) function that 
+    //takes a queen's position and returns the squres the queen can go to
 }
 
 // function draw() {
