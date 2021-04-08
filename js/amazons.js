@@ -148,7 +148,9 @@ function Queen(color) {
     this.color = color; //either white or black
 
     //TODO: add a getValidMoves(x, y) function that 
-    //takes a queen's position and returns the squres the queen can go to
+    //takes a queen's position and returns the squres the queen can go to/throw to
+
+    //TODO: add some sort of isThrowing variable
 }
 
 // function draw() {
