@@ -1,0 +1,54 @@
+Arguments: 
+  /usr/local/bin/node /usr/local/bin/yarn add parcel-bundlernpm install --global yarn
+
+PATH: 
+  /Library/Frameworks/Python.framework/Versions/3.9/bin:/Library/TeX/Distributions/.DefaultTeX/Contents/Programs/texbin:/Users/liamkreiss/anaconda/bin:/Library/Frameworks/Python.framework/Versions/3.5/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Applications/VMware Fusion.app/Contents/Public:/Library/TeX/texbin:/usr/local/go/bin:/usr/local/share/dotnet:/Library/Apple/usr/bin:/Library/Frameworks/Mono.framework/Versions/Current/Commands:/Applications/Wireshark.app/Contents/MacOS:/Applications/Postgres.app/Contents/Versions/latest/bin:/Users/liamkreiss/.rvm/bin
+
+Yarn version: 
+  1.22.11
+
+Node version: 
+  12.16.3
+
+Platform: 
+  darwin x64
+
+Trace: 
+  SyntaxError: /Users/liamkreiss/my_website/package.json: Unexpected token } in JSON at position 177
+      at JSON.parse (<anonymous>)
+      at /usr/local/lib/node_modules/yarn/lib/cli.js:1625:59
+      at Generator.next (<anonymous>)
+      at step (/usr/local/lib/node_modules/yarn/lib/cli.js:310:30)
+      at /usr/local/lib/node_modules/yarn/lib/cli.js:321:13
+
+npm manifest: 
+  {
+    "name": "my_website",
+    "version": "1.0.0",
+    "description": "my website",
+    "main": "sigma.js",
+    "scripts": {
+      "test": "echo \"Error: no test specified\" && exit 1",
+    },
+    "dependencies": {
+      "@types/p5": "0.9.0",
+      "p5": "0.9.0"
+    },
+    "repository": {
+      "type": "git",
+      "url": "git+https://github.com/lakreiss/lakreiss.github.io.git"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+      "url": "https://github.com/lakreiss/lakreiss.github.io/issues"
+    },
+    "homepage": "https://github.com/lakreiss/lakreiss.github.io#readme"
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile

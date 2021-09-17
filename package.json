@@ -2,9 +2,9 @@
   "name": "my_website",
   "version": "1.0.0",
   "description": "my website",
-  "main": "sigma.js",
+  "main": "index.html",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/lakreiss/lakreiss.github.io/issues"
   },
-  "homepage": "https://github.com/lakreiss/lakreiss.github.io#readme"
+  "homepage": "https://github.com/lakreiss/lakreiss.github.io#readme",
+  "dependencies": {
+    "@types/p5": "^1.3.1"
+  }
 }
