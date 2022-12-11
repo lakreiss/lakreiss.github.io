@@ -37,8 +37,8 @@ function draw_coffee_meter() {
     // create the svg element
     var thermo_svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
     // set width and height
-    thermo_svg.setAttribute("width", "" + SVG_WIDTH);
-    thermo_svg.setAttribute("height", "" + SVG_HEIGHT);
+    thermo_svg.setAttribute("width", "".concat(SVG_WIDTH));
+    thermo_svg.setAttribute("height", "".concat(SVG_HEIGHT));
     thermo_svg.setAttribute("id", "thermo_svg");
     // attach it to the container
     thermo_svg.appendChild(get_top(THERMO_COLOR, 0, 0));
@@ -79,9 +79,9 @@ function populate_bulb() {
 }
 function get_bulb(color, px_from_radius) {
     var thermo_bulb = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-    thermo_bulb.setAttribute("cx", "" + SVG_WIDTH / 2);
-    thermo_bulb.setAttribute("cy", "" + (THERMO_HEIGHT + THERMO_STARTING_TOP));
-    thermo_bulb.setAttribute("r", "" + ((SVG_WIDTH / 20) - px_from_radius));
+    thermo_bulb.setAttribute("cx", "".concat(SVG_WIDTH / 2));
+    thermo_bulb.setAttribute("cy", "".concat(THERMO_HEIGHT + THERMO_STARTING_TOP));
+    thermo_bulb.setAttribute("r", "".concat((SVG_WIDTH / 20) - px_from_radius));
     thermo_bulb.setAttribute("fill", color);
     return thermo_bulb;
 }
@@ -104,9 +104,9 @@ function get_shaft(color, px_from_side, px_from_top, svg) {
 }
 function get_top(color, px_from_radius, px_from_top) {
     var thermo_top = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-    thermo_top.setAttribute("cx", "" + SVG_WIDTH / 2);
-    thermo_top.setAttribute("cy", "" + ((SVG_HEIGHT / 50) + px_from_top + THERMO_STARTING_TOP));
-    thermo_top.setAttribute("r", "" + ((SVG_HEIGHT / 50) - px_from_radius));
+    thermo_top.setAttribute("cx", "".concat(SVG_WIDTH / 2));
+    thermo_top.setAttribute("cy", "".concat((SVG_HEIGHT / 50) + px_from_top + THERMO_STARTING_TOP));
+    thermo_top.setAttribute("r", "".concat((SVG_HEIGHT / 50) - px_from_radius));
     thermo_top.setAttribute("fill", color);
     return thermo_top;
 }

@@ -1,6 +1,6 @@
 export {};
 import {Player, Position, Direction} from "./adventure_player.js";
-// import {getCookie} from "../js/menu_builder.js";
+import {getCookie, setCookie} from "../js/menu_builder.js";
 
 window.addEventListener('keydown', function(e) { key_down(e); });
 window.addEventListener('keyup', function(e) { key_up(e); });

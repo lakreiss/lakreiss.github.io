@@ -348,6 +348,7 @@ function shuffleArray(array) {
         array[j] = temp;
     }
 }
+export {};
 //TODO LIST:
 /*
 -alphabetize words found
