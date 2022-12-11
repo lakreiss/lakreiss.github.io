@@ -1,0 +1,12 @@
+body {
+  margin: 0;
+}
+
+.holiday-card-image {
+  width: 100vw;
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
+  margin: 0;
+}
+/*# sourceMappingURL=2022-holiday-card.css.map */
