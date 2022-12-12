@@ -20,7 +20,7 @@ function build_menu() {
   document.write('<ol>');
   document.write('<li class="menu-item"><a href="/index.html">About Me</a></li>');
   document.write('<li class="menu-item">');
-  document.write('<a href="/html/web_apps.html">Creations</a>');
+  document.write('<a href="/html/creations.html">Creations</a>');
   document.write('<ol class="sub-menu">');
   document.write('<li class="menu-item"><a href="https://fourword.xyz" target="_blank">Fourword</a></li>');
   document.write('<li class="menu-item"><a href="https://pyramini.com" target="_blank">Pyramini</a></li>');
@@ -28,7 +28,7 @@ function build_menu() {
   // document.write('<li class="menu-item"><a href="/html/bingo_builder.html">Bingo Builder</a></li>');
   // document.write('<li class="menu-item"><a href="/html/spelling_bee.html">Spelling Bee</a></li>');
   // document.write('<li class="menu-item"><a href="/html/game_of_life.html">Game of Life</a></li>');
-  document.write('<li class="menu-item"><a href="/html/web_apps.html">More</a></li>');
+  document.write('<li class="menu-item"><a href="/html/creations.html">More</a></li>');
   document.write('</ol></li>');
   // document.write('<li class="menu-item">');
   // document.write('<a href="/html/portfolio.html">Portfolio</a>');
