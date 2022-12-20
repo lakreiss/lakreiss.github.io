@@ -11,5 +11,8 @@ body {
 .additional-content-container {
   position: relative;
   text-align: center;
-  bottom: 200px;
+  bottom: 100px;
+  display: flex;
+  flex-direction: column;
+  font-family: 'Courier New', Courier, monospace;
 }
