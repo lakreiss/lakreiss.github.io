@@ -22,8 +22,9 @@ function build_menu() {
   document.write('<li class="menu-item">');
   document.write('<a href="/html/creations.html">Creations</a>');
   document.write('<ol class="sub-menu">');
-  document.write('<li class="menu-item"><a href="https://fourword.xyz" target="_blank">Fourword</a></li>');
+  document.write('<li class="menu-item"><a href="https://chrome.google.com/webstore/detail/asl-gifer/ahcdnjickoaigfaaplkfggbohjdofogg?hl=en&u_producttype=chrome-extension-canada-942570&gclid=Cj0KCQiAwJWdBhCYARIsAJc4idB9IuDsPMNXbihE0BEuy8lXKeuGdm_qHWIRgQ0jQDsKiPtVuxba6uQaAtCqEALw_wcB" target="_blank">ASL GIFer</a></li>');
   document.write('<li class="menu-item"><a href="https://pyramini.com" target="_blank">Pyramini</a></li>');
+  document.write('<li class="menu-item"><a href="https://fourword.xyz" target="_blank">Fourword</a></li>');
   // document.write('<li class="menu-item"><a href="/html/letter_game.html">The Letter Game</a></li>');
   // document.write('<li class="menu-item"><a href="/html/bingo_builder.html">Bingo Builder</a></li>');
   // document.write('<li class="menu-item"><a href="/html/spelling_bee.html">Spelling Bee</a></li>');
