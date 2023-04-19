@@ -1,0 +1,58 @@
+<!doctype html>
+<!-- This is a comment -->
+<html class="no-js" lang="en-US">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<head>
+  <script src="../js/menu_builder.js"></script>
+  <script>build_header();</script>
+
+  <link rel="stylesheet" href="../scss/adventure.css">
+  <script type="module" src="../js/adventure.js"></script>
+
+  <link rel="stylesheet" href="https://pyscript.net/latest/pyscript.css" />
+  <script defer src="https://pyscript.net/latest/pyscript.js"></script>
+</head>
+
+<body onload="check_and_set_dark_mode();">
+  <script>build_menu();</script>
+
+  <div id="page_text">
+    <div class="clearfix">
+      <div class="text title_text">
+        <h1>Create your own Pyramini puzzles</h1>
+        <py-config>
+          [[fetch]]
+          files = ["/request.py"]
+        </py-config>
+        
+        <!-- It doesn't seem to like me trying to access a different website via my website -->
+        <py-script>
+          import asyncio
+          import json
+          from request import request  # import our request function.
+
+          async def main():
+              # baseurl = "https://jsonplaceholder.typicode.com/posts/2"
+              # word = input("Enter a word to get clues for\n")
+              # baseurl = "https://crosswordtracker.com/answer/{word}/?search_redirect=True".format(word=word.lower())
+              baseurl = "https://crosswordtracker.com/answer/test/?search_redirect=True"
+              # baseurl = "https://crosswordtracker.com"
+
+              # GET
+              headers = {"Content-type": "application/json"}
+              response = await request(f"{baseurl}", method="GET", headers=headers)
+              print(f"GET request=> status:{response.status}, content:{response.content}")
+
+          asyncio.ensure_future(main())
+
+          #eightLetterWord = input("Enter an eight-letter word\n")
+          #print(eightLetterWord)
+        </py-script>
+      </div>
+    </div>
+    <script>build_footer();</script>
+  </div>
+</body>
+
+</html>
