@@ -7,7 +7,7 @@
 
 function getRandomSize() {
   let r = pow(random(0, 1), 3);
-  return constrain(r * 32, 2, 32);
+  return constrain(r * 32, 10, 32);
 
   // let r = randomGaussian() * 2.5;
   // return constrain(abs(r * r), 2, 36);

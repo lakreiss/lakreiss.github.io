@@ -1,3 +1,18 @@
 body {
   margin: 0;
 }
+
+.christmas-card-text {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+
+  color: white;
+  text-align: center;
+  width: 100%;
+  z-index: 1;
+
+  .title {
+    margin: 20px;
+  }
+}

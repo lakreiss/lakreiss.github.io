@@ -1,4 +1,23 @@
 body {
   margin: 0;
 }
+
+.christmas-card-text {
+  position: absolute;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  color: white;
+  text-align: center;
+  width: 100%;
+  z-index: 1;
+}
+
+.christmas-card-text .title {
+  margin: 20px;
+}
 /*# sourceMappingURL=2023-holiday-card.css.map */

@@ -6,7 +6,8 @@
 // Edited Video: https://youtu.be/cl-mHFCGzYk
 
 let snow = [];
-let gravity;
+let gravity = 0.9;
+const numberOfSnowflakes = 200;
 
 let zOff = 0;
 
@@ -21,7 +22,7 @@ function preload() {
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  gravity = createVector(0, 0.1);
+  gravity = createVector(0, gravity);
 
   // Add all the snow images to the textures list
   for (let x = 0; x < spritesheet.width; x += 32) {
@@ -35,7 +36,7 @@ function setup() {
     textures.push(faceImage);
   });
 
-  for (let i = 0; i < 400; i++) {
+  for (let i = 0; i < numberOfSnowflakes; i++) {
     let x = random(width);
     let y = random(height);
     let design = random(textures);
@@ -46,7 +47,7 @@ function setup() {
 function draw() {
   background(0);
 
-  zOff += 0.1;
+  zOff += gravity;
 
   for (flake of snow) {
     let xOff = flake.pos.x / width;
