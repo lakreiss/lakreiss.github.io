@@ -2,6 +2,14 @@ body {
   margin: 0;
 }
 
+a {
+  color: white;
+}
+
+a:visited {
+  color: white;
+}
+
 .christmas-card-text {
   position: absolute;
   display: -webkit-box;
@@ -17,7 +25,21 @@ body {
   z-index: 1;
 }
 
-.christmas-card-text .title {
+.christmas-card-text .row {
   margin: 20px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.christmas-card-text .further-reading-section {
+  font-family: 'Courier New', Courier, monospace;
 }
 /*# sourceMappingURL=2023-holiday-card.css.map */

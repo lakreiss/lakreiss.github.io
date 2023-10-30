@@ -2,6 +2,14 @@ body {
   margin: 0;
 }
 
+a {
+  color: white;
+}
+
+a:visited {
+  color: white;
+}
+
 .christmas-card-text {
   position: absolute;
   display: flex;
@@ -12,7 +20,14 @@ body {
   width: 100%;
   z-index: 1;
 
-  .title {
+  .row {
     margin: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .further-reading-section {
+    font-family: 'Courier New', Courier, monospace;
   }
 }
