@@ -5,12 +5,14 @@
 // Snowfall
 // Edited Video: https://youtu.be/cl-mHFCGzYk
 
+const numberOfSnowflakes = 200;
 let snow = [];
 let gravity = 0.9;
-const numberOfSnowflakes = 200;
 
 let zOff = 0;
 
+
+const spritesheetImageSize = 32;
 let spritesheet;
 let faces;
 let textures = [];
@@ -25,9 +27,9 @@ function setup() {
   gravity = createVector(0, gravity);
 
   // Add all the snow images to the textures list
-  for (let x = 0; x < spritesheet.width; x += 32) {
-    for (let y = 0; y < spritesheet.height; y += 32) {
-      let img = spritesheet.get(x, y, 32, 32);
+  for (let x = 0; x < spritesheet.width; x += spritesheetImageSize) {
+    for (let y = 0; y < spritesheet.height; y += spritesheetImageSize) {
+      let img = spritesheet.get(x, y, spritesheetImageSize, spritesheetImageSize);
       textures.push(img);
     }
   }
@@ -37,10 +39,7 @@ function setup() {
   });
 
   for (let i = 0; i < numberOfSnowflakes; i++) {
-    let x = random(width);
-    let y = random(height);
-    let design = random(textures);
-    snow.push(new Snowflake(x, y, design));
+    snow.push(new Snowflake(textures, faces));
   }
 }
 

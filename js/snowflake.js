@@ -5,6 +5,10 @@
 // Snowfall
 // Edited Video: https://youtu.be/cl-mHFCGzYk
 
+
+// The probability out of 1000 that a new snowflake adds a face to the image pool
+const faceGrowthFactor = 50;
+
 function getRandomSize() {
   let r = pow(random(0, 1), 3);
   return constrain(r * 32, 10, 32);
@@ -21,10 +25,10 @@ function getRandomSize() {
 }
 
 class Snowflake {
-  constructor(sx, sy, img) {
-    let x = sx || random(width);
-    let y = sy || random(-100, -10);
-    this.img = img;
+  constructor(textures, faces) {
+    let x = random(width);
+    let y = random(height);
+    this.img = random(textures);
     this.pos = createVector(x, y);
     this.vel = createVector(0, 0);
     this.acc = createVector();
@@ -32,6 +36,9 @@ class Snowflake {
     this.dir = random(1) > 0.5 ? 1 : -1;
     this.xOff = 0;
     this.r = getRandomSize();
+
+    this.textures = textures;
+    this.faces = faces;
   }
 
   applyForce(force) {
@@ -51,6 +58,11 @@ class Snowflake {
     this.vel = createVector(0, 0);
     this.acc = createVector();
     this.r = getRandomSize();
+    this.img = random(textures);
+    let n = random(1000);
+    if (n < faceGrowthFactor && this.textures.length < 1_000_000) {
+      this.textures.push(random(this.faces));
+    }
   }
 
   update() {
