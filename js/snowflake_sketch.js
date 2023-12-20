@@ -68,4 +68,18 @@ function meetNewHousemate() {
   for (flake of snow) {
     flake.becomeMax();
   }
+
+  let oldMeetHousemateTextElement = document.getElementById('new-housemate-text');
+  if (oldMeetHousemateTextElement) {
+    let newMeetHousemateTextElement = createMaxHaikuElement();
+    oldMeetHousemateTextElement.replaceWith(newMeetHousemateTextElement);
+
+    document.getElementById('new-housemate-section').style = "flex-direction: row;"
+  }
+}
+
+function createMaxHaikuElement() {
+  let haikuElement = document.createElement('div');
+  haikuElement.innerHTML = "We went to wildwood<br>Drinking all day everyday<br>Don't jump Oliver<br>- Max";
+  return haikuElement;
 }

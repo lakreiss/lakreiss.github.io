@@ -63,11 +63,23 @@ a:visited {
   padding: 10px;
 }
 
-.max-head-button {
-  width: 40px;
+.christmas-card-text #new-housemate-section {
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
 }
 
-.max-head-button img {
+.christmas-card-text .max-head-button {
+  width: 40px;
+  height: 40px;
+}
+
+.christmas-card-text .max-head-button img {
   width: 100%;
+  height: 100%;
 }
 /*# sourceMappingURL=2023-holiday-card.css.map */
