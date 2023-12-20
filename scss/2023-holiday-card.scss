@@ -2,6 +2,10 @@ body {
   margin: 0;
 }
 
+.flex {
+  display: flex;
+}
+
 a {
   color: white;
 }
@@ -21,13 +25,19 @@ a:visited {
   z-index: 1;
 
   .row {
-    margin: 20px;
+    margin: 15px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
   }
 
   .further-reading-section {
+    display: flex;
+    flex-direction: column;
     font-family: 'Courier New', Courier, monospace;
+
+    .icon {
+      padding: 10px;
+    }
   }
 }
