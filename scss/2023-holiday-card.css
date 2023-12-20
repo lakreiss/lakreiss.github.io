@@ -6,6 +6,9 @@ body {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
 }
 
 a {
@@ -58,5 +61,13 @@ a:visited {
 
 .christmas-card-text .further-reading-section .icon {
   padding: 10px;
+}
+
+.max-head-button {
+  width: 40px;
+}
+
+.max-head-button img {
+  width: 100%;
 }
 /*# sourceMappingURL=2023-holiday-card.css.map */

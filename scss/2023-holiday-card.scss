@@ -4,6 +4,7 @@ body {
 
 .flex {
   display: flex;
+  justify-content: center;
 }
 
 a {
@@ -39,5 +40,13 @@ a:visited {
     .icon {
       padding: 10px;
     }
+  }
+}
+
+.max-head-button {
+  width: 40px;
+
+  img {
+    width: 100%;
   }
 }

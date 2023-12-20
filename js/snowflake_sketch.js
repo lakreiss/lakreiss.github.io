@@ -15,11 +15,13 @@ let zOff = 0;
 const spritesheetImageSize = 32;
 let spritesheet;
 let faces;
+let max_face;
 let textures = [];
 
 function preload() {
   spritesheet = loadImage('../img/snowflakes32.png');
   faces = [loadImage('../img/faces/glenn.png'), loadImage('../img/faces/myron.png'), loadImage('../img/faces/liam.png')];
+  max_face = loadImage('../img/faces/max.png');
 }
 
 function setup() {
@@ -39,7 +41,7 @@ function setup() {
   });
 
   for (let i = 0; i < numberOfSnowflakes; i++) {
-    snow.push(new Snowflake(textures, faces));
+    snow.push(new Snowflake(textures, faces, max_face));
   }
 }
 
@@ -59,5 +61,11 @@ function draw() {
     flake.applyForce(wind);
     flake.update();
     flake.render();
+  }
+}
+
+function meetNewHousemate() {
+  for (flake of snow) {
+    flake.becomeMax();
   }
 }

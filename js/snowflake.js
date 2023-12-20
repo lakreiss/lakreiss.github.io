@@ -25,7 +25,7 @@ function getRandomSize() {
 }
 
 class Snowflake {
-  constructor(textures, faces) {
+  constructor(textures, faces, max_face) {
     let x = random(width);
     let y = random(height);
     this.img = random(textures);
@@ -39,6 +39,7 @@ class Snowflake {
 
     this.textures = textures;
     this.faces = faces;
+    this.max_face = max_face;
   }
 
   applyForce(force) {
@@ -104,5 +105,9 @@ class Snowflake {
     imageMode(CENTER);
     image(this.img, 0, 0, this.r, this.r);
     pop();
+  }
+
+  becomeMax() {
+    this.img = this.max_face;
   }
 }
