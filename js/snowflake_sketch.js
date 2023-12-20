@@ -80,6 +80,6 @@ function meetNewHousemate() {
 
 function createMaxHaikuElement() {
   let haikuElement = document.createElement('div');
-  haikuElement.innerHTML = "We went to wildwood<br>Drinking all day everyday<br>Don't jump Oliver<br>- Max";
+  haikuElement.innerHTML = "TODO<br>TODO<br>TODO<br>- Max";
   return haikuElement;
 }
